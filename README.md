@@ -51,3 +51,44 @@ Set per-bit sampling probability p_j = rho_j_1 / (rho_j_1 + rho_j_0) and generat
 ---
 
 ## Repository Structure
+mkp-gf-initialization/
+├── mkp_research.ipynb      main research notebook (all code)
+├── requirements.txt        python dependencies
+├── results/
+│   └── results_log.md      running log of all experimental findings
+├── data/
+│   └── orlib/              OR-Library MKP benchmark instances
+└── docs/
+└── proposal/           mathematical framework document (LaTeX)
+---
+
+## Experimental Setup
+
+- Instance: Random MKP, n=100 items, m=3 constraints, seed=42
+- Tightness levels: α=0.25 (tight), α=0.50 (moderate), α=0.75 (loose)
+- Fitness regimes: Death penalty, Penalty x5.0, Repair operator (Chu & Beasley)
+- Runs: 15 independent runs per experiment
+- Population: 50 | Max offspring: 10,000-15,000
+
+---
+
+## Dependencies
+torch
+numpy
+matplotlib
+
+---
+
+## Related Work
+
+- Chu & Beasley (1998) — A Genetic Algorithm for the Multidimensional Knapsack Problem
+- Holland (1975) — Adaptation in Natural and Artificial Systems  
+- Goldberg (1989) — Genetic Algorithms in Search, Optimization and Machine Learning
+- Andrews (1976) — The Theory of Partitions
+- Hill (1999) — A Monte Carlo Study of GA Initial Population Generation Methods
+"""
+
+with open('README.md', 'w') as f:
+    f.write(readme)
+
+print("README.md written")
