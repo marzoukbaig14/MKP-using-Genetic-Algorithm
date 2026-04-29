@@ -1,0 +1,756 @@
+{
+  "label": "Death penalty \u03b1=0.25",
+  "alpha": 0.25,
+  "penalty": "death",
+  "ref": 2375,
+  "params": {
+    "n": 100,
+    "m": 3,
+    "instance_seed": 42,
+    "pop_size": 50,
+    "n_runs": 20,
+    "n_offspring": 20000,
+    "mutation_rate": 0.01,
+    "penalty_mult": 5.0,
+    "pj_samples": 10000000,
+    "pj_seed": 42,
+    "ref_offspring": 30000,
+    "ref_runs": 20,
+    "tournament": "binary k=2",
+    "crossover": "uniform",
+    "convergence_thresholds": [
+      50,
+      60,
+      70,
+      80,
+      90,
+      95,
+      98,
+      99
+    ]
+  },
+  "uniform": [
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "avg_fitness_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "best_fitness_final": 0,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 0.0,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    }
+  ],
+  "biased": [
+    {
+      "feasibility_rate_gen0": 0.42,
+      "avg_fitness_gen0": 405.08,
+      "pct_of_best_gen0": 46.526315789473685,
+      "best_fitness_final": 2278,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.91578947368421,
+      "convergence": {
+        "50": 57,
+        "60": 272,
+        "70": 568,
+        "80": 1152,
+        "90": 2618,
+        "95": 14256,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "avg_fitness_gen0": 494.58,
+      "pct_of_best_gen0": 50.69473684210526,
+      "best_fitness_final": 2291,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 96.46315789473684,
+      "convergence": {
+        "50": 1,
+        "60": 302,
+        "70": 479,
+        "80": 1188,
+        "90": 2455,
+        "95": 7145,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.38,
+      "avg_fitness_gen0": 380.42,
+      "pct_of_best_gen0": 49.05263157894737,
+      "best_fitness_final": 2326,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.93684210526315,
+      "convergence": {
+        "50": 6,
+        "60": 172,
+        "70": 352,
+        "80": 926,
+        "90": 1931,
+        "95": 4681,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.4,
+      "avg_fitness_gen0": 402.38,
+      "pct_of_best_gen0": 53.43157894736842,
+      "best_fitness_final": 2327,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.97894736842106,
+      "convergence": {
+        "50": 1,
+        "60": 216,
+        "70": 364,
+        "80": 996,
+        "90": 1731,
+        "95": 4494,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.5,
+      "avg_fitness_gen0": 473.3,
+      "pct_of_best_gen0": 45.810526315789474,
+      "best_fitness_final": 2264,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.32631578947368,
+      "convergence": {
+        "50": 19,
+        "60": 126,
+        "70": 460,
+        "80": 937,
+        "90": 3362,
+        "95": 13282,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.48,
+      "avg_fitness_gen0": 476.88,
+      "pct_of_best_gen0": 49.89473684210527,
+      "best_fitness_final": 2291,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 96.46315789473684,
+      "convergence": {
+        "50": 30,
+        "60": 192,
+        "70": 708,
+        "80": 1190,
+        "90": 1930,
+        "95": 5125,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.56,
+      "avg_fitness_gen0": 535.44,
+      "pct_of_best_gen0": 49.22105263157895,
+      "best_fitness_final": 2314,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.43157894736842,
+      "convergence": {
+        "50": 9,
+        "60": 144,
+        "70": 360,
+        "80": 710,
+        "90": 1958,
+        "95": 3613,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.46,
+      "avg_fitness_gen0": 448.6,
+      "pct_of_best_gen0": 50.61052631578947,
+      "best_fitness_final": 2264,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.32631578947368,
+      "convergence": {
+        "50": 1,
+        "60": 142,
+        "70": 360,
+        "80": 626,
+        "90": 4690,
+        "95": 14088,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.54,
+      "avg_fitness_gen0": 540.0,
+      "pct_of_best_gen0": 51.1578947368421,
+      "best_fitness_final": 2322,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.76842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 141,
+        "70": 510,
+        "80": 1229,
+        "90": 1841,
+        "95": 5804,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "avg_fitness_gen0": 609.66,
+      "pct_of_best_gen0": 52.58947368421053,
+      "best_fitness_final": 2298,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 96.7578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 238,
+        "70": 680,
+        "80": 1309,
+        "90": 2670,
+        "95": 3565,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "avg_fitness_gen0": 493.68,
+      "pct_of_best_gen0": 51.578947368421055,
+      "best_fitness_final": 2315,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.47368421052632,
+      "convergence": {
+        "50": 1,
+        "60": 128,
+        "70": 531,
+        "80": 1340,
+        "90": 2239,
+        "95": 5153,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.54,
+      "avg_fitness_gen0": 526.48,
+      "pct_of_best_gen0": 52.25263157894737,
+      "best_fitness_final": 2258,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.07368421052631,
+      "convergence": {
+        "50": 1,
+        "60": 150,
+        "70": 543,
+        "80": 892,
+        "90": 1598,
+        "95": 3921,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.58,
+      "avg_fitness_gen0": 560.22,
+      "pct_of_best_gen0": 48.84210526315789,
+      "best_fitness_final": 2259,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.1157894736842,
+      "convergence": {
+        "50": 10,
+        "60": 181,
+        "70": 479,
+        "80": 762,
+        "90": 1797,
+        "95": 3657,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "avg_fitness_gen0": 567.76,
+      "pct_of_best_gen0": 49.347368421052636,
+      "best_fitness_final": 2263,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.28421052631579,
+      "convergence": {
+        "50": 7,
+        "60": 212,
+        "70": 499,
+        "80": 1081,
+        "90": 2730,
+        "95": 12687,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.58,
+      "avg_fitness_gen0": 569.26,
+      "pct_of_best_gen0": 51.2,
+      "best_fitness_final": 2296,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 96.67368421052632,
+      "convergence": {
+        "50": 1,
+        "60": 203,
+        "70": 569,
+        "80": 1140,
+        "90": 2368,
+        "95": 3639,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.54,
+      "avg_fitness_gen0": 543.06,
+      "pct_of_best_gen0": 52.33684210526316,
+      "best_fitness_final": 2289,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 96.37894736842105,
+      "convergence": {
+        "50": 1,
+        "60": 225,
+        "70": 488,
+        "80": 1047,
+        "90": 1459,
+        "95": 5757,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "avg_fitness_gen0": 584.0,
+      "pct_of_best_gen0": 55.705263157894734,
+      "best_fitness_final": 2322,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 97.76842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 146,
+        "70": 308,
+        "80": 898,
+        "90": 1945,
+        "95": 15989,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "avg_fitness_gen0": 580.12,
+      "pct_of_best_gen0": 52.16842105263157,
+      "best_fitness_final": 2269,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.53684210526315,
+      "convergence": {
+        "50": 1,
+        "60": 270,
+        "70": 464,
+        "80": 1248,
+        "90": 3647,
+        "95": 9563,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "avg_fitness_gen0": 560.5,
+      "pct_of_best_gen0": 49.43157894736842,
+      "best_fitness_final": 2257,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 95.03157894736842,
+      "convergence": {
+        "50": 11,
+        "60": 167,
+        "70": 409,
+        "80": 770,
+        "90": 1427,
+        "95": 5722,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.48,
+      "avg_fitness_gen0": 481.0,
+      "pct_of_best_gen0": 48.08421052631579,
+      "best_fitness_final": 2340,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 98.52631578947368,
+      "convergence": {
+        "50": 35,
+        "60": 251,
+        "70": 496,
+        "80": 1010,
+        "90": 1778,
+        "95": 8440,
+        "98": 16845,
+        "99": null
+      }
+    }
+  ]
+}

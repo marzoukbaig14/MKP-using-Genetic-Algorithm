@@ -1,0 +1,31 @@
+{
+  "reference_bests": {
+    "0.25": 2375,
+    "0.5": 3909,
+    "0.75": 4823
+  },
+  "methodology": {
+    "description": "Best feasible fitness found by repair-based GA over multiple runs. Not a proven optimal \u2014 a well-resourced best-known value used as convergence target.",
+    "ga_type": "repair-based (run_ga)",
+    "init_method": "uniform",
+    "population_size": 50,
+    "max_offspring": 30000,
+    "n_runs": 3,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "selection": "binary tournament k=2",
+    "crossover": "uniform",
+    "mutation_rate": "1/n = 0.0100",
+    "instance": {
+      "n": 100,
+      "m": 3,
+      "seed": 42,
+      "values_range": "1-99",
+      "weights_range": "1-49",
+      "capacities": "int(alpha * sum of constraint weights)"
+    }
+  }
+}
