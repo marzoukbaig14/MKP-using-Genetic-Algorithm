@@ -1,3 +1,16 @@
+## Result 1 — Analytical proof of concept
+
+**Source:** LaTeX document (worked examples)  
+**Method:** Exact generating function expansion
+
+| Instance | Uniform feasibility | Biased feasibility |
+|----------|--------------------|--------------------|
+| Single constraint (n=3, W=5) | 62.5% | 87.2% |
+| Two constraint (n=4, W1=7, W2=8) | 56.25% | 74.05% |
+
+**Takeaway:** Generating function approach provably increases expected
+feasibility rate analytically before any simulation.
+
 # Baseline Experiment Results
 
 Generated: 2026-04-29
