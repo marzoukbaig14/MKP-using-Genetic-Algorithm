@@ -933,4 +933,152 @@ item 4, which are disproportionately infeasible due to its
 large weight on C1. Chu and Beasley sample infeasible solutions 
 $43.75\%$ of the time; our method reduces this to $25.95\%$.
 
+\section{Monte Carlo Estimation of Feasibility Densities}
+
+\subsection{Motivation}
+
+\noindent The worked examples in Section~6 compute $\rho_{j}^{\,1}$ 
+and $\rho_{j}^{\,0}$ exactly by expanding the sub-generating function 
+$g_j$ and enumerating all $2^{n-1}$ terms. For $n = 3$ and $n = 4$ 
+this is tractable. For real MKP instances with $n = 100$ items, exact 
+enumeration requires examining $2^{99}$ subsets per item --- completely 
+infeasible. We therefore approximate these quantities via Monte Carlo 
+sampling.
+
+\subsection{What We Are Estimating}
+
+\noindent For each item $j$ we require two quantities:
+
+\begin{itemize}
+    \item $\rho_{j}^{\,1}$ --- the fraction of all $2^{n-1}$ subsets 
+    of the remaining items that remain feasible when item $j$ is 
+    included, checked against the reduced capacity $W_i - w_{ji}$ 
+    for all constraints $i$ simultaneously.
+
+    \item $\rho_{j}^{\,0}$ --- the same fraction when item $j$ is 
+    excluded, checked against the full capacity $W_i$.
+\end{itemize}
+
+\noindent The sampling probability is then $p_j = \rho_{j}^{\,1} / 
+(\rho_{j}^{\,1} + \rho_{j}^{\,0})$ as defined in Section~4.4.
+
+\subsection{The Estimation Procedure}
+
+\noindent Instead of enumerating all $2^{n-1}$ subsets, we draw $M$ 
+random binary strings of length $n$ uniformly at random. For each 
+string and each item $j$ we compute the total constraint usage of the 
+string under all $m$ constraints, remove item $j$'s contribution from 
+the usage, and check feasibility against $W_i - w_{ji}$ (included 
+case) and $W_i$ (excluded case) for all $i$ simultaneously. A string 
+contributes to $\rho_{j}^{\,1}$ only when $x_j = 1$ and to 
+$\rho_{j}^{\,0}$ only when $x_j = 0$ --- each sample therefore 
+contributes to exactly one of the two counts, ensuring that each 
+estimator averages over strings that actually fix item $j$ to the 
+corresponding value rather than mixing both cases. Feasible counts 
+are accumulated for each item across all $M$ samples, and the 
+empirical fractions yield estimates of $\rho_{j}^{\,1}$ and 
+$\rho_{j}^{\,0}$.
+
+\noindent A critical property of this procedure is that Monte Carlo 
+estimation is performed exactly once per problem instance. The 
+probability vector $\mathbf{p} = (p_1, p_2, \ldots, p_n)$ is computed 
+once before any GA run begins and reused across all subsequent runs on 
+that instance. The computational cost is entirely front-loaded and 
+independent of the number of GA runs performed.
+
+\subsection{Statistical Justification}
+
+\noindent The true $\rho_{j}^{\,1}$ is the probability that a 
+uniformly random subset of the remaining $n - 1$ items is feasible 
+under the reduced capacity. The empirical fraction over $M$ samples 
+is an unbiased estimator of this probability. By the law of large 
+numbers the estimate converges to the true value as $M$ grows. The 
+standard error of the estimate is bounded by:
+
+\begin{flushleft}
+\hspace{2em}$\sqrt{\dfrac{p(1-p)}{M}} \leq \dfrac{1}{2\sqrt{M}}$
+\end{flushleft}
+
+\noindent At $M = 10{,}000{,}000$ samples this gives a maximum 
+standard error of approximately $0.016\%$ --- effectively exact for 
+the purpose of setting initialization probabilities. A deviation of 
+this magnitude in $p_j$ has negligible impact on GA behavior since 
+$p_j$ is used only for probabilistic sampling during initialization.
+
+\subsection{Connection to the Worked Examples}
+
+\noindent The worked examples in Section~6 compute $\rho_{j}^{\,1}$ 
+and $\rho_{j}^{\,0}$ exactly by expanding $g_j$ and counting feasible 
+terms. Monte Carlo approximates exactly the same quantities by random 
+sampling instead of enumeration. For $n = 3$ and $n = 4$ both methods 
+yield identical results. For $n = 100$ only Monte Carlo is 
+computationally feasible.
+
+\subsection{GPU Implementation}
+
+\noindent The naive implementation loops over $M$ samples and $n$ 
+items --- approximately $M \times n = 10^9$ operations for 
+$M = 10{,}000{,}000$ and $n = 100$. On CPU this would require hours. 
+We vectorize the entire computation using PyTorch tensors on a GPU. 
+All $M$ binary strings are generated simultaneously as an 
+$(M \times n)$ tensor, and constraint usage for all strings is 
+computed at once via matrix multiplication:
+
+\begin{flushleft}
+\hspace{2em}$\mathbf{U} = \mathbf{X} \mathbf{W}^\top 
+\quad \in \mathbb{R}^{M \times m}$
+\end{flushleft}
+
+\noindent where $\mathbf{X} \in \{0,1\}^{M \times n}$ is the sample 
+matrix and $\mathbf{W} \in \mathbb{R}^{m \times n}$ is the weight 
+matrix. For each item $j$, its contribution is subtracted and 
+feasibility is checked against both capacity thresholds in parallel 
+across all $M$ strings using tensor operations and GPU-accelerated 
+reductions. This reduces wall time from hours to approximately 7 
+seconds on an NVIDIA T4 GPU, making the precomputation practical for 
+all standard OR-Library benchmark instances.
+
+\begin{algorithm}[H]
+\caption{Monte Carlo Feasibility Density Estimation (GPU-Vectorized)}
+\begin{algorithmic}[1]
+\Require $n$ items, $m$ constraints, weights $\mathbf{W} \in 
+         \mathbb{R}^{m \times n}$, capacities $\mathbf{c} \in 
+         \mathbb{R}^m$, sample count $M$, batch size $B$
+\Ensure Probability vector $\mathbf{p} = (p_1, \ldots, p_n)$
+
+\For{each batch of $B$ random binary strings 
+     $\mathbf{X} \in \{0,1\}^{B \times n}$}
+    \State $\mathbf{U} \gets \mathbf{X} \mathbf{W}^\top$ 
+           \Comment{constraint usage, shape $(B \times m)$}
+    \For{$j = 1$ to $n$}
+        \State $\mathbf{U}_{-j} \gets \mathbf{U} - 
+               \mathbf{X}_{:,j} \cdot \mathbf{W}_{:,j}^\top$
+               \Comment{remove item $j$'s contribution}
+        \State $\text{feas\_in}_j \gets 
+               (\mathbf{U}_{-j} \leq \mathbf{c} - \mathbf{W}_{:,j})
+               \text{.all(dim}=1\text{)}
+               \;\wedge\; \mathbf{X}_{:,j} = 1$
+        \State $\text{feas\_out}_j \gets 
+               (\mathbf{U}_{-j} \leq \mathbf{c})
+               \text{.all(dim}=1\text{)}
+               \;\wedge\; \mathbf{X}_{:,j} = 0$
+        \State Accumulate counts into 
+               $\text{count\_in}_j$, $\text{count\_out}_j$, 
+               $\text{total\_in}_j$, $\text{total\_out}_j$
+    \EndFor
+\EndFor
+
+\For{$j = 1$ to $n$}
+    \State $\rho_{j}^{\,1} \gets 
+           \text{count\_in}_j \;/\; \text{total\_in}_j$
+    \State $\rho_{j}^{\,0} \gets 
+           \text{count\_out}_j \;/\; \text{total\_out}_j$
+    \State $p_j \gets \rho_{j}^{\,1} \;/\; 
+           (\rho_{j}^{\,1} + \rho_{j}^{\,0})$
+\EndFor
+\State \Return $\mathbf{p}$
+
+\end{algorithmic}
+\end{algorithm}
+
 \end{document}
