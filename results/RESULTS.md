@@ -11,6 +11,14 @@
 **Takeaway:** Generating function approach provably increases expected
 feasibility rate analytically before any simulation.
 
+## p_j Summary
+
+| Alpha | p_j min | p_j max | p_j mean | Interpretation |
+|---|---|---|---|---|
+| 0.25 | 0.000 | 1.000 | 0.240 | Strong differentiation -- tight instance |
+| 0.50 | 0.414 | 0.493 | 0.449 | Weak differentiation -- medium instance |
+| 0.75 | 0.500 | 0.500 | 0.500 | No differentiation -- degenerates to uniform |
+
 ## GPU Monte Carlo Estimation
 
 **Instance:** n=100, m=3, α=0.25 | **Samples:** 10M | **Runtime:** 5.8s on T4
@@ -49,14 +57,6 @@ Established via repair-based GA, 20 runs, 30,000 offspring, seeds 0-19. Not prov
 | 0.25 | 2375 |
 | 0.5 | 3909 |
 | 0.75 | 4823 |
-
-## p_j Summary
-
-| Alpha | p_j min | p_j max | p_j mean | Interpretation |
-|---|---|---|---|---|
-| 0.25 | 0.000 | 1.000 | 0.240 | Strong differentiation -- tight instance |
-| 0.50 | 0.414 | 0.493 | 0.449 | Weak differentiation -- medium instance |
-| 0.75 | 0.500 | 0.500 | 0.500 | No differentiation -- degenerates to uniform |
 
 ## Results by Condition
 
