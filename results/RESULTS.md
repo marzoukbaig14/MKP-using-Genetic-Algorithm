@@ -1,4 +1,4 @@
-## Result 1 — Analytical proof of concept
+## Analytical proof of concept
 
 **Source:** LaTeX document (worked examples)  
 **Method:** Exact generating function expansion
@@ -10,6 +10,15 @@
 
 **Takeaway:** Generating function approach provably increases expected
 feasibility rate analytically before any simulation.
+
+## GPU Monte Carlo estimation
+
+**Instance:** n=100, m=3, α=0.25 | **Samples:** 10M | **Runtime:** 5.8s on T4
+
+- 41/100 items with nonzero rho_in
+- p_j range: [0.05, 0.50], mean=0.175
+
+**Takeaway:** Monte Carlo estimation tractable even for tight instances with GPU.
 
 # Baseline Experiment Results
 
