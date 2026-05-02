@@ -1,0 +1,214 @@
+{
+  "alpha": 0.25,
+  "ref": 2375,
+  "n_ga_solutions": 5,
+  "ga_baseline_mean": 97.09473684210528,
+  "best_params": {
+    "restarts": 100,
+    "k_flip": 5,
+    "quality": 99.53684210526316,
+    "time": 36.51377711296082
+  },
+  "sweep": [
+    {
+      "n_restarts": 5,
+      "k_flip": 2,
+      "mean_quality": 98.31578947368422,
+      "min_quality": 97.6421052631579,
+      "max_quality": 98.61052631578947,
+      "mean_time": 2.485271692276001,
+      "improvement": 1.2210526315789423,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 5,
+      "k_flip": 3,
+      "mean_quality": 97.97894736842105,
+      "min_quality": 97.34736842105262,
+      "max_quality": 98.61052631578947,
+      "mean_time": 2.837278413772583,
+      "improvement": 0.8842105263157691,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 5,
+      "k_flip": 5,
+      "mean_quality": 98.22315789473683,
+      "min_quality": 97.47368421052632,
+      "max_quality": 99.2421052631579,
+      "mean_time": 2.7403920173645018,
+      "improvement": 1.128421052631552,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 5,
+      "k_flip": 8,
+      "mean_quality": 98.21473684210527,
+      "min_quality": 97.34736842105262,
+      "max_quality": 99.2421052631579,
+      "mean_time": 2.6731592655181884,
+      "improvement": 1.1199999999999903,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 10,
+      "k_flip": 2,
+      "mean_quality": 98.4421052631579,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.2421052631579,
+      "mean_time": 4.338769865036011,
+      "improvement": 1.3473684210526216,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 10,
+      "k_flip": 3,
+      "mean_quality": 98.18947368421053,
+      "min_quality": 97.6,
+      "max_quality": 99.2421052631579,
+      "mean_time": 5.1934857845306395,
+      "improvement": 1.0947368421052488,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 10,
+      "k_flip": 5,
+      "mean_quality": 98.71157894736842,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.53684210526316,
+      "mean_time": 4.735362863540649,
+      "improvement": 1.6168421052631459,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 10,
+      "k_flip": 8,
+      "mean_quality": 98.33263157894736,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.2421052631579,
+      "mean_time": 4.446768283843994,
+      "improvement": 1.2378947368420796,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 20,
+      "k_flip": 2,
+      "mean_quality": 98.59368421052632,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.2421052631579,
+      "mean_time": 8.860374355316162,
+      "improvement": 1.4989473684210424,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 20,
+      "k_flip": 3,
+      "mean_quality": 98.49263157894737,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.53684210526316,
+      "mean_time": 9.345894145965577,
+      "improvement": 1.3978947368420904,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 20,
+      "k_flip": 5,
+      "mean_quality": 99.00631578947369,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.57894736842105,
+      "mean_time": 8.601598501205444,
+      "improvement": 1.9115789473684117,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 20,
+      "k_flip": 8,
+      "mean_quality": 98.7621052631579,
+      "min_quality": 97.97894736842106,
+      "max_quality": 99.36842105263159,
+      "mean_time": 8.264593601226807,
+      "improvement": 1.667368421052629,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 50,
+      "k_flip": 2,
+      "mean_quality": 98.66105263157895,
+      "min_quality": 97.6421052631579,
+      "max_quality": 99.57894736842105,
+      "mean_time": 21.455915927886963,
+      "improvement": 1.566315789473677,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 50,
+      "k_flip": 3,
+      "mean_quality": 99.15789473684211,
+      "min_quality": 98.4421052631579,
+      "max_quality": 99.87368421052632,
+      "mean_time": 22.445664405822754,
+      "improvement": 2.0631578947368325,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 50,
+      "k_flip": 5,
+      "mean_quality": 99.46947368421053,
+      "min_quality": 99.07368421052631,
+      "max_quality": 100.0,
+      "mean_time": 19.387417793273926,
+      "improvement": 2.37473684210525,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 50,
+      "k_flip": 8,
+      "mean_quality": 98.9642105263158,
+      "min_quality": 97.97894736842106,
+      "max_quality": 99.66315789473684,
+      "mean_time": 19.159731483459474,
+      "improvement": 1.8694736842105186,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 100,
+      "k_flip": 2,
+      "mean_quality": 99.21684210526317,
+      "min_quality": 98.69473684210527,
+      "max_quality": 100.0,
+      "mean_time": 39.122085380554196,
+      "improvement": 2.1221052631578914,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 100,
+      "k_flip": 3,
+      "mean_quality": 99.28421052631577,
+      "min_quality": 98.65263157894736,
+      "max_quality": 99.87368421052632,
+      "mean_time": 40.320375537872316,
+      "improvement": 2.1894736842104976,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 100,
+      "k_flip": 5,
+      "mean_quality": 99.53684210526316,
+      "min_quality": 99.07368421052631,
+      "max_quality": 100.0,
+      "mean_time": 36.51377711296082,
+      "improvement": 2.4421052631578846,
+      "ga_baseline": 97.09473684210528
+    },
+    {
+      "n_restarts": 100,
+      "k_flip": 8,
+      "mean_quality": 99.14947368421052,
+      "min_quality": 97.97894736842106,
+      "max_quality": 99.70526315789473,
+      "mean_time": 39.15171451568604,
+      "improvement": 2.0547368421052425,
+      "ga_baseline": 97.09473684210528
+    }
+  ]
+}
