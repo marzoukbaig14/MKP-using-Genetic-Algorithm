@@ -1,0 +1,414 @@
+{
+  "label": "GF ILS comparison a=0.25 uniform_death",
+  "alpha": 0.25,
+  "method": "uniform_death",
+  "ref": 2375,
+  "ils_restarts": 50,
+  "ils_k_flip": 5,
+  "mean_ga_time": 6.864719116687775,
+  "mean_ils_time": 0.0,
+  "mean_total_time": 6.864719116687775,
+  "params": {
+    "n": 100,
+    "m": 3,
+    "instance_seed": 42,
+    "pop_size": 50,
+    "n_runs": 20,
+    "n_offspring": 20000,
+    "mutation_rate": 0.01,
+    "ils_restarts": 50,
+    "ils_k_flip": 5,
+    "convergence_thresholds": [
+      50,
+      60,
+      70,
+      80,
+      90,
+      95,
+      98,
+      99
+    ]
+  },
+  "results": [
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.608163265306125,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 7.340779542922974,
+      "ils_time": 0.0,
+      "total_time": 7.340779542922974,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.89061224489796,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.761737585067749,
+      "ils_time": 0.0,
+      "total_time": 5.761737585067749,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.20734693877551,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 8.566863536834717,
+      "ils_time": 0.0,
+      "total_time": 8.566863536834717,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.984489795918364,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.736058235168457,
+      "ils_time": 0.0,
+      "total_time": 5.736058235168457,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.13387755102041,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 7.991689443588257,
+      "ils_time": 0.0,
+      "total_time": 7.991689443588257,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.02530612244898,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.727843523025513,
+      "ils_time": 0.0,
+      "total_time": 5.727843523025513,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.11265306122449,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 8.009872674942017,
+      "ils_time": 0.0,
+      "total_time": 8.009872674942017,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.21877551020408,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.689824342727661,
+      "ils_time": 0.0,
+      "total_time": 5.689824342727661,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.1134693877551,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 8.006895065307617,
+      "ils_time": 0.0,
+      "total_time": 8.006895065307617,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.21387755102041,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.699570178985596,
+      "ils_time": 0.0,
+      "total_time": 5.699570178985596,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.095510204081634,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 7.706158876419067,
+      "ils_time": 0.0,
+      "total_time": 7.706158876419067,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.947755102040816,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 6.108100175857544,
+      "ils_time": 0.0,
+      "total_time": 6.108100175857544,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.115102040816325,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 6.716821193695068,
+      "ils_time": 0.0,
+      "total_time": 6.716821193695068,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.56897959183674,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 6.969505548477173,
+      "ils_time": 0.0,
+      "total_time": 6.969505548477173,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 49.96081632653061,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.763373613357544,
+      "ils_time": 0.0,
+      "total_time": 5.763373613357544,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.073469387755104,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 7.9823548793792725,
+      "ils_time": 0.0,
+      "total_time": 7.9823548793792725,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.04489795918367,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.729419469833374,
+      "ils_time": 0.0,
+      "total_time": 5.729419469833374,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.242448979591835,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 8.019209146499634,
+      "ils_time": 0.0,
+      "total_time": 8.019209146499634,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.053877551020406,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 5.743431329727173,
+      "ils_time": 0.0,
+      "total_time": 5.743431329727173,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "diversity_gen0": 50.01387755102041,
+      "final_fitness": 0,
+      "pct_of_best_final": 0.0,
+      "ga_time": 8.024873971939087,
+      "ils_time": 0.0,
+      "total_time": 8.024873971939087,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      }
+    }
+  ]
+}
