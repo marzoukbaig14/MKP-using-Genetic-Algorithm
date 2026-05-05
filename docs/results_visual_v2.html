@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GF-Informed Initialization — Results</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1D9E75;--teal-lt:#E1F5EE;--teal-dk:#085041;
+  --coral:#D85A30;--coral-lt:#FAECE7;
+  --gray:#5F5E5A;--gray-lt:#F1EFE8;--gray-md:#B4B2A9;
+  --blue:#185FA5;--blue-lt:#E6F1FB;
+  --amber:#BA7517;--amber-lt:#FAEEDA;
+  --text:#2C2C2A;--muted:#888780;--border:rgba(44,44,42,0.10);
+  --bg:#FAFAF8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:40px 48px;max-width:960px;margin:0 auto;}
+
+/* single consistent wrapper so everything is exactly the same width */
+.content{width:100%;}
+
+.scope{background:var(--teal-lt);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:10px 14px;font-size:12px;color:var(--teal-dk);margin-bottom:28px;line-height:1.55;}
+.scope strong{font-weight:500;}
+
+/* headline cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;}
+.card{background:var(--gray-lt);border-radius:8px;padding:14px 12px;text-align:center;}
+.card-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;line-height:1.4;}
+.card-val{font-size:22px;font-weight:500;line-height:1.1;}
+.green{color:var(--teal);}
+.red{color:var(--coral);}
+.gray{color:var(--gray);}
+.blue{color:var(--blue);}
+.card-sub{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;}
+
+/* section heads */
+.sec{font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);border-bottom:1.5px solid var(--teal);display:inline-block;padding-bottom:4px;margin-bottom:12px;}
+
+/* chart pair */
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;}
+.chart-wrap{position:relative;}
+
+/* hybrid section */
+.hybrid-section{margin-bottom:28px;}
+.hybrid-bars{margin-top:10px;}
+.hbar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.hbar-label{font-size:11.5px;color:var(--text);width:140px;flex-shrink:0;line-height:1.3;}
+.hbar-track{flex:1;height:22px;background:var(--gray-lt);border-radius:4px;overflow:hidden;position:relative;}
+.hbar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;}
+.hbar-fill span{font-size:11px;font-weight:500;color:#fff;}
+.hbar-pct{font-size:11px;font-weight:500;min-width:42px;text-align:right;}
+
+/* insight pill */
+.insight{display:flex;gap:10px;align-items:flex-start;background:var(--amber-lt);border-radius:8px;padding:12px 14px;margin-top:14px;}
+.insight-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px;}
+.insight-text{font-size:12px;line-height:1.6;color:#412402;}
+.insight-text strong{font-weight:500;}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:12px;color:var(--muted);}
+.leg{display:flex;align-items:center;gap:5px;}
+.leg-sq{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+.note{font-size:11px;color:var(--muted);line-height:1.65;border-top:.5px solid var(--border);padding-top:16px;margin-top:4px;}
+
+hr{border:none;border-top:.5px solid var(--border);margin:28px 0;}
+</style>
+</head>
+<body>
+
+<div class="scope">
+  <strong>Intended operating range: α ≤ 0.50</strong> - the framework is designed for tight-to-medium instances where feasible solutions are scarce. At α ≥ 0.75, every item gets p<sub>j</sub> = 0.5 and the method degenerates to the standard uniform baseline by design.
+</div>
+
+<!-- HEADLINE CARDS -->
+<div class="cards">
+  <div class="card">
+    <div class="card-lbl">Init feasibility at α=0.25</div>
+    <div class="card-val"><span class="red">0%</span> → <span class="green">52.5%</span></div>
+    <div class="card-sub">uniform fails, GF-biased works</div>
+  </div>
+  <div class="card">
+    <div class="card-lbl">Final quality (GA only, α=0.25)</div>
+    <div class="card-val"><span class="red">0%</span> → <span class="green">96.5%</span></div>
+    <div class="card-sub">% of reference best, 20/20 runs</div>
+  </div>
+  <div class="card">
+    <div class="card-lbl">GF + local search vs repair</div>
+    <div class="card-val"><span class="green">99.3%</span> <span style="font-size:14px;color:var(--muted)">vs</span> <span class="gray">99.8%</span></div>
+    <div class="card-sub">within 0.5pp of repair - tunable via ILS params</div>
+  </div>
+  <div class="card">
+    <div class="card-lbl">Hybrid: 25% informed enough</div>
+    <div class="card-val"><span class="red">0/20</span> → <span class="green">20/20</span></div>
+    <div class="card-sub">runs solved, 97.1% quality</div>
+  </div>
+</div>
+
+<!-- ROW 1: INIT FEASIBILITY + PIPELINE QUALITY -->
+<div class="row2">
+  <div>
+    <div class="sec">Initialization feasibility</div>
+    <div class="legend">
+      <span class="leg"><span class="leg-sq" style="background:#888780;"></span>Uniform</span>
+      <span class="leg"><span class="leg-sq" style="background:#1D9E75;"></span>GF-biased</span>
+    </div>
+    <div class="chart-wrap" style="height:200px;">
+      <canvas id="feasChart" role="img" aria-label="Init feasibility: alpha 0.25 uniform 0% GF 52.5%; alpha 0.50 uniform 32.6% GF 71.6%">α=0.25: Uniform 0%, GF 52.5%. α=0.50: Uniform 32.6%, GF 71.6%.</canvas>
+    </div>
+  </div>
+  <div>
+    <div class="sec">Solution quality — full pipeline at α=0.25</div>
+    <div class="legend">
+      <span class="leg"><span class="leg-sq" style="background:#D85A30;"></span>Uniform</span>
+      <span class="leg"><span class="leg-sq" style="background:#1D9E75;"></span>GF-biased</span>
+      <span class="leg"><span class="leg-sq" style="background:#085041;"></span>GF + ILS</span>
+      <span class="leg"><span class="leg-sq" style="background:#888780;"></span>Repair (C&amp;B)</span>
+    </div>
+    <div class="chart-wrap" style="height:200px;">
+      <canvas id="pipeChart" role="img" aria-label="Final quality pipeline: Uniform 0%, GF 96.5%, GF+ILS 99.3%, Repair 99.8%">Uniform: 0%, GF-biased: 96.5%, GF+ILS: 99.3%, Repair: 99.8%.</canvas>
+    </div>
+  </div>
+</div>
+
+<!-- HYBRID SWEEP -->
+<div class="hybrid-section">
+  <div class="sec">Hybrid initialization sweep at α=0.25 - how much informed sampling do you actually need?</div>
+  <div class="hybrid-bars">
+
+    <div class="hbar-row">
+      <div class="hbar-label">0% informed<br><span style="font-size:10px;color:var(--muted)">pure uniform</span></div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:100%;background:#D85A30;"><span>0/20 runs solved — GA completely fails</span></div>
+      </div>
+      <div class="hbar-pct red">0%</div>
+    </div>
+
+    <div class="hbar-row">
+      <div class="hbar-label">25% informed<br><span style="font-size:10px;color:var(--muted)">rest uniform</span></div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:97.1%;background:#1D9E75;"><span>20/20 runs</span></div>
+      </div>
+      <div class="hbar-pct green">97.1%</div>
+    </div>
+
+    <div class="hbar-row">
+      <div class="hbar-label">50% informed<br><span style="font-size:10px;color:var(--muted)">50/50 mix</span></div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:96.7%;background:#1D9E75;"><span>20/20 runs</span></div>
+      </div>
+      <div class="hbar-pct green">96.7%</div>
+    </div>
+
+    <div class="hbar-row">
+      <div class="hbar-label">75% informed<br><span style="font-size:10px;color:var(--muted)">mostly GF-biased</span></div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:97.1%;background:#1D9E75;"><span>20/20 runs</span></div>
+      </div>
+      <div class="hbar-pct green">97.1%</div>
+    </div>
+
+    <div class="hbar-row">
+      <div class="hbar-label">100% informed<br><span style="font-size:10px;color:var(--muted)">pure GF-biased</span></div>
+      <div class="hbar-track">
+        <div class="hbar-fill" style="width:96.6%;background:#085041;"><span>20/20 runs</span></div>
+      </div>
+      <div class="hbar-pct green">96.6%</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-dot"></div>
+    <div class="insight-text">
+      <strong>Key finding:</strong> seeding just 25% of the population with GF-biased solutions is enough to rescue the algorithm entirely - 20/20 runs, 97%+ quality vs. 0/20 with pure uniform. Solution quality stays flat across all non-zero ratios, meaning the framework works as a seed rather than requiring a full commitment.
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  n=100 items - m=3 constraints - population 50 - 20 independent runs - 20,000 offspring/run - death penalty fitness - M=10⁷ Monte Carlo samples (T4 GPU, 5-8 sec precomputation). ILS: lightweight local search post-processing (tunable). Repair: Chu &amp; Beasley (1998) greedy operator. The framework's output (p<sub>j</sub> probabilities) can be paired with any downstream GA configuration or local search.
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const TICK={color:'#888780',font:{size:11}};
+const GRID={color:'rgba(136,135,128,0.12)'};
+
+new Chart(document.getElementById('feasChart'),{type:'bar',
+  data:{labels:['α=0.25 (tight)','α=0.50 (medium)'],
+    datasets:[
+      {label:'Uniform',data:[0,32.6],backgroundColor:'#888780',borderRadius:3},
+      {label:'GF-Biased',data:[52.5,71.6],backgroundColor:'#1D9E75',borderRadius:3}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}},
+    scales:{x:{ticks:{...TICK,autoSkip:false},grid:{display:false}},
+            y:{min:0,max:85,ticks:{...TICK,callback:v=>v+'%'},grid:GRID}}}});
+
+new Chart(document.getElementById('pipeChart'),{type:'bar',
+  data:{labels:['Uniform','GF-biased','GF + ILS','Repair (C&B)'],
+    datasets:[{
+      label:'Final quality (% of ref best)',
+      data:[0,96.5,99.33,99.84],
+      backgroundColor:['#D85A30','#1D9E75','#085041','#888780'],
+      borderRadius:3
+    }]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.y===0?'0% - GA completely fails':c.parsed.y.toFixed(1)+'% of ref best'}}},
+    scales:{x:{ticks:{...TICK,autoSkip:false},grid:{display:false}},
+            y:{min:0,max:105,ticks:{...TICK,callback:v=>v+'%'},grid:GRID}}}});
+</script>
+</body>
+</html>

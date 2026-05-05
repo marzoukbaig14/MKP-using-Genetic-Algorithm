@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GF-Informed Initialization — Research Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1D9E75;--teal-lt:#E1F5EE;--teal-dk:#085041;
+  --coral:#D85A30;--coral-lt:#FAECE7;
+  --gray:#5F5E5A;--gray-lt:#F1EFE8;--gray-dk:#2C2C2A;
+  --blue:#185FA5;--blue-lt:#E6F1FB;
+  --amber:#BA7517;--amber-lt:#FAEEDA;
+  --text:#2C2C2A;--muted:#5F5E5A;--border:rgba(44,44,42,0.12);
+  --bg:#FAFAF8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);width:960px;min-height:1260px;}
+
+/* HEADER */
+.header{background:var(--teal-dk);padding:34px 48px 30px;position:relative;overflow:hidden;}
+.header::after{content:'';position:absolute;right:-60px;top:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04);}
+.header-tag{font-size:10px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:10px;}
+.header h1{font-size:24px;font-weight:500;color:#fff;line-height:1.35;max-width:660px;margin-bottom:12px;}
+.header-meta{font-size:12px;color:rgba(255,255,255,.6);}
+.header-meta strong{color:rgba(255,255,255,.9);font-weight:500;}
+
+/* 3-COL BODY */
+.body{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:.5px solid var(--border);}
+.col{padding:26px 22px;border-right:.5px solid var(--border);}
+.col:last-child{border-right:none;}
+
+/* SECTION LABELS */
+.sec{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border-bottom:1.5px solid var(--teal);display:inline-block;padding-bottom:5px;margin-bottom:12px;}
+
+/* INSIGHT BOX */
+.insight{background:var(--teal-lt);border-radius:7px;padding:12px 14px;margin-bottom:14px;}
+.insight p{font-size:12px;line-height:1.6;color:var(--teal-dk);}
+.insight p strong{font-weight:500;}
+.warn{background:var(--coral-lt);}
+.warn p{color:#4A1B0C;}
+
+/* MATH */
+.math{background:var(--gray-lt);border-radius:7px;padding:11px 14px;margin:10px 0;font-family:'DM Mono',monospace;font-size:12px;color:var(--gray-dk);line-height:1.8;}
+.math-note{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);}
+
+/* STEPS */
+.step{display:flex;gap:9px;margin-bottom:11px;align-items:flex-start;}
+.step-num{width:20px;height:20px;border-radius:50%;background:var(--teal);color:#fff;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:12px;line-height:1.55;color:var(--text);}
+.step-text em{font-style:normal;color:var(--muted);font-size:11px;}
+
+/* RESULT BARS */
+.rbar{margin-bottom:13px;}
+.rbar-head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rbar-head strong{color:var(--text);font-weight:500;}
+.track{height:20px;background:var(--gray-lt);border-radius:4px;overflow:hidden;position:relative;margin-bottom:2px;}
+.fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:7px;font-size:10px;font-weight:500;color:#fff;}
+.fill-u{background:#888780;}
+.fill-g{background:var(--teal);}
+.fill-d{background:var(--coral);}
+.pct-r{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:500;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0;}
+.stat{background:var(--gray-lt);border-radius:7px;padding:9px 10px;text-align:center;}
+.stat-val{font-size:20px;font-weight:500;line-height:1;margin-bottom:3px;}
+.stat-desc{font-size:10px;color:var(--muted);line-height:1.4;}
+.green{color:var(--teal);}
+.red{color:var(--coral);}
+
+/* PIPELINE TABLE */
+.pip-table{width:100%;border-collapse:collapse;font-size:11px;margin:10px 0;}
+.pip-table th{font-size:10px;font-weight:500;color:var(--muted);text-align:left;padding:4px 6px;border-bottom:.5px solid var(--border);}
+.pip-table td{padding:5px 6px;border-bottom:.5px solid var(--border);}
+.pip-table .best{color:var(--teal);font-weight:500;}
+.pip-table .fail{color:var(--coral);}
+
+/* HYBRID BARS */
+.hbar{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.hbar-lbl{font-size:10px;color:var(--text);width:70px;flex-shrink:0;line-height:1.3;}
+.hbar-track{flex:1;height:16px;background:var(--gray-lt);border-radius:3px;overflow:hidden;}
+.hbar-fill{height:100%;border-radius:3px;}
+.hbar-val{font-size:10px;font-weight:500;min-width:32px;text-align:right;}
+
+/* APP PILLS */
+.app{display:flex;gap:7px;align-items:flex-start;background:var(--blue-lt);border-radius:7px;padding:9px 11px;margin-bottom:7px;width:100%;}
+.app-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:3px;}
+.app-text{font-size:11px;line-height:1.5;color:var(--blue);}
+.app-text strong{font-weight:500;color:#042C53;}
+.warn2{background:var(--amber-lt);}
+.warn2 .app-dot{background:var(--amber);}
+.warn2 .app-text{color:var(--amber);}
+.warn2 .app-text strong{color:#412402;}
+
+/* FOOTER */
+.footer{border-top:.5px solid var(--border);padding:14px 48px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);}
+.footer a{color:var(--teal);text-decoration:none;}
+.tag{display:inline-block;background:var(--teal-lt);color:var(--teal-dk);font-size:9px;font-weight:500;border-radius:3px;padding:2px 6px;margin-right:3px;}
+
+.col-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:12px;}
+.divider{height:.5px;background:var(--border);margin:12px 0;}
+.small{font-size:11px;color:var(--muted);line-height:1.6;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">Evolutionary Computation - Constrained Optimization - Preprint 2025</div>
+  <h1>Generating Function-Informed Initialization for Genetic Algorithms on the Multidimensional Knapsack Problem</h1>
+  <div class="header-meta">
+    <strong>Muhammad Marzouk Baig</strong> &nbsp;-&nbsp; MS AI Candidate, Northeastern University, Portland ME &nbsp;-&nbsp; <strong>baig.muham@northeastern.edu</strong>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- COL 1: METHOD -->
+<div class="col">
+  <div class="sec">The Problem</div>
+  <div class="insight">
+    <p>Standard GA initialization samples each bit at 50/50, ignoring constraint structure. On tight instances <strong>(α = 0.25)</strong>, every initial solution is infeasible - selection has nothing to work with. The algorithm never starts.</p>
+  </div>
+
+  <div class="col-title">Our Approach</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">For each item j, compute the <strong>sub-generating function</strong> over all other items - enumerates all 2<sup>n-1</sup> possible completions.<br><em>g<sub>j</sub>(x) = ∏<sub>k≠j</sub> (1 + x<sup>wₖ</sup>)</em></div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">Count what fraction of completions stay feasible when item j is <strong>included</strong> (ρ¹_j) vs. <strong>excluded</strong> (ρ⁰_j).</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Set per-item sampling probability:</div>
+  </div>
+  <div class="math">
+    p_j = ρ¹_j / (ρ¹_j + ρ⁰_j)
+    <div class="math-note">- p_j = 0.5 when instance is loose (auto-degenerates to uniform)<br>- p_j → 0 when item blocks all feasible completions</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">Initialize each solution: set bit j = 1 with probability p_j.</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec">Scalability</div>
+  <div class="step">
+    <div class="step-num" style="background:var(--blue);">★</div>
+    <div class="step-text"><strong>GPU Monte Carlo</strong> - draw M = 10⁷ random binary vectors, check feasibility in parallel.<br><em>SE ≤ 0.02% at M = 10⁷</em></div>
+  </div>
+  <div class="math">Runtime: 5-8 sec (T4 GPU)<br>n=100, m=3, M=10,000,000</div>
+  <p class="small">One-time precomputation. No objective function required. No LP relaxation. Purely constraint-driven.</p>
+
+  <div class="divider"></div>
+  <div class="sec">Algorithmic complexity</div>
+  <div class="math" style="font-size:11px;line-height:2;">Exact:&nbsp;&nbsp;&nbsp;&nbsp; O(n &middot; 2<sup>n</sup> &middot; m) &mdash; intractable<br>MC approx: O(n &middot; M &middot; m) &mdash; linear, GPU-parallel<div class="math-note" style="margin-top:4px;">Approximation trades exponential enumeration<br>for controllable error: SE &le; 1/(2&radic;M)</div></div>
+  <p class="small">At M=10&sup7;: SE &le; 0.016%. Memory: ~125 MB for M&times;(n&minus;1) sample matrix. Precomputation is paid once per instance &mdash; cost per initialized solution decreases with population size.</p>
+</div>
+
+<!-- COL 2: RESULTS -->
+<div class="col">
+  <div class="sec">Core result at α = 0.25</div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-val red">0%</div><div class="stat-desc">Uniform init feasibility</div></div>
+    <div class="stat"><div class="stat-val green">52.5%</div><div class="stat-desc">GF-biased init feasibility</div></div>
+    <div class="stat"><div class="stat-val red">0%</div><div class="stat-desc">Uniform final quality</div></div>
+    <div class="stat"><div class="stat-val green">96.5%</div><div class="stat-desc">GF-biased final quality</div></div>
+  </div>
+
+  <div style="margin-bottom:6px;">
+    <div class="rbar">
+      <div class="rbar-head"><strong>α = 0.25 (tight)</strong> <span>uniform: 0% - ours: 52.5%</span></div>
+      <div class="track"><div class="fill fill-d" style="width:100%;font-size:9px;">Uniform: 0/20 runs find anything</div></div>
+      <div class="track"><div class="fill fill-g" style="width:52.5%;">GF-biased</div><span class="pct-r" style="color:var(--teal-dk);">52.5%</span></div>
+    </div>
+    <div class="rbar">
+      <div class="rbar-head"><strong>α = 0.50 (medium)</strong> <span>uniform: 32.6% - ours: 71.6%</span></div>
+      <div class="track"><div class="fill fill-u" style="width:32.6%;">Uniform</div><span class="pct-r">32.6%</span></div>
+      <div class="track"><div class="fill fill-g" style="width:71.6%;">GF-biased</div><span class="pct-r" style="color:var(--teal-dk);">71.6%</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec">Solution quality — full pipeline at α = 0.25</div>
+  <table class="pip-table">
+    <thead><tr><th>Method</th><th>Final quality</th></tr></thead>
+    <tbody>
+      <tr><td class="fail">Uniform + death penalty</td><td class="fail">0% — fails completely</td></tr>
+      <tr><td>GF-biased + death penalty</td><td>96.5%</td></tr>
+      <tr><td class="best">GF-biased + ILS</td><td class="best">99.3%</td></tr>
+      <tr><td>Repair (Chu &amp; Beasley)</td><td>99.8%</td></tr>
+    </tbody>
+  </table>
+  <div class="insight" style="margin-top:10px;">
+    <p>Adding a lightweight local search step brings quality to within <strong>0.5 percentage points</strong> of repair - and both ILS intensity and the informed/uniform ratio are <strong>tunable parameters</strong> to match available compute.</p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec">Hybrid sweep - how much do you need?</div>
+  <p class="small" style="margin-bottom:8px;">Mixing GF-biased and uniform sampling at different ratios:</p>
+  <div class="hbar">
+    <div class="hbar-lbl" style="color:var(--coral);">0% informed</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:100%;background:var(--coral);"></div></div>
+    <div class="hbar-val red">FAILS</div>
+  </div>
+  <div class="hbar">
+    <div class="hbar-lbl">25% informed</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:97.1%;background:var(--teal);"></div></div>
+    <div class="hbar-val green">97.1%</div>
+  </div>
+  <div class="hbar">
+    <div class="hbar-lbl">50% informed</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:96.7%;background:var(--teal);"></div></div>
+    <div class="hbar-val green">96.7%</div>
+  </div>
+  <div class="hbar">
+    <div class="hbar-lbl">75% informed</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:97.1%;background:var(--teal);"></div></div>
+    <div class="hbar-val green">97.1%</div>
+  </div>
+  <div class="hbar">
+    <div class="hbar-lbl">100% informed</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:96.6%;background:var(--teal-dk);"></div></div>
+    <div class="hbar-val green">96.6%</div>
+  </div>
+  <p class="small" style="margin-top:8px;">Just 25% of the population seeded with GF-biased solutions rescues the GA entirely - 0/20 to 20/20 runs. Quality is flat across all non-zero ratios.</p>
+</div>
+
+<!-- COL 3: WHY IT MATTERS -->
+<div class="col">
+  <div class="sec">Self-Calibrating Property</div>
+  <div class="insight">
+    <p>At α = 0.75, every item has p<sub>j</sub> = 0.5. The framework <strong>automatically degenerates to uniform</strong> Chu &amp; Beasley initialization when the instance is loose - correct behavior by theory, confirmed by experiment.</p>
+  </div>
+
+  <div class="insight warn">
+    <p>The <strong>standard repair operator</strong> computes u<sub>j</sub> = v<sub>j</sub> / Σ(w<sub>ji</sub>/W<sub>i</sub>). It requires objective values. It fails silently on three common problem classes.</p>
+  </div>
+
+  <div class="sec" style="margin-top:4px;">Where Repair Fails - Our Method Works</div>
+
+  <div class="app">
+    <div class="app-dot"></div>
+    <div class="app-text"><strong>No objective (CSP).</strong> Efficiency scores can't be computed. GF initialization needs only weights and capacities.</div>
+  </div>
+  <div class="app">
+    <div class="app-dot"></div>
+    <div class="app-text"><strong>Noisy objectives.</strong> When v<sub>j</sub> values are uncertain, the efficiency ranking is unreliable. GF initialization ignores objective values entirely.</div>
+  </div>
+  <div class="app">
+    <div class="app-dot"></div>
+    <div class="app-text"><strong>Adversarial correlation.</strong> Negatively correlated instances cause the greedy repair to systematically drop high-value items. GF initialization is unaffected.</div>
+  </div>
+  <div class="app warn2">
+    <div class="app-dot"></div>
+    <div class="app-text"><strong>Part 2 (in progress):</strong> demonstrating repair failure on adversarial instances following Hill et al. instance generation protocol. Guided by Prof. Raymond Hill (AFIT / Wright State).</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec">Mathematical Novelty</div>
+  <p class="small" style="margin-bottom:8px;">Sub-generating functions correspond exactly to <strong>order-1 schemas</strong> in Holland's framework. Each g<sub>j</sub> enumerates all 2<sup>n-1</sup> strings that agree with item j's fixed value. First application of generating functions to bias GA initialization in the EC literature.</p>
+  <p class="small">Requires n evaluations (not 3<sup>n</sup>). Recovers uniform as a special case. Interpretable and theoretically principled.</p>
+
+  <div class="divider"></div>
+  <div class="sec">Links</div>
+  <span class="tag">arXiv preprint</span>
+  <span class="tag">GitHub</span>
+  <span class="tag">GECCO 2027 target</span>
+</div>
+
+</div>
+
+<div class="footer">
+  <div><strong>Muhammad Marzouk Baig</strong> - MS AI - Northeastern University - Portland ME - <a href="mailto:baig.muham@northeastern.edu">baig.muham@northeastern.edu</a></div>
+  <div>In correspondence with Prof. Raymond Hill (AFIT / Wright State University)</div>
+</div>
+
+</body>
+</html>
