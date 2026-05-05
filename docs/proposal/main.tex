@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twocolumn]{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{algorithm}
@@ -8,62 +8,174 @@
 \usepackage{float}
 \usepackage{geometry}
 \usepackage{pifont}
+\usepackage{xcolor}
+\usepackage[font={small,it}, labelfont={bf,it}, labelsep=period]{caption}
+\geometry{margin=0.75in, columnsep=0.25in}
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
+% Title and author defined before \begin{document} for twocolumn
+\title{\textbf{Before the Search Begins: Generating Function-Informed Initialization for Tight Constrained Binary Optimization}}
+\author{Muhammad Marzouk Baig\\
+{\small MS Candidate, Khoury College of Computer Sciences}\\
+{\small Northeastern University, Portland, Maine}\\
+{\small \texttt{baig.muham@northeastern.edu}}}
+\date{}
+
 \begin{document}
 
-\begin{flushleft}
-{\LARGE\bfseries Generating Function-Informed Initialization for Genetic 
-Algorithms on the Multidimensional Knapsack Problem}
+\twocolumn[
+  \maketitle
+  \begin{center}
+  \begin{minipage}{0.85\textwidth}
+  \small
+  \begin{abstract}
+We present a generating function-informed initialization framework for genetic 
+algorithms (GAs) applied to the Multidimensional Knapsack Problem (MKP). 
+Standard initialization---setting each bit to 1 with probability 0.5 
+independently---ignores the feasibility structure of the search space entirely. 
+On tight instances this produces initial populations with zero feasible 
+solutions, preventing any search from proceeding under constraint-respecting 
+fitness models. The framework is grounded in the combinatorial generating 
+function tradition, applied here to constraint feasibility rather than 
+partition enumeration: for each item $j$, we derive a sampling probability 
+$p_j$ from sub-generating functions that measure how much feasible space 
+is lost when item $j$ is included versus excluded. The framework is purely 
+constraint-driven: it requires no objective function, no LP relaxation, and 
+no prior search. A GPU-accelerated Monte Carlo approximation provides 
+estimates accurate to within $0.03\%$ in 5--8 seconds. On tight instances 
+($\alpha = 0.25$), where uniform initialization produces zero feasible 
+solutions, our method achieves $52.5\%$ initial feasibility and converges 
+to $96.5\%$ of the reference best under a death penalty model---a regime 
+where the uniformly initialized GA fails entirely. Adding a lightweight 
+iterated local search post-processing step raises mean quality to $99.3\%$. 
+The framework is designed for tight-to-medium instances ($\alpha \leq 0.50$) 
+where feasibility is genuinely scarce; on loose instances it degenerates 
+automatically to uniform initialization.
+  \end{abstract}
+  \end{minipage}
+  \end{center}
+  \vspace{3em}
+]
 
-\vspace{0.5em}
-{\small Muhammad Marzouk Baig}\\
-{\small Northeastern University}\\
-{\small Portland, Maine}\\
-{\small \texttt{baig.muham@northeastern.edu}}\\
+% ============================================================
+\section{Introduction}
+% ============================================================
 
-\vspace{0.3em}
-\end{flushleft}
+\subsection{Motivation}
 
-\vspace{1em}
+Population initialization is the first decision a genetic algorithm makes, 
+yet it is almost universally treated as a formality. The standard approach---sampling 
+each bit independently with probability $0.5$---is convenient and assumption-free, 
+but it is provably oblivious to the structure of the problem being solved. 
+For unconstrained or loosely constrained problems this is harmless. For 
+tightly constrained combinatorial problems, it can be catastrophic.
 
-\section{Problem Statement}
+\textbf{The generating function connection.}
+Generating functions are a classical tool in combinatorics for encoding 
+subset enumeration in compact algebraic form. The idea goes back at least 
+to Euler and reached remarkable depth in the work of Hardy and 
+Ramanujan~\cite{hardyramanujan1918} on integer partitions: the generating 
+function $\prod_{k=1}^{\infty}(1-x^k)^{-1}$ encodes, in the coefficient of 
+$x^n$, the number of ways to write $n$ as a sum of positive integers. 
+The same algebraic principle applies to our setting. For items with integer 
+weights $w_1, \ldots, w_n$, the product $\prod_j (1 + x^{w_j})$ encodes, 
+in the coefficient of $x^k$, the number of subsets with total weight 
+exactly $k$. This maps naturally onto the feasibility question for 
+constrained binary optimization: by factoring out one item at a time and 
+evaluating the remainder against each capacity threshold, we can 
+ask---before any search begins---how much of the feasible space survives 
+when item $j$ is included versus excluded. To our knowledge, this 
+connection has not previously been exploited to bias GA initialization. 
+The framework we develop shows that it yields a principled, interpretable, 
+and provably self-calibrating initialization method.
 
-\subsection{The Classical 0-1 Knapsack Problem}
+\textbf{The tight instance failure mode.}
+Consider the MKP with a tightness ratio $\alpha = W_i / \sum_j w_{ji}$ of 
+$0.25$: each capacity is set to $25\%$ of the total item weight across 
+that constraint. On such instances the fraction of all binary strings that 
+are feasible is tiny. Uniform random initialization samples from the full 
+$\{0,1\}^n$ space without any awareness of where feasible solutions lie; 
+in practice, every solution in an initial population of 50 is infeasible. 
+Under a death penalty fitness model---which assigns zero fitness to 
+infeasible solutions---the entire initial population is non-competing and 
+selection cannot operate. The GA is dead on arrival. This failure mode is 
+not an artifact of a poorly chosen penalty function or an implementation 
+bug. It is a structural consequence of initializing without any knowledge 
+of where feasible solutions live.
 
-\noindent Given $n$ items each with value $v_j$ and weight $w_j$, 
-and a knapsack with capacity $W$, the classical 0-1 knapsack 
-problem is:
+\textbf{The scope of repair-based approaches.}
+The most effective existing technique for handling infeasibility in MKP GAs 
+is the deterministic repair operator of Chu and 
+Beasley~\cite{chu1998genetic}, which uses an efficiency ranking 
+$u_j = v_j / \sum_i (w_{ji} / W_i)$ to greedily add or remove items until 
+feasibility is restored. This operator is computationally efficient and 
+empirically effective on standard benchmarks. However, it depends entirely 
+on objective values: the ranking cannot be computed when objective values 
+are absent (pure constraint satisfaction), unreliable (noisy or estimated 
+objectives), or misleading (adversarial instance structure). In these 
+settings, constraint-only initialization methods become the primary 
+available tool for guiding early search.
 
-\begin{flushleft}
-\hspace{2em}$\text{maximize} \quad \sum_{j=1}^{n} v_j x_j$
-\end{flushleft}
+\subsection{Contributions}
 
-\begin{flushleft}
-\hspace{2em}$\text{subject to} \quad \sum_{j=1}^{n} w_j x_j \leq W$
-\end{flushleft}
+The specific contributions of this paper are:
 
-\begin{flushleft}
-\hspace{2em}$x_j \in \{0, 1\} \quad \forall j = 1, \ldots, n$
-\end{flushleft}
+\begin{enumerate}
+    \item A mathematical framework that uses sub-generating functions over 
+    order-1 schemas to derive per-item feasibility densities 
+    $\rho_j^1$ and $\rho_j^0$ for any binary constrained optimization 
+    instance (Section~\ref{sec:framework}).
 
-\noindent where $v_j$ is the value of item $j$, $w_j$ is the 
-weight of item $j$, $W$ is the knapsack capacity, and $x_j = 1$ 
-indicates item $j$ is selected.
+    \item A sampling rule $p_j = \rho_j^1 / (\rho_j^1 + \rho_j^0)$ 
+    that recovers uniform initialization when no constraint structure 
+    is present ($p_j = 0.5$) and biases away from infeasibility-inducing 
+    items in proportion to the feasibility cost they impose 
+    (Section~\ref{sec:framework}).
+
+    \item A GPU-accelerated Monte Carlo approximation algorithm that 
+    estimates $\rho_j^1$ and $\rho_j^0$ to within $0.03\%$ in 5--8 
+    seconds for $n = 100$, $m = 3$, running in $O(n \cdot M \cdot m)$ 
+    time with $M = 10^7$ samples (Section~\ref{sec:algorithm}).
+
+    \item Empirical results on MKP instances at three tightness levels 
+    ($\alpha \in \{0.25, 0.50, 0.75\}$) showing that GF-biased 
+    initialization enables search under a death penalty model in regimes 
+    where uniform initialization completely fails, while matching uniform 
+    performance on easier instances. We also show that the framework 
+    composes naturally with standard post-processing techniques 
+    (Section~\ref{sec:results}).
+\end{enumerate}
+
+\subsection{Paper Organization}
+
+Section~\ref{sec:background} reviews the MKP, the Chu--Beasley GA, 
+schema theory, and generating functions. Section~\ref{sec:framework} 
+develops the mathematical framework. Section~\ref{sec:algorithm} presents 
+the exact and Monte Carlo algorithms along with a complexity analysis. 
+Section~\ref{sec:examples} provides worked examples on small instances. 
+Section~\ref{sec:experiments} describes the experimental setup. 
+Section~\ref{sec:results} presents results. Section~\ref{sec:discussion} 
+discusses limitations and the broader applicability of the framework. 
+Section~\ref{sec:conclusion} concludes.
+
+% ============================================================
+\section{Background}
+\label{sec:background}
+% ============================================================
 
 \subsection{The Multidimensional Knapsack Problem}
 
-\noindent The MKP generalizes the classical knapsack problem to 
-$m$ constraints. Each item $j$ now has $m$ weights --- one per 
-constraint. Formally:
+The MKP generalizes the classical 0-1 knapsack problem to $m$ constraints. 
+Given $n$ items each with value $v_j$ and weight $w_{ji}$ for constraint 
+$i$, and $m$ capacity constraints $W_i$, the MKP is:
 
 \begin{flushleft}
-\hspace{2em}$\text{maximize} \quad \sum_{j=1}^{n} v_j x_j$
+\hspace{2em}$\text{maximize} \quad \displaystyle\sum_{j=1}^{n} v_j x_j$
 \end{flushleft}
 
 \begin{flushleft}
-\hspace{2em}$\text{subject to} \quad \sum_{j=1}^{n} w_{ji} x_j 
+\hspace{2em}$\text{subject to} \quad \displaystyle\sum_{j=1}^{n} w_{ji} x_j 
 \leq W_i \quad \forall i = 1, \ldots, m$
 \end{flushleft}
 
@@ -71,318 +183,206 @@ constraint. Formally:
 \hspace{2em}$x_j \in \{0, 1\} \quad \forall j = 1, \ldots, n$
 \end{flushleft}
 
-\noindent where $w_{ji}$ is the weight of item $j$ under 
-constraint $i$ and $W_i$ is the capacity of constraint $i$. 
-The classical knapsack is the special case where $m = 1$.
-
-\noindent The MKP is NP-hard and is commonly solved using 
-metaheuristics such as genetic algorithms (GAs). The most widely 
-cited GA for the MKP is that of Chu and 
-Beasley~\cite{chu1998genetic}, which uses uniform random 
-initialization --- each bit is set to 1 with probability 0.5 
-independently of the problem structure. This approach ignores 
-the feasibility landscape of the search space entirely, producing 
-initial populations with low feasibility rates and poor solution 
-quality, particularly on tight instances where capacity constraints 
-are severely binding.
-
-\section{Proposed Idea}
-
-\noindent We propose using combinatorial generating functions to 
-analytically characterize the feasibility structure of the MKP 
-search space at the schema level before any search begins. For 
-each item $j$, we compute a sub-generating function over the 
-remaining items and use it to derive a feasibility density --- 
-the fraction of solutions that remain feasible when item $j$ is 
-included or excluded. These densities are used to set a per-bit 
-sampling probability $p_j$ for each item, biasing initialization 
-toward high-feasibility regions of the search space.
-
-\noindent This approach is purely combinatorial --- it requires 
-no optimization subproblem, no LP relaxation, and no prior search. 
-It operates entirely on the problem data (item weights and 
-capacities) and adds a one-time precomputation overhead before 
-the GA begins. All other components of the GA --- selection, 
-crossover, mutation, and repair --- remain identical to Chu and 
-Beasley, isolating initialization as the sole variable under 
-investigation.
-
-\section{Background}
-
-\subsection{The Multidimensional Knapsack Problem}
-
-\noindent The MKP generalizes the classical 0-1 knapsack problem 
-to $m$ constraints. It is a well-studied NP-hard problem with 
-applications in resource allocation, project selection, and 
-capital budgeting. Benchmark instances are available from the 
-OR-Library~\cite{beasley1990orlib}, which provides instances 
-with up to $n = 500$ items and $m = 30$ constraints at varying 
-tightness ratios $\alpha = W_i / \sum_j w_{ji}$.
+The MKP is NP-hard and is a canonical benchmark for metaheuristics. 
+Instances are commonly parameterized by the \textit{tightness ratio} 
+$\alpha = W_i / \sum_j w_{ji}$, which controls the fraction of the total 
+item weight that fits in each constraint. Standard benchmark instances 
+are available from the OR-Library~\cite{beasley1990orlib}.
 
 \subsection{Chu and Beasley Genetic Algorithm}
+\label{sec:chundbeasley}
 
-\noindent Chu and Beasley~\cite{chu1998genetic} proposed a 
-steady-state GA for the MKP that remains a standard baseline. 
-Key components include uniform random initialization (each bit 
-set to 1 with probability 0.5), uniform crossover, bit-flip 
-mutation at rate $1/n$, binary tournament selection, and a 
-deterministic repair operator that fixes infeasible solutions 
-using a fixed LP-approximated efficiency ranking:
+Chu and Beasley~\cite{chu1998genetic} proposed a steady-state GA for the 
+MKP that remains the standard baseline. Key components:
+
+\begin{itemize}
+    \item \textbf{Initialization:} Each bit $x_j$ set to 1 with probability 
+    0.5 independently.
+    \item \textbf{Crossover:} Uniform crossover.
+    \item \textbf{Mutation:} Bit-flip at rate $1/n$.
+    \item \textbf{Selection:} Binary tournament.
+    \item \textbf{Repair:} A deterministic operator that iteratively drops 
+    items (in ascending order of efficiency $u_j$) until feasibility is 
+    restored, then greedily adds items (in descending order of $u_j$) 
+    while feasibility is maintained, where:
+\end{itemize}
 
 \begin{flushleft}
-\hspace{2em}$u_j = \dfrac{v_j}{\sum_{i=1}^{m} w_{ji} / W_i}$
+\hspace{2em}$u_j = \dfrac{v_j}{\displaystyle\sum_{i=1}^{m} w_{ji} / W_i}$
 \end{flushleft}
 
-\noindent Because this ranking is computed once and never changes, 
-diverse infeasible offspring are consistently repaired toward 
-similar feasible solutions. Over successive generations, selection 
-pressure favors high-efficiency items and the population converges 
-prematurely --- a well-documented weakness of the approach.
+The repair operator is effective on standard benchmarks because item 
+efficiency is a reliable proxy for solution quality when values and weights 
+are uncorrelated. It is undefined when no objective exists and potentially 
+misleading when value-weight correlation is adversarial~\cite{kellerer2004knapsack}. 
+Because the repair ranking is fixed, diverse infeasible offspring tend to be 
+repaired toward similar feasible solutions, which can contribute to premature 
+convergence on harder instances.
 
 \subsection{Schema Theory}
 
-\noindent Schema theory, introduced by 
-Holland~\cite{holland1975adaptation}, provides a framework for 
-analyzing the behavior of GAs at the level of partial solutions. 
-A schema is a string of length $n$ over the alphabet 
-$\{0, 1, *\}$, where $*$ denotes a wildcard position that matches 
-either 0 or 1. The order of a schema is the number of fixed 
-positions. Schema theory suggests that short, low-order, 
-above-average schemata are sampled exponentially more frequently 
-over successive generations --- a result known as the Schema 
-Theorem.
+Schema theory, introduced by Holland~\cite{holland1975adaptation}, 
+provides a framework for analyzing GA behavior at the level of partial 
+solutions. A \textit{schema} is a string of length $n$ over 
+$\{0, 1, *\}$, where $*$ is a wildcard matching either value. 
+An \textit{order-$k$} schema has $k$ fixed positions. 
+The Schema Theorem states that short, low-order, above-average schemata 
+are sampled exponentially more frequently across generations. 
+Initialization determines the initial representation frequency of all 
+schemata; biasing toward high-feasibility order-1 schemata directly 
+seeds the population with the building blocks from which feasible 
+high-quality solutions will be composed.
 
 \subsection{Generating Functions in Combinatorics}
 
-\noindent A generating function is a formal power series whose 
-coefficients encode combinatorial information. For a set of items 
-with weights $w_1, \ldots, w_n$, the generating function:
+A generating function is a formal power series whose coefficients encode 
+combinatorial quantities. The tradition is ancient: Euler used generating 
+functions to analyze integer partitions, and the field reached a landmark 
+in the Hardy--Ramanujan asymptotic formula~\cite{hardyramanujan1918} for 
+the partition function $p(n)$, derived by analyzing 
+$\prod_{k=1}^{\infty}(1-x^k)^{-1}$. For a finite set of items with 
+integer weights $w_1, \ldots, w_n$, the analogous product is:
 
 \begin{flushleft}
 \hspace{2em}$f(x) = \prod_{j=1}^{n} (1 + x^{w_j})$
 \end{flushleft}
 
-\noindent has the property that the coefficient of $x^k$ equals 
-the number of subsets with total weight exactly $k$. This follows 
-directly from the distributive law --- each factor contributes 
-either $1$ (item excluded) or $x^{w_j}$ (item included), and the 
-product enumerates all $2^n$ subsets. Generating functions have 
-been used extensively in partition theory and combinatorics 
-\cite{wilf1994generatingfunctionology} but have not, to our 
-knowledge, been applied to bias GA initialization for the MKP.
+The coefficient of $x^k$ in $f(x)$ equals the number of subsets with 
+total weight exactly $k$. This follows from the distributive law: each 
+factor contributes either $1$ (item excluded) or $x^{w_j}$ (item included), 
+so the product enumerates all $2^n$ subsets. Wilf~\cite{wilf1994genfunc} 
+provides a comprehensive treatment of generating functions in combinatorics; 
+the specific application to constraint feasibility and GA initialization 
+developed here is, to our knowledge, new.
 
+% ============================================================
 \section{Mathematical Framework}
+\label{sec:framework}
+% ============================================================
 
-\subsection{The Generating Function}
+\subsection{Feasibility and the Full Generating Function}
 
-\noindent Let there be $n$ items and $m$ constraints. Each item 
-$j$ has a weight $w_{ji}$ for constraint $i$, where $w_{ji}$ 
-denotes the weight of item $j$ under constraint $i$. Each 
-constraint $i$ has capacity $W_i$. A solution is a binary string 
-$\mathbf{x} \in \{0,1\}^n$ where $x_j = 1$ indicates item $j$ 
-is selected. A solution is feasible if:
+Let there be $n$ items and $m$ constraints. A solution 
+$\mathbf{x} \in \{0,1\}^n$ is \textit{feasible} if:
 
 \begin{flushleft}
-\hspace{2em}$\sum_{j=1}^{n} w_{ji} x_j \leq W_i 
+\hspace{2em}$\displaystyle\sum_{j=1}^{n} w_{ji} x_j \leq W_i 
 \quad \forall i = 1, \ldots, m$
 \end{flushleft}
 
-\noindent For a single constraint, the generating function over 
-all $2^n$ subsets is:
-
-\begin{flushleft}
-\hspace{2em}$f(x) = \prod_{j=1}^{n} (1 + x^{w_j}) = 
-(1 + x^{w_1})(1 + x^{w_2}) \cdots (1 + x^{w_n})$
-\end{flushleft}
-
-\noindent The coefficient of $x^k$ in $f(x)$ counts the number 
-of subsets with total weight exactly $k$. Feasible subsets are 
-those whose corresponding term has exponent $\leq W$.
-
-\noindent For $m$ constraints, this generalizes to $m$ variables:
+For $m$ constraints, the full generating function over all $2^n$ subsets is:
 
 \begin{flushleft}
 \hspace{2em}$f(x_1, \ldots, x_m) = \prod_{j=1}^{n} 
 \left(1 + x_1^{w_{j1}} x_2^{w_{j2}} \cdots x_m^{w_{jm}}\right)$
 \end{flushleft}
 
-\begin{flushleft}
-\hspace{2em}$= \left(1 + x_1^{w_{11}} x_2^{w_{12}} \cdots x_m^{w_{1m}}\right)
-\left(1 + x_1^{w_{21}} x_2^{w_{22}} \cdots x_m^{w_{2m}}\right)
-\cdots
-\left(1 + x_1^{w_{n1}} x_2^{w_{n2}} \cdots x_m^{w_{nm}}\right)$
-\end{flushleft}
+A term $x_1^{k_1} \cdots x_m^{k_m}$ in the expanded product corresponds 
+to a feasible subset if and only if $k_i \leq W_i$ for all $i$.
 
-\noindent where $w_{ji}$ is the weight of item $j$ under 
-constraint $i$. A term $x_1^{k_1} x_2^{k_2} \cdots x_m^{k_m}$ 
-corresponds to a feasible subset if and only if $k_i \leq W_i$ 
-for all $i = 1, \ldots, m$.
+\subsection{Sub-Generating Functions and Feasibility Densities}
 
-\subsection{Sub-Generating Functions and Feasibility Density}
-
-\noindent To analyze the feasibility structure at the schema 
-level, we define the \textit{sub-generating function} for item 
-$j$ as the generating function over all remaining items with 
-item $j$ fixed or removed.
-
-\noindent For a single constraint:
-
-\begin{flushleft}
-\hspace{2em}$g_j(x) = \prod_{k \neq j} (1 + x^{w_k})$
-\end{flushleft}
-
-\begin{flushleft}
-\hspace{2em}$= (1 + x^{w_1}) \cdots (1 + x^{w_{j-1}})
-(1 + x^{w_{j+1}}) \cdots (1 + x^{w_n})$
-\end{flushleft}
-
-\noindent For $m$ constraints:
+To analyze feasibility at the schema level, we define the 
+\textit{sub-generating function} for item $j$ as the generating function 
+over all $n-1$ remaining items:
 
 \begin{flushleft}
 \hspace{2em}$g_j(x_1, \ldots, x_m) = \prod_{k \neq j} 
-\left(1 + x_1^{w_{k1}} x_2^{w_{k2}} \cdots x_m^{w_{km}}\right)$
+\left(1 + x_1^{w_{k1}} \cdots x_m^{w_{km}}\right)$
 \end{flushleft}
 
-\begin{flushleft}
-\hspace{2em}$= \left(1 + x_1^{w_{11}} \cdots x_m^{w_{1m}}\right) \cdots 
-\left(1 + x_1^{w_{(j-1)1}} \cdots x_m^{w_{(j-1)m}}\right)
-\left(1 + x_1^{w_{(j+1)1}} \cdots x_m^{w_{(j+1)m}}\right)
-\cdots \left(1 + x_1^{w_{n1}} \cdots x_m^{w_{nm}}\right)$
-\end{flushleft}
-
-\noindent Note that $g_j$ is identical whether item $j$ is fixed 
-to 0 or 1 --- the difference lies in the capacity threshold 
-applied.
-
-\noindent We define the \textit{feasibility densities} for item 
-$j$ as follows.
-
-\noindent For a single constraint:
-
-\begin{flushleft}
-\hspace{2em}$\rho_{j}^{\,1} = \dfrac{\#\{\text{terms in } g_j(x) 
-\text{ with exponent} \leq W - w_j\}}{2^{n-1}}$
-\end{flushleft}
-
-\begin{flushleft}
-\hspace{2em}$\rho_{j}^{\,0} = \dfrac{\#\{\text{terms in } g_j(x) 
-\text{ with exponent} \leq W\}}{2^{n-1}}$
-\end{flushleft}
-
-\noindent For $m$ constraints:
-
-\begin{flushleft}
-\hspace{2em}$\rho_{j}^{\,1} = \dfrac{\#\{\text{terms in } 
-g_j(x_1, \ldots, x_m) \text{ where exponent of } 
-x_i \leq W_i - w_{ji} \ \forall i\}}{2^{n-1}}$
-\end{flushleft}
-
-\begin{flushleft}
-\hspace{2em}$\rho_{j}^{\,0} = \dfrac{\#\{\text{terms in } 
-g_j(x_1, \ldots, x_m) \text{ where exponent of } 
-x_i \leq W_i \ \forall i\}}{2^{n-1}}$
-\end{flushleft}
-
-\noindent Intuitively, $\rho_{j}^{\,1}$ measures what fraction of 
-solutions that include item $j$ are feasible, and $\rho_{j}^{\,0}$ 
-measures the same for solutions that exclude item $j$.
-
-\noindent The sampling probability $p_j$ is derived by normalizing 
-$\rho_{j}^{\,1}$ against the total feasibility signal for item $j$. 
-For any item $j$ there are exactly two mutually exclusive choices 
---- include it or exclude it --- each with an associated 
-feasibility density. We allocate probability to each choice 
-proportionally to how feasibility-preserving that choice is, 
-following a simple proportional allocation rule: if two options 
-have scores $a$ and $b$, the probability assigned to option $a$ is:
-
-\begin{flushleft}
-\hspace{2em}$P(a) = \dfrac{a}{a + b}$
-\end{flushleft}
-
-\noindent This ensures two properties hold simultaneously:
-
-\begin{enumerate}
-    \item \textbf{The probabilities sum to 1:}
-    \begin{flushleft}
-    \hspace{2em}$P(\text{include}) + P(\text{exclude}) = 
-    \dfrac{\rho_{j}^{\,1}}{\rho_{j}^{\,1} + \rho_{j}^{\,0}} + 
-    \dfrac{\rho_{j}^{\,0}}{\rho_{j}^{\,1} + \rho_{j}^{\,0}} = 1$
-    \end{flushleft}
-
-    \item \textbf{The ratio between probabilities equals the ratio 
-    between densities:} if excluding item $j$ is twice as 
-    feasibility-preserving as including it, the algorithm is twice 
-    as likely to exclude it during initialization.
-\end{enumerate}
-
-\noindent Note that we only report $p_j$ --- the probability of 
-inclusion --- since $P(\text{exclude}) = 1 - p_j$ follows 
-automatically.
-
-\subsection{Order-1 Schemas}
-
-\noindent A schema is a string of length $n$ over $\{0, 1, *\}$ 
-where $*$ denotes a wildcard --- a position that can take either 
-value. The \textit{order} of a schema is the number of fixed 
-positions. For example with $n = 4$:
-
-\begin{flushleft}
-\hspace{2em}\texttt{1*0*}
-\end{flushleft}
-
-\noindent is an order-2 schema --- item 1 fixed to included, 
-item 3 fixed to excluded, items 2 and 4 unconstrained.
-
-\noindent An \textbf{order-1 schema} has exactly one fixed 
-position and $n-1$ wildcards. For $n$ items there are exactly 
-$2n$ order-1 schemas --- two per item:
+This function enumerates all $2^{n-1}$ subsets of items other than $j$. 
+The function $g_j$ is the same regardless of whether item $j$ is fixed 
+to 0 or 1; the distinction lies solely in the capacity threshold applied 
+when counting feasible terms:
 
 \begin{itemize}
-    \item \texttt{*...1...*} --- item $j$ fixed to included
-    \item \texttt{*...0...*} --- item $j$ fixed to excluded
+    \item When item $j$ is \textbf{included} ($x_j = 1$), its weight 
+    consumes capacity, leaving $W_i - w_{ji}$ for the remaining items. 
+    The feasibility density is:
 \end{itemize}
 
-\noindent Each order-1 schema contains exactly $2^{n-1}$ strings 
---- all combinations of the remaining wildcard positions. The 
-sub-generating function $g_j(x)$ defined in Section 4.2 
-corresponds exactly to the order-1 schema for item $j$, 
-enumerating and characterizing the feasibility of all $2^{n-1}$ 
-strings in that schema analytically.
+\begin{flushleft}
+\hspace{2em}$\rho_{j}^{\,1} = \dfrac{\#\bigl\{\text{terms in } 
+g_j : \text{exponent of } 
+x_i \leq W_i - w_{ji} \ \forall i\bigr\}}{2^{n-1}}$
+\end{flushleft}
 
-\noindent We restrict our analysis to order-1 schemas because 
-they provide exactly the per-item feasibility signal needed to 
-compute $p_j$, at a cost of only $2n$ sub-generating function 
-computations rather than the $3^n$ required for full schema 
-enumeration. Note that in practice this reduces further to $n$ 
-computations --- since $g_j(x)$ (or $g_j(x_1, \ldots, x_m)$ 
-for $m$ constraints) is identical for both the 0 and 1 fixing 
-of item $j$, each sub-generating function is computed once and 
-evaluated against two different capacity thresholds: $W - w_j$ 
-for the included case and $W$ for the excluded case (or 
-$W_i - w_{ji}$ and $W_i$ for all $i = 1, \ldots, m$ in the 
-multi-constraint setting).
+\begin{itemize}
+    \item When item $j$ is \textbf{excluded} ($x_j = 0$), full capacity 
+    is available. The feasibility density is:
+\end{itemize}
+
+\begin{flushleft}
+\hspace{2em}$\rho_{j}^{\,0} = \dfrac{\#\bigl\{\text{terms in } 
+g_j : \text{exponent of } 
+x_i \leq W_i \ \forall i\bigr\}}{2^{n-1}}$
+\end{flushleft}
+
+Intuitively, $\rho_j^1$ is the probability that a uniformly random 
+solution \textit{containing} item $j$ is feasible; $\rho_j^0$ is the 
+same for solutions \textit{not} containing $j$.
+
+\subsection{Order-1 Schemas and the Schema-Level Interpretation}
+
+A schema is a string over $\{0, 1, *\}$ where $*$ is a wildcard. An 
+order-1 schema has exactly one fixed position. For $n$ items there are 
+$2n$ order-1 schemas---two per item---each containing exactly $2^{n-1}$ 
+strings. The sub-generating function $g_j$ corresponds exactly to the 
+order-1 schema for item $j$: it enumerates and characterizes the 
+feasibility of all $2^{n-1}$ strings that agree with item $j$'s fixed 
+value. Restricting the analysis to order-1 structures requires $n$ 
+sub-generating function computations (one per item) rather than the $3^n$ 
+required for full schema enumeration.
 
 \subsection{Sampling Probability}
+\label{sec:samplingprob}
 
-\noindent The per-bit sampling probability for item $j$ is 
-defined as:
+We allocate the initialization probability for bit $j$ proportionally to 
+the feasibility signal of each choice. For two mutually exclusive options 
+with scores $a$ and $b$, the proportional allocation rule assigns 
+probability $a/(a+b)$ to option $a$. Applied to our two feasibility 
+densities:
 
 \begin{flushleft}
 \hspace{2em}$p_j = \dfrac{\rho_{j}^{\,1}}{\rho_{j}^{\,1} + \rho_{j}^{\,0}}$
 \end{flushleft}
 
-\noindent This is the probability of setting bit $j$ to 1 when 
-generating an initial solution. When $\rho_{j}^{\,1} \ll 
-\rho_{j}^{\,0}$, including item $j$ severely restricts feasibility 
-and $p_j$ is pushed well below 0.5. When both densities are 
-equal, $p_j = 0.5$, recovering the uniform initialization of 
-Chu \& Beasley.
+This rule satisfies two important properties:
+\begin{enumerate}
+    \item $p_j + (1 - p_j) = 1$ (the probabilities sum to one by 
+    construction).
+    \item The ratio of probabilities equals the ratio of feasibility 
+    densities: if excluding item $j$ is twice as feasibility-preserving 
+    as including it, the algorithm is twice as likely to exclude it.
+\end{enumerate}
 
+\noindent \textbf{Boundary cases.}
+When $\rho_j^1 = \rho_j^0$, we have $p_j = 0.5$, recovering standard 
+uniform initialization. This occurs on loose instances ($\alpha$ near 1), 
+where the presence or absence of any single item has negligible effect 
+on feasibility. When $\rho_j^1 = 0$, item $j$ is never compatible with 
+any completion of the remaining items---$p_j = 0$ and the item is never 
+selected. When $\rho_j^0 = 0$, all completions are infeasible regardless 
+of whether $j$ is included or not, which cannot occur on any instance 
+for which the empty solution is feasible.
+
+% ============================================================
 \section{Algorithm}
+\label{sec:algorithm}
+% ============================================================
+
+\subsection{Exact Computation}
+\label{sec:exact}
+
+The exact procedure computes $\rho_j^1$ and $\rho_j^0$ by explicitly 
+enumerating all $2^{n-1}$ terms of each sub-generating function. Note 
+that the full generating function $f$ itself is never expanded; only the 
+$n$ sub-generating functions $g_j$ are required, each of size $2^{n-1}$.
 
 \begin{algorithm}[H]
-\caption{Generating Function-Informed Initialization}
+\caption{GF-Informed Initialization (Exact)}
+\label{alg:exact}
 \begin{algorithmic}[1]
 \Require $n$ items, $m$ constraints, weights $w_{ji}$, 
          capacities $W_i$, population size $P$
@@ -390,52 +390,122 @@ Chu \& Beasley.
 
 \Statex \textbf{Phase 1 --- Precomputation (done once)}
 \For{$j = 1$ to $n$}
-    \State Compute $g_j(x_1, \ldots, x_m) = 
+    \State Expand $g_j(x_1, \ldots, x_m) = 
            \displaystyle\prod_{k \neq j} 
-           \left(1 + x_1^{w_{k1}} x_2^{w_{k2}} \cdots 
-           x_m^{w_{km}}\right)$
-    \State $\rho_{j}^{\,1} \gets$ fraction of terms in 
-           $g_j(x_1, \ldots, x_m)$ where exponent of 
-           $x_i \leq W_i - w_{ji}$ for all $i = 1, \ldots, m$
-    \State $\rho_{j}^{\,0} \gets$ fraction of terms in 
-           $g_j(x_1, \ldots, x_m)$ where exponent of 
-           $x_i \leq W_i$ for all $i = 1, \ldots, m$
+           \left(1 + x_1^{w_{k1}} \cdots x_m^{w_{km}}\right)$
+    \State $\rho_{j}^{\,1} \gets$ fraction of terms where 
+           exponent of $x_i \leq W_i - w_{ji}$ for all $i$
+    \State $\rho_{j}^{\,0} \gets$ fraction of terms where 
+           exponent of $x_i \leq W_i$ for all $i$
     \State $p_j \gets \rho_{j}^{\,1} / 
            (\rho_{j}^{\,1} + \rho_{j}^{\,0})$
 \EndFor
-\State \Return probability vector 
-       $\mathbf{p} = (p_1, p_2, \ldots, p_n)$
 
 \Statex \textbf{Phase 2 --- Population Initialization}
 \For{$s = 1$ to $P$}
     \For{$j = 1$ to $n$}
-        \State Draw $u \sim \text{Uniform}(0, 1)$
-        \If{$u < p_j$}
-            \State $x_j \gets 1$
-        \Else
-            \State $x_j \gets 0$
-        \EndIf
+        \State $x_j \gets 1$ with probability $p_j$, else $0$
     \EndFor
     \State Add solution $\mathbf{x}$ to population
 \EndFor
 \State \Return population
-
 \end{algorithmic}
 \end{algorithm}
 
-\noindent Note that Phase 1 requires exactly $n$ sub-generating 
-function computations --- $g_j(x_1, \ldots, x_m)$ is computed 
-once per item and evaluated against two capacity thresholds. 
-Phase 2 is identical to the initialization of Chu \& 
-Beasley~\cite{chu1998genetic} except each bit $j$ is sampled 
-with its own problem-informed probability $p_j$ rather than a 
-uniform $0.5$.
+Exact computation requires enumerating $2^{n-1}$ terms per item and is 
+feasible only for $n \leq 20$ in practice. Phase 2 is identical to 
+standard uniform initialization except each bit $j$ is sampled with 
+probability $p_j$ rather than a fixed $0.5$.
 
+\subsection{Monte Carlo Approximation}
+\label{sec:montecarlo}
+
+For practical instances ($n = 50$--$500$), exact enumeration is 
+intractable. We approximate $\rho_j^1$ and $\rho_j^0$ via Monte Carlo 
+sampling. Instead of enumerating all $2^{n-1}$ completions, we draw 
+$M$ random binary vectors $\mathbf{s}^{(1)}, \ldots, \mathbf{s}^{(M)}$ 
+over the $n-1$ items other than $j$, and count the fraction that are 
+feasible under each threshold:
+
+\begin{flushleft}
+\hspace{2em}$\hat{\rho}_{j}^{\,1} = \dfrac{1}{M} 
+\displaystyle\sum_{k=1}^{M} 
+\mathbf{1}\!\left[\displaystyle\sum_{\ell \neq j} w_{\ell i}\, s_\ell^{(k)} 
+\leq W_i - w_{ji} \;\; \forall i\right]$
+\end{flushleft}
+
+\begin{flushleft}
+\hspace{2em}$\hat{\rho}_{j}^{\,0} = \dfrac{1}{M} 
+\displaystyle\sum_{k=1}^{M} 
+\mathbf{1}\!\left[\displaystyle\sum_{\ell \neq j} w_{\ell i}\, s_\ell^{(k)} 
+\leq W_i \;\; \forall i\right]$
+\end{flushleft}
+
+\noindent where $s_\ell^{(k)} \overset{\text{i.i.d.}}{\sim} 
+\text{Bernoulli}(0.5)$.
+
+\noindent \textbf{Accuracy.} Since each $\mathbf{1}[\cdot]$ is a 
+Bernoulli random variable, the standard error of $\hat{\rho}_j^1$ is 
+$\sqrt{\rho_j^1(1-\rho_j^1)/M} \leq 1/(2\sqrt{M})$. At 
+$M = 10^7$, this upper bound is $0.016\%$---sufficient for 
+initialization purposes.
+
+\noindent \textbf{GPU acceleration.} The $M \times n$ matrix of random 
+binary samples can be generated and evaluated entirely on a GPU using 
+PyTorch tensor operations. On a T4 GPU (Google Colab), computing all 
+$n$ probability estimates for $n = 100$, $m = 3$, $M = 10^7$ takes 
+5--8 seconds. This is a one-time precomputation before the GA begins.
+
+\noindent \textbf{Failure mode.} When $\hat{\rho}_j^1 = 0$ 
+(no Monte Carlo sample is feasible with item $j$ included), 
+$p_j = 0$ and item $j$ is never selected. This is the correct behavior 
+when item $j$ truly blocks all feasible completions, but can be an 
+estimation artifact on very tight instances. In our experiments at 
+$\alpha = 0.25$, some items have estimated $p_j = 0$ (never include) 
+and others $p_j = 1$ (always include), reflecting genuine extreme 
+constraint structure rather than sampling failure.
+
+\subsection{Complexity Analysis}
+\label{sec:complexity}
+
+\noindent \textbf{Exact computation.} Expanding each sub-generating 
+function $g_j$ enumerates $2^{n-1}$ terms, and checking feasibility 
+against $m$ constraints requires $O(m)$ work per term. Since there are 
+$n$ items, Phase 1 costs $O(n \cdot 2^n \cdot m)$---exponential in $n$ 
+and intractable for $n > 20$ in practice.
+
+\noindent \textbf{Monte Carlo approximation.} Each of the $n$ items 
+requires $M$ sample evaluations, each checking $m$ constraints. Phase 1 
+therefore costs $O(n \cdot M \cdot m)$---linear in $n$, $M$, and $m$, 
+and fully parallelizable across the $M$ sample dimension on a GPU. 
+Concretely, for $n = 100$, $m = 3$, $M = 10^7$, this involves 
+approximately $3 \times 10^9$ scalar operations, parallelized to 5--8 
+seconds on a T4 GPU. The approximation thus reduces an exponential 
+enumeration to a polynomial estimation at the cost of a controllable 
+error bounded by $1/(2\sqrt{M})$.
+
+Phase 2 (population initialization) costs $O(P \cdot n)$ in both cases 
+and is dominated by Phase 1 for any reasonable population size $P$.
+
+\noindent \textbf{Comparison to LP-based approaches.} LP relaxation-based 
+initialization methods require solving an optimization subproblem and 
+depend on an objective function. The GF Monte Carlo approach requires 
+only weights and capacities, solves no optimization problem, and scales 
+linearly in $n$, $m$, and $M$.
+
+\noindent \textbf{Memory.} The Monte Carlo approach stores an 
+$M \times (n-1)$ binary matrix in GPU memory. At $M = 10^7$ and 
+$n = 100$, this is approximately $125$ MB---manageable on modern 
+hardware and straightforwardly batchable if memory is limited.
+
+% ============================================================
 \section{Worked Examples}
+\label{sec:examples}
+% ============================================================
 
 \subsection{Single Constraint Example}
 
-\noindent Consider the following MKP instance with $n = 3$ items 
+Consider the following MKP instance with $n = 3$ items 
 and $m = 1$ constraint:
 
 \begin{table}[H]
@@ -454,79 +524,54 @@ Value  & 5 & 4 & 3 \\
 \noindent \textbf{Step 1 --- Full Generating Function}
 
 \begin{flushleft}
-\hspace{2em}$f(x) = \prod_{j=1}^{3} (1 + x^{w_j}) = 
-(1 + x^3)(1 + x^2)(1 + x^4)$
+\hspace{2em}$f(x) = (1 + x^3)(1 + x^2)(1 + x^4)$
 \end{flushleft}
-
 \begin{flushleft}
 \hspace{2em}$= 1 + x^2 + x^3 + x^4 + x^5 + x^6 + x^7 + x^9$
 \end{flushleft}
 
-\noindent The 8 terms correspond to all $2^3 = 8$ subsets. 
-Of these, 5 terms have exponent $\leq W = 5$, giving an overall 
-feasibility density of $5/8 = 0.625$.
+Of the $2^3 = 8$ subsets, the feasible ones (exponent $\leq 5$) are: 
+$\emptyset$, $\{2\}$, $\{1\}$, $\{3\}$, $\{1,2\}$---giving 
+overall feasibility density $5/8 = 0.625$.
 
-\noindent \textbf{Step 2 --- Sub-Generating Functions and 
-Feasibility Densities}
+\noindent \textbf{Step 2 --- Sub-Generating Functions}
 
-\noindent Each sub-generating function $g_j(x)$ is computed by 
-removing item $j$'s factor from the full product and evaluated 
-against two thresholds: $W - w_j$ (included case) and $W$ 
-(excluded case). Each $g_j(x)$ has $2^{n-1} = 4$ terms.
+Each $g_j(x)$ is the product over the two items other than $j$ and is 
+evaluated against two thresholds: $W - w_j$ (item included) and $W$ 
+(item excluded).
 
 \vspace{0.5em}
-\noindent \textit{Item 1 $\left(w_1 = 3,\ 
-W - w_1 = 2\right)$:}
+\noindent \textit{Item 1} $(w_1 = 3,\ W - w_1 = 2)$:
+$g_1(x) = (1 + x^2)(1 + x^4) = 1 + x^2 + x^4 + x^6$. 
+Of 4 terms: 2 have exponent $\leq 2$ and 3 have exponent $\leq 5$.
 
 \begin{flushleft}
-\hspace{2em}$g_1(x) = (1 + x^2)(1 + x^4) = 1 + x^2 + x^4 + x^6$
+\hspace{2em}$\rho_{1}^{\,1} = 0.50 \quad 
+\rho_{1}^{\,0} = 0.75 \quad
+p_1 = 0.40$
 \end{flushleft}
 
-\noindent Of 4 terms: 2 have exponent $\leq 2$ and 3 have exponent $\leq 5$.
+\noindent \textit{Item 2} $(w_2 = 2,\ W - w_2 = 3)$:
+$g_2(x) = (1 + x^3)(1 + x^4) = 1 + x^3 + x^4 + x^7$. 
+Of 4 terms: 2 have exponent $\leq 3$ and 3 have exponent $\leq 5$.
 
 \begin{flushleft}
-\hspace{2em}$\rho_{1}^{\,1} = 2/4 = 0.50 \qquad 
-\rho_{1}^{\,0} = 3/4 = 0.75 \qquad
-p_1 = \dfrac{0.50}{0.50 + 0.75} = 0.40$
+\hspace{2em}$\rho_{2}^{\,1} = 0.50 \quad 
+\rho_{2}^{\,0} = 0.75 \quad
+p_2 = 0.40$
 \end{flushleft}
 
-\vspace{0.5em}
-\noindent \textit{Item 2 $\left(w_2 = 2,\ 
-W - w_2 = 3\right)$:}
+\noindent \textit{Item 3} $(w_3 = 4,\ W - w_3 = 1)$:
+$g_3(x) = (1 + x^3)(1 + x^2) = 1 + x^2 + x^3 + x^5$. 
+Of 4 terms: 1 has exponent $\leq 1$ and 4 have exponent $\leq 5$.
 
 \begin{flushleft}
-\hspace{2em}$g_2(x) = (1 + x^3)(1 + x^4) = 1 + x^3 + x^4 + x^7$
+\hspace{2em}$\rho_{3}^{\,1} = 0.25 \quad 
+\rho_{3}^{\,0} = 1.00 \quad
+p_3 = 0.20$
 \end{flushleft}
 
-\noindent Of 4 terms: 2 have exponent $\leq 3$ and 3 have exponent $\leq 5$.
-
-\begin{flushleft}
-\hspace{2em}$\rho_{2}^{\,1} = 2/4 = 0.50 \qquad 
-\rho_{2}^{\,0} = 3/4 = 0.75 \qquad
-p_2 = \dfrac{0.50}{0.50 + 0.75} = 0.40$
-\end{flushleft}
-
-\vspace{0.5em}
-\noindent \textit{Item 3 $\left(w_3 = 4,\ 
-W - w_3 = 1\right)$:}
-
-\begin{flushleft}
-\hspace{2em}$g_3(x) = (1 + x^3)(1 + x^2) = 1 + x^2 + x^3 + x^5$
-\end{flushleft}
-
-\noindent Of 4 terms: 1 has exponent $\leq 1$ and 4 have exponent $\leq 5$.
-
-\begin{flushleft}
-\hspace{2em}$\rho_{3}^{\,1} = 1/4 = 0.25 \qquad 
-\rho_{3}^{\,0} = 4/4 = 1.00 \qquad
-p_3 = \dfrac{0.25}{0.25 + 1.00} = 0.20$
-\end{flushleft}
-
-\noindent \textbf{Step 3 --- Summary, Comparison, and Expected Feasibility Rate}
-
-\noindent The table below summarises the feasibility densities and 
-resulting sampling probabilities for all three items, compared 
-against the uniform baseline of Chu \& Beasley.
+\noindent \textbf{Step 3 --- Summary and Expected Feasibility Rate}
 
 \begin{table}[H]
 \centering
@@ -538,82 +583,22 @@ Weight                          & 3    & 2    & 4    \\
 $\rho_{j}^{\,1}$                & 0.50 & 0.50 & 0.25 \\
 $\rho_{j}^{\,0}$                & 0.75 & 0.75 & 1.00 \\
 \textbf{$p_j$ (ours)}           & \textbf{0.40} & \textbf{0.40} & \textbf{0.20} \\
-$p_j$ (Chu \& Beasley)          & 0.50 & 0.50 & 0.50 \\
+$p_j$ (uniform)                 & 0.50 & 0.50 & 0.50 \\
 \bottomrule
 \end{tabular}
-\caption{Per-item feasibility densities and sampling probabilities. 
-$p_j = \rho_{j}^{\,1} / (\rho_{j}^{\,1} + \rho_{j}^{\,0})$ 
-as defined in Section 4.4.}
+\caption{Per-item feasibility densities and sampling probabilities 
+for the single-constraint example.}
 \end{table}
 
-\noindent Item 3 is the heaviest item --- weight 4 out of capacity 
-5, consuming 80\% of the knapsack upon inclusion. The generating 
-function captures this automatically, pushing $p_3$ down to 0.20. 
-To confirm that these adjusted probabilities translate into a 
-measurably higher fraction of feasible initial solutions, we 
-compute the expected feasibility rate directly.
-
-\noindent Since bits are sampled independently, the probability 
-of generating a specific string $\mathbf{x} = (x_1, x_2, x_3)$ 
-under our method is:
-
-\begin{flushleft}
-\hspace{2em}$P(\mathbf{x}) = \prod_{j=1}^{3} 
-\left[ p_j^{\,x_j} \cdot (1 - p_j)^{\,1 - x_j} \right]$
-\end{flushleft}
-
-\noindent For each bit position $j$, we multiply $p_j$ if 
-$x_j = 1$ and $(1 - p_j)$ if $x_j = 0$. The expected 
-feasibility rate is the sum of $P(\mathbf{x})$ over all 
-feasible strings --- those with total weight $\leq W = 5$.
-
-\begin{table}[H]
-\centering
-\begin{tabular}{ccccc}
-\toprule
-String & Weight & Feasible? & 
-$P(\mathbf{x} \mid \text{ours})$ & 
-$P(\mathbf{x} \mid \text{C\&B})$ \\
-\midrule
-000 & 0 & Yes & 
-$0.60 \times 0.60 \times 0.80 = 0.2880$ & $0.1250$ \\
-001 & 4 & Yes & 
-$0.60 \times 0.60 \times 0.20 = 0.0720$ & $0.1250$ \\
-010 & 2 & Yes & 
-$0.60 \times 0.40 \times 0.80 = 0.1920$ & $0.1250$ \\
-011 & 6 & No  & 
-$0.60 \times 0.40 \times 0.20 = 0.0480$ & $0.1250$ \\
-100 & 3 & Yes & 
-$0.40 \times 0.60 \times 0.80 = 0.1920$ & $0.1250$ \\
-101 & 7 & No  & 
-$0.40 \times 0.60 \times 0.20 = 0.0480$ & $0.1250$ \\
-110 & 5 & Yes & 
-$0.40 \times 0.40 \times 0.80 = 0.1280$ & $0.1250$ \\
-111 & 9 & No  & 
-$0.40 \times 0.40 \times 0.20 = 0.0320$ & $0.1250$ \\
-\midrule
-\multicolumn{3}{l}{\textbf{Expected feasibility rate}} & 
-$\mathbf{0.8720}$ & $\mathbf{0.6250}$ \\
-\bottomrule
-\end{tabular}
-\caption{String-level probability breakdown for the single 
-constraint instance ($W = 5$). Under Chu and Beasley all 
-strings are equally likely at $1/8 = 0.1250$. Under our 
-method probability mass shifts toward feasible strings, 
-improving the expected feasibility rate from $62.5\%$ to 
-$87.2\%$ --- a gain of $24.7$ percentage points.}
-\end{table}
-
-\noindent Item 3 is the primary driver of this improvement. 
-By reducing $p_3$ from $0.50$ to $0.20$, probability mass 
-shifts away from the three infeasible strings that all contain 
-item 3 (strings 011, 101, and 111). Chu and Beasley sample 
-infeasible solutions $37.5\%$ of the time; our method reduces 
-this to $12.8\%$.
+Item 3 consumes 80\% of the capacity upon inclusion; the framework 
+pushes $p_3$ to $0.20$. Enumerating all 8 strings explicitly, the 
+expected feasibility rate under our method is $\mathbf{87.2\%}$ 
+versus $62.5\%$ under uniform initialization---a gain of $24.7$ 
+percentage points.
 
 \subsection{Multiple Constraint Example}
 
-\noindent Consider the following MKP instance with $n = 4$ items 
+Consider the following MKP instance with $n = 4$ items 
 and $m = 2$ constraints:
 
 \begin{table}[H]
@@ -627,191 +612,67 @@ Weight (C2) & 3 & 2 & 5 & 1 \\
 Value       & 4 & 7 & 5 & 3 \\
 \bottomrule
 \end{tabular}
-\caption{4-item two-constraint instance. Capacities $W_1 = 7$, 
-$W_2 = 8$.}
+\caption{4-item two-constraint instance. $W_1 = 7$, $W_2 = 8$.}
 \end{table}
 
-\noindent \textbf{Step 1 --- Full Generating Function}
+\noindent Of the $2^4 = 16$ possible solutions, 9 are feasible (overall 
+density $56.25\%$). The two-constraint setting requires evaluating each 
+completion against both thresholds simultaneously. We work through 
+Item~4 in full to illustrate how the multi-dimensional threshold check 
+works, then summarize all four items.
+
+\noindent \textbf{Sub-generating function for Item 4}
+$(w_{41} = 5,\ w_{42} = 1)$:
 
 \begin{flushleft}
-\hspace{2em}$f(x_1, x_2) = \prod_{j=1}^{4} 
-\left(1 + x_1^{w_{j1}} x_2^{w_{j2}}\right)$
+\hspace{1em}$g_4(x_1, x_2) = (1 + x_1^2 x_2^3)(1 + x_1^4 x_2^2)(1 + x_1^3 x_2^5)$
 \end{flushleft}
 
-\begin{flushleft}
-\hspace{2em}$= (1 + x_1^2 x_2^3)(1 + x_1^4 x_2^2)
-(1 + x_1^3 x_2^5)(1 + x_1^5 x_2^1)$
-\end{flushleft}
-
-\noindent Each of the $2^4 = 16$ terms corresponds to one subset. 
-A term $x_1^{k_1} x_2^{k_2}$ is feasible if and only if 
-$k_1 \leq W_1 = 7$ and $k_2 \leq W_2 = 8$ simultaneously. 
-Of the 16 subsets, 9 are feasible, giving an overall feasibility 
-density of $9/16 = 0.5625$.
-
-\noindent \textbf{Step 2 --- Sub-Generating Functions and 
-Feasibility Densities}
-
-\noindent For each item $j$ we compute $g_j(x_1, x_2)$ by 
-removing item $j$'s factor from the full product. Each 
-$g_j(x_1, x_2)$ is evaluated against two capacity thresholds 
-simultaneously --- $W_i - w_{ji}$ when item $j$ is included 
-and $W_i$ when excluded --- for all $i = 1, \ldots, m$. 
-Each sub-generating function has $2^{n-1} = 8$ terms.
-
-\vspace{0.5em}
-\noindent \textit{Item 1 $\left(w_{11} = 2,\ w_{12} = 3,\ 
-W_1 - w_{11} = 5,\ W_2 - w_{12} = 5\right)$:}
-
-\begin{flushleft}
-\hspace{2em}$g_1(x_1, x_2) = (1 + x_1^4 x_2^2)
-(1 + x_1^3 x_2^5)(1 + x_1^5 x_2^1)$
-\end{flushleft}
+\noindent When Item 4 is \textbf{included}, the remaining capacity is 
+$W_1 - w_{41} = 2$ and $W_2 - w_{42} = 7$. When Item 4 is 
+\textbf{excluded}, the full capacity $W_1 = 7$, $W_2 = 8$ is available. 
+Table~\ref{tab:g4} enumerates all $2^3 = 8$ completions of $g_4$.
 
 \begin{table}[H]
 \centering
-\begin{tabular}{cccc}
+\small
+\begin{tabular}{lcccc}
 \toprule
-Items included & $(k_1,\ k_2)$ & 
-$k_1 \leq 5,\ k_2 \leq 5$ & 
-$k_1 \leq 7,\ k_2 \leq 8$ \\
+$\{1,2,3\}$ subset & $e_1$ & $e_2$ & Incl & Excl \\
 \midrule
-none          & $(0,\ 0)$  & \cmark & \cmark \\
-item 2 only   & $(4,\ 2)$  & \cmark & \cmark \\
-item 3 only   & $(3,\ 5)$  & \cmark & \cmark \\
-item 4 only   & $(5,\ 1)$  & \cmark & \cmark \\
-items 2, 3    & $(7,\ 7)$  & \xmark & \cmark \\
-items 2, 4    & $(9,\ 3)$  & \xmark & \xmark \\
-items 3, 4    & $(8,\ 6)$  & \xmark & \xmark \\
-items 2, 3, 4 & $(12,\ 8)$ & \xmark & \xmark \\
+$\emptyset$   & 0 & 0  & \cmark & \cmark \\
+$\{3\}$       & 3 & 5  & \xmark & \cmark \\
+$\{2\}$       & 4 & 2  & \xmark & \cmark \\
+$\{2,3\}$     & 7 & 7  & \xmark & \cmark \\
+$\{1\}$       & 2 & 3  & \cmark & \cmark \\
+$\{1,3\}$     & 5 & 8  & \xmark & \cmark \\
+$\{1,2\}$     & 6 & 5  & \xmark & \cmark \\
+$\{1,2,3\}$   & 9 & 10 & \xmark & \xmark \\
 \bottomrule
 \end{tabular}
-\caption{Feasibility of all $2^3 = 8$ terms of $g_1(x_1, x_2)$ 
-under both capacity thresholds. Left column applies when item 1 
-is included ($W_i - w_{1i}$); right column when excluded ($W_i$).}
+\caption{All 8 completions of $g_4$. $e_1$, $e_2$ are total weights 
+from items 1--3. Incl: $e_1 \leq 2$, $e_2 \leq 7$. 
+Excl: $e_1 \leq 7$, $e_2 \leq 8$.}
+\label{tab:g4}
 \end{table}
 
-\begin{flushleft}
-\hspace{2em}$\rho_{1}^{\,1} = 4/8 = 0.500 \qquad 
-\rho_{1}^{\,0} = 5/8 = 0.625 \qquad
-p_1 = \dfrac{0.500}{0.500 + 0.625} = 0.444$
-\end{flushleft}
-
-\vspace{0.5em}
-\noindent \textit{Item 2 $\left(w_{21} = 4,\ w_{22} = 2,\ 
-W_1 - w_{21} = 3,\ W_2 - w_{22} = 6\right)$:}
+\noindent From Table~\ref{tab:g4}: 2 of 8 completions are feasible 
+when Item 4 is included; 7 of 8 are feasible when it is excluded.
 
 \begin{flushleft}
-\hspace{2em}$g_2(x_1, x_2) = (1 + x_1^2 x_2^3)
-(1 + x_1^3 x_2^5)(1 + x_1^5 x_2^1)$
+\hspace{1em}$\rho_{4}^{\,1} = 0.250 \quad
+\rho_{4}^{\,0} = 0.875 \quad
+p_4 = 0.222$
 \end{flushleft}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{cccc}
-\toprule
-Items included & $(k_1,\ k_2)$ & 
-$k_1 \leq 3,\ k_2 \leq 6$ & 
-$k_1 \leq 7,\ k_2 \leq 8$ \\
-\midrule
-none          & $(0,\ 0)$  & \cmark & \cmark \\
-item 1 only   & $(2,\ 3)$  & \cmark & \cmark \\
-item 3 only   & $(3,\ 5)$  & \cmark & \cmark \\
-item 4 only   & $(5,\ 1)$  & \xmark & \cmark \\
-items 1, 3    & $(5,\ 8)$  & \xmark & \cmark \\
-items 1, 4    & $(7,\ 4)$  & \xmark & \cmark \\
-items 3, 4    & $(8,\ 6)$  & \xmark & \xmark \\
-items 1, 3, 4 & $(10,\ 9)$ & \xmark & \xmark \\
-\bottomrule
-\end{tabular}
-\caption{Feasibility of all $2^3 = 8$ terms of $g_2(x_1, x_2)$ 
-under both capacity thresholds.}
-\end{table}
+\noindent Item 4 consumes $71\%$ of $W_1$ on its own, leaving almost no 
+room for any other item on C1 when it is included---which is why $p_4$ 
+is pushed down to $0.222$. Notice that this signal comes specifically 
+from C1: Item 4's weight on C2 is only $w_{42} = 1$, which is harmless. 
+The two-dimensional threshold check automatically identifies which 
+constraint is doing the work.
 
-\begin{flushleft}
-\hspace{2em}$\rho_{2}^{\,1} = 3/8 = 0.375 \qquad 
-\rho_{2}^{\,0} = 6/8 = 0.750 \qquad
-p_2 = \dfrac{0.375}{0.375 + 0.750} = 0.333$
-\end{flushleft}
-
-\vspace{0.5em}
-\noindent \textit{Item 3 $\left(w_{31} = 3,\ w_{32} = 5,\ 
-W_1 - w_{31} = 4,\ W_2 - w_{32} = 3\right)$:}
-
-\begin{flushleft}
-\hspace{2em}$g_3(x_1, x_2) = (1 + x_1^2 x_2^3)
-(1 + x_1^4 x_2^2)(1 + x_1^5 x_2^1)$
-\end{flushleft}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{cccc}
-\toprule
-Items included & $(k_1,\ k_2)$ & 
-$k_1 \leq 4,\ k_2 \leq 3$ & 
-$k_1 \leq 7,\ k_2 \leq 8$ \\
-\midrule
-none          & $(0,\ 0)$  & \cmark & \cmark \\
-item 1 only   & $(2,\ 3)$  & \cmark & \cmark \\
-item 2 only   & $(4,\ 2)$  & \cmark & \cmark \\
-item 4 only   & $(5,\ 1)$  & \xmark & \cmark \\
-items 1, 2    & $(6,\ 5)$  & \xmark & \cmark \\
-items 1, 4    & $(7,\ 4)$  & \xmark & \cmark \\
-items 2, 4    & $(9,\ 3)$  & \xmark & \xmark \\
-items 1, 2, 4 & $(11,\ 7)$ & \xmark & \xmark \\
-\bottomrule
-\end{tabular}
-\caption{Feasibility of all $2^3 = 8$ terms of $g_3(x_1, x_2)$ 
-under both capacity thresholds.}
-\end{table}
-
-\begin{flushleft}
-\hspace{2em}$\rho_{3}^{\,1} = 3/8 = 0.375 \qquad 
-\rho_{3}^{\,0} = 6/8 = 0.750 \qquad
-p_3 = \dfrac{0.375}{0.375 + 0.750} = 0.333$
-\end{flushleft}
-
-\vspace{0.5em}
-\noindent \textit{Item 4 $\left(w_{41} = 5,\ w_{42} = 1,\ 
-W_1 - w_{41} = 2,\ W_2 - w_{42} = 7\right)$:}
-
-\begin{flushleft}
-\hspace{2em}$g_4(x_1, x_2) = (1 + x_1^2 x_2^3)
-(1 + x_1^4 x_2^2)(1 + x_1^3 x_2^5)$
-\end{flushleft}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{cccc}
-\toprule
-Items included & $(k_1,\ k_2)$ & 
-$k_1 \leq 2,\ k_2 \leq 7$ & 
-$k_1 \leq 7,\ k_2 \leq 8$ \\
-\midrule
-none          & $(0,\ 0)$  & \cmark & \cmark \\
-item 1 only   & $(2,\ 3)$  & \cmark & \cmark \\
-item 2 only   & $(4,\ 2)$  & \xmark & \cmark \\
-item 3 only   & $(3,\ 5)$  & \xmark & \cmark \\
-items 1, 2    & $(6,\ 5)$  & \xmark & \cmark \\
-items 1, 3    & $(5,\ 8)$  & \xmark & \cmark \\
-items 2, 3    & $(7,\ 7)$  & \xmark & \cmark \\
-items 1, 2, 3 & $(9,\ 10)$ & \xmark & \xmark \\
-\bottomrule
-\end{tabular}
-\caption{Feasibility of all $2^3 = 8$ terms of $g_4(x_1, x_2)$ 
-under both capacity thresholds.}
-\end{table}
-
-\begin{flushleft}
-\hspace{2em}$\rho_{4}^{\,1} = 2/8 = 0.250 \qquad 
-\rho_{4}^{\,0} = 7/8 = 0.875 \qquad
-p_4 = \dfrac{0.250}{0.250 + 0.875} = 0.222$
-\end{flushleft}
-
-\noindent \textbf{Step 3 --- Summary, Comparison, and Expected Feasibility Rate}
-
-\noindent The table below summarises the feasibility densities and 
-resulting sampling probabilities for all four items.
+The same procedure applied to all four items yields:
 
 \begin{table}[H]
 \centering
@@ -819,266 +680,495 @@ resulting sampling probabilities for all four items.
 \toprule
  & Item 1 & Item 2 & Item 3 & Item 4 \\
 \midrule
-Weight (C1)                      & 2     & 4     & 3     & 5     \\
-Weight (C2)                      & 3     & 2     & 5     & 1     \\
-$\rho_{j}^{\,1}$                 & 0.500 & 0.375 & 0.375 & 0.250 \\
-$\rho_{j}^{\,0}$                 & 0.625 & 0.750 & 0.750 & 0.875 \\
-\textbf{$p_j$ (ours)}            & \textbf{0.444} & \textbf{0.333} & \textbf{0.333} & \textbf{0.222} \\
-$p_j$ (Chu \& Beasley)           & 0.500 & 0.500 & 0.500 & 0.500 \\
+Weight (C1)           & 2     & 4     & 3     & 5     \\
+Weight (C2)           & 3     & 2     & 5     & 1     \\
+$\rho_{j}^{\,1}$      & 0.500 & 0.375 & 0.375 & 0.250 \\
+$\rho_{j}^{\,0}$      & 0.625 & 0.750 & 0.750 & 0.875 \\
+\textbf{$p_j$ (ours)} & \textbf{0.444} & \textbf{0.333} & \textbf{0.333} & \textbf{0.222} \\
+$p_j$ (uniform)       & 0.500 & 0.500 & 0.500 & 0.500 \\
 \bottomrule
 \end{tabular}
-\caption{Per-item feasibility densities and sampling probabilities 
-for the two-constraint instance ($W_1 = 7$, $W_2 = 8$). 
-$p_j = \rho_{j}^{\,1} / (\rho_{j}^{\,1} + \rho_{j}^{\,0})$ 
-as defined in Section 4.4.}
+\caption{Per-item probabilities for the two-constraint example.}
+\label{tab:multiconstrain}
 \end{table}
 
-\noindent Item 4 receives the most aggressive adjustment --- 
-its large weight on C1 ($w_{41} = 5$) restricts joint 
-feasibility across both constraints simultaneously, pushing 
-$p_4$ down to 0.222. Items 2 and 3 both receive $p_j = 0.333$ 
-despite stressing different constraints: item 2 is heavy on C1, 
-item 3 is heavy on C2, but both impose comparable joint 
-feasibility costs. To confirm that these adjusted probabilities 
-produce a measurably higher fraction of feasible initial 
-solutions, we compute the expected feasibility rate directly.
+\noindent Enumerating all 16 strings with these $p_j$ values, the 
+expected feasibility rate under our method is $\mathbf{83.8\%}$ versus 
+$56.25\%$ under uniform initialization---a gain of $27.6$ percentage 
+points.
 
-\noindent The probability of generating a specific string 
-$\mathbf{x} = (x_1, x_2, x_3, x_4)$ under our method is:
+Note that Items 2 and 3 are penalized equally ($p_j = 0.333$) despite 
+very different weight profiles: Item 2 is heavy on C1 and light on C2, 
+while Item 3 is the reverse. Both are constrained equally by the 
+combination of the two thresholds. This joint accounting---automatically 
+identifying which constraints bind for each item---is what distinguishes 
+the multi-constraint GF approach from heuristics based on single 
+constraints considered independently.
 
-\begin{flushleft}
-\hspace{2em}$P(\mathbf{x}) = \prod_{j=1}^{4} 
-\left[ p_j^{\,x_j} \cdot (1 - p_j)^{\,1 - x_j} \right]$
-\end{flushleft}
+% ============================================================
+\section{Experiments}
+\label{sec:experiments}
+% ============================================================
 
-\noindent A string is feasible if and only if $k_1 \leq W_1 = 7$ 
-and $k_2 \leq W_2 = 8$ simultaneously. We enumerate all 16 strings 
-below, using the rounded values $1 - p_1 \approx 0.556$, 
-$1 - p_2 = 1 - p_3 \approx 0.667$, $1 - p_4 \approx 0.778$.
+\subsection{Setup}
+
+We generate a synthetic MKP instance with $n = 100$ items and $m = 3$ 
+constraints using a fixed random seed (42). Item weights $w_{ji}$ are 
+drawn uniformly from $[1, 100]$ and values $v_j$ uniformly from $[1, 100]$. 
+Capacities are set to $W_i = \alpha \cdot \sum_j w_{ji}$ for 
+$\alpha \in \{0.25, 0.50, 0.75\}$, giving three instances ranging from 
+tight to loose.
+
+We compare two initialization strategies within an otherwise identical 
+steady-state GA:
+
+\begin{enumerate}
+    \item \textbf{Uniform (baseline):} Each bit set to 1 with probability 
+    0.5 independently.
+    \item \textbf{GF-Biased:} Each bit $j$ set to 1 with probability 
+    $\hat{p}_j$ estimated via Monte Carlo (Section~\ref{sec:montecarlo}).
+\end{enumerate}
+
+We use a \textbf{death penalty} fitness model: infeasible solutions 
+receive fitness 0 and are non-competing in selection. This isolates the 
+effect of initialization cleanly, since no repair mechanism can 
+compensate for an all-infeasible initial population.
+
+For the extended experiments at $\alpha = 0.25$ 
+(Sections~\ref{sec:hybrid}--\ref{sec:pipeline}), we additionally evaluate 
+a hybrid initialization sweep---varying the fraction of GF-biased 
+solutions in the initial population---followed by an ILS post-processing 
+extension to assess the quality ceiling reachable with downstream 
+optimization:
+
+\begin{enumerate}
+  \setcounter{enumi}{2}
+    \item \textbf{Hybrid:} A mixed initial population combining GF-biased 
+    and uniformly initialized solutions at varying proportions (0\%, 25\%, 
+    50\%, 75\%, 100\% GF-biased), to identify the minimum informed 
+    fraction needed for reliable convergence.
+    \item \textbf{GF-Biased + ILS:} GF-biased initialization followed 
+    by iterated local search post-processing ($r = 50$ restarts, 
+    $k = 5$ bit-flip perturbations), to show the quality ceiling 
+    achievable with standard local search on top of the GF output.
+\end{enumerate}
+
+\subsection{Parameters}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+Population size $P$ & 50 \\
+Offspring per run & 20,000 \\
+Mutation rate & $1/n = 0.01$ \\
+Crossover & Uniform \\
+Selection & Binary tournament ($k=2$) \\
+Fitness & Death penalty \\
+Independent runs & 20 \\
+Monte Carlo samples $M$ & $10^7$ \\
+ILS restarts $r$ & 50 \\
+ILS perturbation size $k$ & 5 (bit-flips) \\
+\bottomrule
+\end{tabular}
+\caption{Experimental parameters. ILS parameters apply only to 
+Section~\ref{sec:pipeline}.}
+\end{table}
+
+\subsection{Reference Best}
+
+A reference best fitness is established per $\alpha$ value by running 
+a repair-based GA (Chu \& Beasley) for 30,000 offspring over 20 runs 
+and taking the best observed value. These values ($2375$ at $\alpha = 0.25$; 
+$3909$ at $\alpha = 0.50$; $4823$ at $\alpha = 0.75$) are not proven 
+optimal but serve as a consistent performance ceiling for relative 
+comparisons. All quality figures reported below are expressed as a 
+percentage of this ceiling. We note that with ILS post-processing, the 
+GF-biased approach reaches within $0.5$ percentage points of this 
+ceiling on the tight instance (Section~\ref{sec:pipeline}).
+
+% ============================================================
+\section{Results}
+\label{sec:results}
+% ============================================================
+
+\subsection{Sampling Probability Behavior}
+
+Table~\ref{tab:pj} summarizes the distribution of estimated $\hat{p}_j$ 
+values across all items at each tightness level. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+$\alpha$ & Min & Max & Mean & Interpretation \\
+\midrule
+0.25 & 0.000 & 1.000 & 0.240 & Strong diff. (tight) \\
+0.50 & 0.414 & 0.493 & 0.449 & Weak diff. (medium) \\
+0.75 & 0.500 & 0.500 & 0.500 & None (loose) \\
+\bottomrule
+\end{tabular}
+\caption{Distribution of $\hat{p}_j$ across all 100 items at each 
+tightness level.}
+\label{tab:pj}
+\end{table}
+
+At $\alpha = 0.75$, every item has $\hat{p}_j = 0.5$ by construction: 
+the instance is loose enough that including or excluding any single item 
+has negligible effect on feasibility, so the framework degenerates 
+automatically to uniform initialization. This is a theoretical prediction 
+of the framework (Section~\ref{sec:samplingprob}), and Table~\ref{tab:pj} 
+confirms it holds exactly. The identical results at $\alpha = 0.75$ 
+reported below are therefore not a comparison between two methods---they 
+are a validation that the self-calibrating property holds empirically. 
+At $\alpha = 0.25$, the range $[0, 1]$ indicates that some items are 
+so weight-dominant that they are never compatible with any feasible 
+completion ($p_j = 0$), while others are always compatible ($p_j = 1$).
+
+\subsection{Initialization Feasibility and Final Fitness}
+
+Table~\ref{tab:main} reports initialization feasibility and final 
+solution quality jointly. We present them together because at 
+$\alpha = 0.25$ the two are causally linked in the most direct sense 
+possible: zero initial feasibility under uniform initialization means 
+selection never operates, so final fitness is also zero. The table 
+tells a single story about what the initialization method enables.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llcc}
+\toprule
+$\alpha$ & Method & Init Feas. & Final (\% ref) \\
+\midrule
+0.25 & Uniform  & 0.0\%  & 0.0\%  \\
+0.25 & GF-Biased & \textbf{52.5\%} & \textbf{96.5\%} \\
+\midrule
+0.50 & Uniform  & 32.6\% & 98.5\% \\
+0.50 & GF-Biased & \textbf{71.6\%} & \textbf{98.8\%} \\
+\midrule
+0.75 & Uniform  & 100.0\% & 99.5\% \\
+0.75 & GF-Biased & 100.0\% & 99.5\% \\
+\bottomrule
+\end{tabular}
+\caption{Initialization feasibility and final fitness under a death 
+penalty model. Averages over 20 runs. The $\alpha = 0.75$ rows are 
+identical because $p_j = 0.5$ for all items at this tightness level.}
+\label{tab:main}
+\end{table}
+
+The result at $\alpha = 0.25$ is the central finding. Under uniform 
+initialization, every solution in every initial population across all 
+20 runs is infeasible. The death penalty assigns fitness 0 to all 
+solutions, selection cannot differentiate between them, and no 
+improvement ever occurs. GF-biased initialization starts with 52.5\% 
+of the initial population feasible, selection operates immediately, 
+and the GA converges to 96.5\% of the reference best. This is not a 
+marginal improvement---it is the difference between a completely 
+inoperative algorithm and one that solves the problem effectively.
+
+At $\alpha = 0.50$, both methods eventually converge to comparable 
+final quality (98.5\% versus 98.8\%), but GF-biased initialization 
+starts with over twice the fraction of feasible solutions (71.6\% 
+versus 32.6\%) and converges faster (Table~\ref{tab:convergence}).
+
+\subsection{Hybrid Initialization}
+\label{sec:hybrid}
+
+Before adding post-processing, we first examine how much of the 
+population needs to be GF-biased for the algorithm to function at all. 
+Table~\ref{tab:hybrid} sweeps the informed fraction at $\alpha = 0.25$.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+Inf. Frac. & Init Feas. & Quality (\% ref) & Solved \\
+\midrule
+0\%   & 0.0\%  & 0.0\%  & 0/20 \\
+25\%  & 11.6\% & 97.1\% & 20/20 \\
+50\%  & 25.1\% & 96.7\% & 20/20 \\
+75\%  & 37.9\% & 97.1\% & 20/20 \\
+100\% & 50.5\% & 96.6\% & 18/20 \\
+\bottomrule
+\end{tabular}
+\caption{Hybrid initialization sweep at $\alpha = 0.25$. ``Inf.\ Frac.'' 
+is the GF-biased proportion of the initial population; the remainder 
+are uniform. ``Solved'' counts runs reaching $\geq 95\%$ of the 
+reference best. 20 runs per condition.}
+\label{tab:hybrid}
+\end{table}
+
+Seeding just 25\% of the population with GF-biased solutions---while 
+initializing the remaining 75\% uniformly---is sufficient to rescue 
+the algorithm: all 20 runs converge to 97\%+ quality, compared to 0/20 
+under pure uniform initialization. Mean solution quality is approximately 
+flat across all non-zero informed fractions (96.6--97.1\%), suggesting 
+that the critical transition is binary: any non-zero informed fraction 
+crosses the feasibility threshold required for selection to operate. 
+Notably, the pure GF condition (100\% informed) solves 18/20 runs rather 
+than 20/20, while mixed conditions at 25--75\% solve all 20; this is 
+consistent with lower population diversity at initialization when all 
+solutions are drawn from the same biased distribution. The informed 
+fraction is itself a tunable parameter; practitioners can trade off 
+initialization overhead against early-generation diversity as their 
+application demands.
+
+\subsection{Full Pipeline at $\alpha = 0.25$}
+\label{sec:pipeline}
+
+Table~\ref{tab:pipeline} shows what is achievable at $\alpha = 0.25$ 
+as downstream optimization is added to the GF-biased baseline.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Method & Quality (\% ref) & Solved \\
+\midrule
+Uniform + death penalty & 0.0\% & 0/20 \\
+GF-Biased & 96.5\% & 20/20 \\
+GF-Biased + ILS ($r=50$, $k=5$) & \textbf{99.3\%} & 20/20 \\
+\bottomrule
+\end{tabular}
+\caption{Solution quality at $\alpha = 0.25$ across pipeline 
+configurations. 20 runs each. ``Solved'' counts runs reaching 
+$\geq 95\%$ of the reference best. A repair-based GA achieves 
+$99.8\%$ as a non-comparable reference (it uses objective values 
+unavailable to the death-penalty pipeline).}
+\label{tab:pipeline}
+\end{table}
+
+Adding a lightweight ILS step to the GF-biased GA brings mean quality 
+to 99.3\% of the reference best. The ILS configuration used here 
+($r = 50$ restarts, $k = 5$ bit-flip perturbations) is one point in a 
+tunable parameter space; we do not claim these settings are optimal. 
+The point is that the output of the GF framework slots directly into 
+standard local search techniques, and substantial quality gains are 
+available through straightforward downstream optimization.
+
+\subsection{Convergence Speed}
+\label{sec:convergence}
+
+Table~\ref{tab:convergence} reports the median offspring evaluated to 
+reach each fitness threshold at $\alpha \in \{0.25, 0.50\}$. The 
+$\alpha = 0.75$ case is omitted as both methods are identical by 
+construction. Convergence speed is not a primary contribution of this 
+work; these results are included for completeness.
 
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{ccccc}
+\begin{tabular}{llccccc}
 \toprule
-String & $(k_1,\ k_2)$ & Feasible? & 
-$P(\mathbf{x} \mid \text{ours})$ & 
-$P(\mathbf{x} \mid \text{C\&B})$ \\
+$\alpha$ & Method & 70\% & 80\% & 90\% & 95\% & 98\% \\
 \midrule
-0000 & $(0,\ 0)$   & Yes &
-$0.556 \times 0.667 \times 0.667 \times 0.778 = 0.1928$ & 
-$0.0625$ \\
-0001 & $(5,\ 1)$   & Yes &
-$0.556 \times 0.667 \times 0.667 \times 0.222 = 0.0550$ & 
-$0.0625$ \\
-0010 & $(3,\ 5)$   & Yes &
-$0.556 \times 0.667 \times 0.333 \times 0.778 = 0.0963$ & 
-$0.0625$ \\
-0011 & $(8,\ 6)$   & No  &
-$0.556 \times 0.667 \times 0.333 \times 0.222 = 0.0275$ & 
-$0.0625$ \\
-0100 & $(4,\ 2)$   & Yes &
-$0.556 \times 0.333 \times 0.667 \times 0.778 = 0.0963$ & 
-$0.0625$ \\
-0101 & $(9,\ 3)$   & No  &
-$0.556 \times 0.333 \times 0.667 \times 0.222 = 0.0275$ & 
-$0.0625$ \\
-0110 & $(7,\ 7)$   & Yes &
-$0.556 \times 0.333 \times 0.333 \times 0.778 = 0.0481$ & 
-$0.0625$ \\
-0111 & $(12,\ 8)$  & No  &
-$0.556 \times 0.333 \times 0.333 \times 0.222 = 0.0137$ & 
-$0.0625$ \\
-1000 & $(2,\ 3)$   & Yes &
-$0.444 \times 0.667 \times 0.667 \times 0.778 = 0.1540$ & 
-$0.0625$ \\
-1001 & $(7,\ 4)$   & Yes &
-$0.444 \times 0.667 \times 0.667 \times 0.222 = 0.0440$ & 
-$0.0625$ \\
-1010 & $(5,\ 8)$   & Yes &
-$0.444 \times 0.667 \times 0.333 \times 0.778 = 0.0770$ & 
-$0.0625$ \\
-1011 & $(10,\ 9)$  & No  &
-$0.444 \times 0.667 \times 0.333 \times 0.222 = 0.0220$ & 
-$0.0625$ \\
-1100 & $(6,\ 5)$   & Yes &
-$0.444 \times 0.333 \times 0.667 \times 0.778 = 0.0770$ & 
-$0.0625$ \\
-1101 & $(11,\ 6)$  & No  &
-$0.444 \times 0.333 \times 0.667 \times 0.222 = 0.0220$ & 
-$0.0625$ \\
-1110 & $(9,\ 10)$  & No  &
-$0.444 \times 0.333 \times 0.333 \times 0.778 = 0.0385$ & 
-$0.0625$ \\
-1111 & $(14,\ 11)$ & No  &
-$0.444 \times 0.333 \times 0.333 \times 0.222 = 0.0110$ & 
-$0.0625$ \\
+0.25 & Uniform  & \multicolumn{5}{c}{never (0/20 runs)} \\
+0.25 & GF & 481 & 1{,}023 & 2{,}309 & 7{,}529 & 16{,}845$^*$ \\
 \midrule
-\multicolumn{3}{l}{\textbf{Expected feasibility rate}} & 
-$\mathbf{0.7405}$ & $\mathbf{0.5625}$ \\
+0.50 & Uniform  & 82 & 316 & 893 & 1{,}740 & 8{,}327 \\
+0.50 & GF & 54 & 255 & 788 & 1{,}577 & 6{,}724 \\
 \bottomrule
 \end{tabular}
-\caption{String-level probability breakdown for the two-constraint 
-instance ($W_1 = 7$, $W_2 = 8$). Of the 16 possible strings, 
-9 are feasible. Under Chu and Beasley the expected feasibility 
-rate is $9/16 = 0.5625$. Under our method probability mass shifts 
-toward feasible strings, improving the expected feasibility rate 
-to $74.1\%$ --- a gain of $17.8$ percentage points.}
+\caption{Median offspring to first reach each fitness threshold 
+(\% of reference best). $^*$reached in only 1 of 20 runs within 
+20,000 offspring.}
+\label{tab:convergence}
 \end{table}
 
-\noindent Item 4 is the primary driver of this improvement. 
-By reducing $p_4$ from $0.500$ to $0.222$, our method assigns 
-substantially lower probability mass to strings containing 
-item 4, which are disproportionately infeasible due to its 
-large weight on C1. Chu and Beasley sample infeasible solutions 
-$43.75\%$ of the time; our method reduces this to $25.95\%$.
+GF-biased initialization also yields modestly faster early convergence 
+at $\alpha = 0.50$, consistent with the higher initial feasibility 
+giving selection an earlier head start.
 
-\section{Monte Carlo Estimation of Feasibility Densities}
+% ============================================================
+\section{Discussion}
+\label{sec:discussion}
+% ============================================================
 
-\subsection{Motivation}
+\subsection{When Does GF-Biased Initialization Help?}
 
-\noindent The worked examples in Section~6 compute $\rho_{j}^{\,1}$ 
-and $\rho_{j}^{\,0}$ exactly by expanding the sub-generating function 
-$g_j$ and enumerating all $2^{n-1}$ terms. For $n = 3$ and $n = 4$ 
-this is tractable. For real MKP instances with $n = 100$ items, exact 
-enumeration requires examining $2^{99}$ subsets per item --- completely 
-infeasible. We therefore approximate these quantities via Monte Carlo 
-sampling.
+The results suggest a clear characterization of when the framework adds 
+value. It helps when (1) the instance is tight enough that uniform 
+initialization produces non-trivial infeasibility ($\alpha \lesssim 0.50$), 
+and (2) the fitness model is constraint-respecting without repair---whether 
+that is a death penalty, a soft penalty with a high coefficient, or the 
+absence of an objective function entirely. When the instance is loose 
+($\alpha = 0.75$), the framework degenerates to uniform initialization 
+automatically. This graceful degradation is a theoretical property of 
+the $p_j$ formula, not a tuned behavior, and the experiments confirm it.
 
-\subsection{What We Are Estimating}
+\subsection{Applicability Beyond Standard MKP}
 
-\noindent For each item $j$ we require two quantities:
+The framework's most important property is that it is 
+\textit{objective-free}: $p_j$ depends only on weights $w_{ji}$ and 
+capacities $W_i$, not on values $v_j$. This makes it applicable to 
+settings where repair operators are undefined or unreliable:
 
 \begin{itemize}
-    \item $\rho_{j}^{\,1}$ --- the fraction of all $2^{n-1}$ subsets 
-    of the remaining items that remain feasible when item $j$ is 
-    included, checked against the reduced capacity $W_i - w_{ji}$ 
-    for all constraints $i$ simultaneously.
-
-    \item $\rho_{j}^{\,0}$ --- the same fraction when item $j$ is 
-    excluded, checked against the full capacity $W_i$.
+    \item \textbf{Constraint satisfaction problems (CSPs):} When no 
+    objective function exists, the efficiency ranking $u_j$ cannot be 
+    computed and repair is undefined. GF-biased initialization provides 
+    a principled starting point for any constraint-feasible-only search.
+    \item \textbf{Noisy or uncertain objectives:} When value estimates 
+    are unreliable, $u_j$ may be misleading. The GF framework ignores 
+    objective values entirely and remains well-calibrated.
+    \item \textbf{Adversarial correlation structure:} Hill and 
+    colleagues~\cite{hill2013neg} showed that standard greedy repair 
+    degrades on instances where item weights and values are negatively 
+    correlated, because the efficiency ranking systematically 
+    disadvantages heavy, high-value items. GF-biased initialization is 
+    unaffected by value-weight correlation. Demonstrating this advantage 
+    empirically is a primary direction for follow-up work 
+    (Section~\ref{sec:futurework}).
 \end{itemize}
 
-\noindent The sampling probability is then $p_j = \rho_{j}^{\,1} / 
-(\rho_{j}^{\,1} + \rho_{j}^{\,0})$ as defined in Section~4.4.
+\subsection{Computational Overhead}
 
-\subsection{The Estimation Procedure}
+The one-time precomputation at $M = 10^7$, $n = 100$, $m = 3$ runs in 
+5--8 seconds on a T4 GPU (Section~\ref{sec:complexity}). For larger-scale 
+applications (e.g., $n = 500$ as in OR-Library benchmarks), the cost 
+scales as $O(n \cdot M \cdot m)$---linearly in $n$---and is fully 
+GPU-parallelizable across the sample dimension.
 
-\noindent Instead of enumerating all $2^{n-1}$ subsets, we draw $M$ 
-random binary strings of length $n$ uniformly at random. For each 
-string and each item $j$ we compute the total constraint usage of the 
-string under all $m$ constraints, remove item $j$'s contribution from 
-the usage, and check feasibility against $W_i - w_{ji}$ (included 
-case) and $W_i$ (excluded case) for all $i$ simultaneously. A string 
-contributes to $\rho_{j}^{\,1}$ only when $x_j = 1$ and to 
-$\rho_{j}^{\,0}$ only when $x_j = 0$ --- each sample therefore 
-contributes to exactly one of the two counts, ensuring that each 
-estimator averages over strings that actually fix item $j$ to the 
-corresponding value rather than mixing both cases. Feasible counts 
-are accumulated for each item across all $M$ samples, and the 
-empirical fractions yield estimates of $\rho_{j}^{\,1}$ and 
-$\rho_{j}^{\,0}$.
+\noindent \textbf{Amortization across population size.}
+The precomputation cost is fixed per instance, independent of population 
+size $P$ and offspring budget. The amortized cost per initialized 
+solution is therefore $T_{\text{precomp}} / P$: approximately 0.10--0.16 
+seconds per solution at $P = 50$, dropping to 0.025--0.04 seconds at 
+$P = 200$. Larger populations make the precomputation relatively cheaper 
+per solution---the opposite of the repair operator, whose cost is 
+incurred once per offspring regardless of population size.
 
-\noindent A critical property of this procedure is that Monte Carlo 
-estimation is performed exactly once per problem instance. The 
-probability vector $\mathbf{p} = (p_1, p_2, \ldots, p_n)$ is computed 
-once before any GA run begins and reused across all subsequent runs on 
-that instance. The computational cost is entirely front-loaded and 
-independent of the number of GA runs performed.
+\noindent \textbf{Amortization across runs.}
+If the same instance is evaluated $k$ times---for hyperparameter tuning, 
+multi-seed experiments, or benchmark evaluation---the $p_j$ vector is 
+computed once and reused across all $k$ runs. The amortized precomputation 
+cost per run is $T_{\text{precomp}} / k$, which vanishes as $k$ grows. 
+This is directly relevant to standard benchmark practice: OR-Library 
+evaluations typically run 20--30 trials per instance, reducing the 
+effective precomputation overhead to well under one second per trial.
 
-\subsection{Statistical Justification}
+\noindent \textbf{Contrast with repair.}
+These cost structures differ fundamentally. The repair operator is applied 
+to every infeasible offspring; at $\alpha = 0.25$ under uniform 
+initialization, essentially every offspring is infeasible, so repair 
+runs on close to 100\% of evaluations throughout the GA budget. Its 
+total cost therefore scales linearly with offspring count $T$ and 
+problem size $n$. GF precomputation does not scale with $T$ at all: 
+regardless of how many offspring are evaluated, the $p_j$ values are 
+computed exactly once.
 
-\noindent The true $\rho_{j}^{\,1}$ is the probability that a 
-uniformly random subset of the remaining $n - 1$ items is feasible 
-under the reduced capacity. The empirical fraction over $M$ samples 
-is an unbiased estimator of this probability. By the law of large 
-numbers the estimate converges to the true value as $M$ grows. The 
-standard error of the estimate is bounded by:
+\subsection{Limitations}
 
-\begin{flushleft}
-\hspace{2em}$\sqrt{\dfrac{p(1-p)}{M}} \leq \dfrac{1}{2\sqrt{M}}$
-\end{flushleft}
+\begin{itemize}
+    \item \textbf{Order-1 approximation:} The framework estimates 
+    per-item feasibility independently using order-1 schemas. For items 
+    with strong pairwise interactions, the order-1 approximation may 
+    over- or under-estimate the true per-item feasibility contribution. 
+    Extending to order-2 schemas is straightforward but increases 
+    computation by a factor of $n$.
+    \item \textbf{Single-instance generalization:} Our experiments use 
+    a single instance per tightness level. Results on OR-Library 
+    benchmark instances will be presented in follow-up work.
+    \item \textbf{Interaction with repair:} On well-structured standard 
+    MKP instances, repair effectively compensates for poor initialization 
+    and GF-biased initialization offers little advantage. The benefit is 
+    expected to emerge on adversarial or objective-free instances where 
+    repair is unavailable.
+    \item \textbf{ILS and hybrid parameters:} The ILS configuration 
+    ($r = 50$, $k = 5$) and the hybrid informed fraction are unoptimized. 
+    The experiments show that these extensions can substantially improve 
+    quality; they do not establish optimal settings.
+\end{itemize}
 
-\noindent At $M = 10{,}000{,}000$ samples this gives a maximum 
-standard error of approximately $0.016\%$ --- effectively exact for 
-the purpose of setting initialization probabilities. A deviation of 
-this magnitude in $p_j$ has negligible impact on GA behavior since 
-$p_j$ is used only for probabilistic sampling during initialization.
+% ============================================================
+\section{Conclusion and Future Work}
+\label{sec:conclusion}
+% ============================================================
 
-\subsection{Connection to the Worked Examples}
+We have presented a generating function-informed initialization framework 
+for genetic algorithms on the Multidimensional Knapsack Problem. The 
+framework draws on the same algebraic tradition---encoding combinatorial 
+structure as coefficients of formal power series---that Hardy and Ramanujan 
+used to analyze integer partitions, and applies it to a new question: 
+how much feasible space does each item's inclusion or exclusion preserve? 
+By computing per-item feasibility densities from sub-generating functions 
+and deriving per-bit sampling probabilities proportional to these densities, 
+we obtain an initialization method that is principled, purely 
+constraint-driven, and self-calibrating: it degenerates to uniform 
+initialization exactly when no constraint structure is present.
 
-\noindent The worked examples in Section~6 compute $\rho_{j}^{\,1}$ 
-and $\rho_{j}^{\,0}$ exactly by expanding $g_j$ and counting feasible 
-terms. Monte Carlo approximates exactly the same quantities by random 
-sampling instead of enumeration. For $n = 3$ and $n = 4$ both methods 
-yield identical results. For $n = 100$ only Monte Carlo is 
-computationally feasible.
+The central empirical result is that on tight instances ($\alpha = 0.25$) 
+under a death penalty fitness model, GF-biased initialization is the 
+only method that functions at all---producing 52.5\% initial feasibility 
+and converging to 96.5\% of the reference best, while uniform 
+initialization finds no feasible solution in 20 independent runs. 
+Adding lightweight ILS post-processing raises this to 99.3\%. Seeding 
+as little as 25\% of the population with GF-biased solutions is 
+sufficient to rescue the algorithm entirely. On medium instances 
+($\alpha = 0.50$), GF-biased initialization converges faster while 
+matching final quality. On loose instances ($\alpha = 0.75$), both 
+methods are identical by theoretical prediction.
 
-\subsection{GPU Implementation}
+\subsection{Future Work}
+\label{sec:futurework}
 
-\noindent The naive implementation loops over $M$ samples and $n$ 
-items --- approximately $M \times n = 10^9$ operations for 
-$M = 10{,}000{,}000$ and $n = 100$. On CPU this would require hours. 
-We vectorize the entire computation using PyTorch tensors on a GPU. 
-All $M$ binary strings are generated simultaneously as an 
-$(M \times n)$ tensor, and constraint usage for all strings is 
-computed at once via matrix multiplication:
+\begin{enumerate}
+    \item \textbf{Adversarial instances (Part 2):} Generating MKP instances 
+    following the protocol of Hill et al.~\cite{hill2013neg} with negative 
+    value-weight correlation to demonstrate regimes where repair-based 
+    approaches degrade while GF-biased initialization remains effective.
+    \item \textbf{Constraint satisfaction:} Applying the framework to 
+    pure CSP instances where repair operators are undefined.
+    \item \textbf{OR-Library benchmarks:} Scaling to standard benchmark 
+    instances with $n$ up to 500 and $m$ up to 30. The standard practice 
+    of running 20--30 trials per instance makes the amortized precomputation 
+    cost per trial negligible.
+    \item \textbf{Higher-order schemas:} Extending feasibility density 
+    estimation to order-2 schemas to capture pairwise item interactions.
+    \item \textbf{Integration with repair:} Investigating whether 
+    GF-biased initialization improves the starting point for repair-based 
+    GAs on tight benchmark instances.
+\end{enumerate}
 
-\begin{flushleft}
-\hspace{2em}$\mathbf{U} = \mathbf{X} \mathbf{W}^\top 
-\quad \in \mathbb{R}^{M \times m}$
-\end{flushleft}
+% ============================================================
+\begin{thebibliography}{9}
+\bibitem{chu1998genetic}
+P.~C. Chu and J.~E. Beasley,
+\textit{A Genetic Algorithm for the Multidimensional Knapsack Problem},
+Journal of Heuristics, 4(1):63--86, 1998.
 
-\noindent where $\mathbf{X} \in \{0,1\}^{M \times n}$ is the sample 
-matrix and $\mathbf{W} \in \mathbb{R}^{m \times n}$ is the weight 
-matrix. For each item $j$, its contribution is subtracted and 
-feasibility is checked against both capacity thresholds in parallel 
-across all $M$ strings using tensor operations and GPU-accelerated 
-reductions. This reduces wall time from hours to approximately 7 
-seconds on an NVIDIA T4 GPU, making the precomputation practical for 
-all standard OR-Library benchmark instances.
+\bibitem{beasley1990orlib}
+J.~E. Beasley,
+\textit{OR-Library: Distributing Test Problems by Electronic Mail},
+Journal of the Operational Research Society, 41(11):1069--1072, 1990.
 
-\begin{algorithm}[H]
-\caption{Monte Carlo Feasibility Density Estimation (GPU-Vectorized)}
-\begin{algorithmic}[1]
-\Require $n$ items, $m$ constraints, weights $\mathbf{W} \in 
-         \mathbb{R}^{m \times n}$, capacities $\mathbf{c} \in 
-         \mathbb{R}^m$, sample count $M$, batch size $B$
-\Ensure Probability vector $\mathbf{p} = (p_1, \ldots, p_n)$
+\bibitem{holland1975adaptation}
+J.~H. Holland,
+\textit{Adaptation in Natural and Artificial Systems},
+University of Michigan Press, Ann Arbor, MI, 1975.
 
-\For{each batch of $B$ random binary strings 
-     $\mathbf{X} \in \{0,1\}^{B \times n}$}
-    \State $\mathbf{U} \gets \mathbf{X} \mathbf{W}^\top$ 
-           \Comment{constraint usage, shape $(B \times m)$}
-    \For{$j = 1$ to $n$}
-        \State $\mathbf{U}_{-j} \gets \mathbf{U} - 
-               \mathbf{X}_{:,j} \cdot \mathbf{W}_{:,j}^\top$
-               \Comment{remove item $j$'s contribution}
-        \State $\text{feas\_in}_j \gets 
-               (\mathbf{U}_{-j} \leq \mathbf{c} - \mathbf{W}_{:,j})
-               \text{.all(dim}=1\text{)}
-               \;\wedge\; \mathbf{X}_{:,j} = 1$
-        \State $\text{feas\_out}_j \gets 
-               (\mathbf{U}_{-j} \leq \mathbf{c})
-               \text{.all(dim}=1\text{)}
-               \;\wedge\; \mathbf{X}_{:,j} = 0$
-        \State Accumulate counts into 
-               $\text{count\_in}_j$, $\text{count\_out}_j$, 
-               $\text{total\_in}_j$, $\text{total\_out}_j$
-    \EndFor
-\EndFor
+\bibitem{wilf1994genfunc}
+H.~S. Wilf,
+\textit{generatingfunctionology},
+2nd edition, Academic Press, 1994.
 
-\For{$j = 1$ to $n$}
-    \State $\rho_{j}^{\,1} \gets 
-           \text{count\_in}_j \;/\; \text{total\_in}_j$
-    \State $\rho_{j}^{\,0} \gets 
-           \text{count\_out}_j \;/\; \text{total\_out}_j$
-    \State $p_j \gets \rho_{j}^{\,1} \;/\; 
-           (\rho_{j}^{\,1} + \rho_{j}^{\,0})$
-\EndFor
-\State \Return $\mathbf{p}$
+\bibitem{kellerer2004knapsack}
+H.~Kellerer, U.~Pferschy, and D.~Pisinger,
+\textit{Knapsack Problems},
+Springer, Berlin, 2004.
 
-\end{algorithmic}
-\end{algorithm}
+\bibitem{hill2013neg}
+R.~R. Hill, Y.~K. Cho, and J.~T. Moore,
+\textit{Problem Generator Algorithms for the Multidimensional Knapsack Problem},
+In \textit{Proceedings of the 45th Winter Simulation Conference}, 2013.
+
+\bibitem{hardyramanujan1918}
+G.~H. Hardy and S.~Ramanujan,
+\textit{Asymptotic Formulae in Combinatory Analysis},
+Proceedings of the London Mathematical Society, 2(17):75--115, 1918.
+\end{thebibliography}
+% ============================================================
 
 \end{document}
