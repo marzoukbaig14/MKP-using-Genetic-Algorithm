@@ -77,7 +77,7 @@ Biased initialization converges faster at every threshold with no quality cost. 
 
 ## Novelty
 
-The closest prior work — Hill (1999) — proposed using a single global inclusion probability derived from a greedy heuristic, applied identically to all items. Professor Hill confirmed the novelty of our per-item generating function approach in personal communication (2025). His method achieved approximately 20% feasible solutions at tight instances. Our per-item approach achieves over 50% — and the improvement is mathematically guaranteed by construction rather than empirically derived.
+The closest prior work — Hill (1999) — proposed using a single global inclusion probability derived from a greedy heuristic, applied identically to all items. Professor Hill confirmed the novelty of our per-item generating function approach in personal communication. His method achieved approximately 20% feasible solutions at tight instances. Our per-item approach achieves over 50% — and the improvement is mathematically guaranteed by construction rather than empirically derived.
 
 Key distinctions from Hill (1999):
 - Hill used one global probability for all n items derived from a greedy heuristic
