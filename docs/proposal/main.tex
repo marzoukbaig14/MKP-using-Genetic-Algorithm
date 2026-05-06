@@ -14,7 +14,6 @@
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
-% Title and author defined before \begin{document} for twocolumn
 \title{\textbf{Before the Search Begins: Generating Function-Informed Initialization for Tight Constrained Binary Optimization}}
 \author{Muhammad Marzouk Baig\\
 {\small MS Candidate, Khoury College of Computer Sciences}\\
@@ -85,9 +84,13 @@ exactly $k$. This maps naturally onto the feasibility question for
 constrained binary optimization: by factoring out one item at a time and 
 evaluating the remainder against each capacity threshold, we can 
 ask---before any search begins---how much of the feasible space survives 
-when item $j$ is included versus excluded. To our knowledge, this 
-connection has not previously been exploited to bias GA initialization. 
-The framework we develop shows that it yields a principled, interpretable, 
+when item $j$ is included versus excluded. The closest prior work~\cite{hill1999monte,hill2005improving} 
+proposed using a single global inclusion probability derived from a greedy 
+heuristic, applied identically to all items. Our approach instead derives 
+per-item probabilities from sub-generating functions, requires no objective 
+function, and generalizes to any number of constraints. To our knowledge, 
+the generating function connection has not previously been exploited for 
+this purpose. The framework we develop yields a principled, interpretable, 
 and provably self-calibrating initialization method.
 
 \textbf{The tight instance failure mode.}
@@ -1014,7 +1017,7 @@ settings where repair operators are undefined or unreliable:
     are unreliable, $u_j$ may be misleading. The GF framework ignores 
     objective values entirely and remains well-calibrated.
     \item \textbf{Adversarial correlation structure:} Hill and 
-    colleagues~\cite{hill2013neg} showed that standard greedy repair 
+    colleagues~\cite{hill2012test} showed that standard greedy repair 
     degrades on instances where item weights and values are negatively 
     correlated, because the efficiency ranking systematically 
     disadvantages heavy, high-value items. GF-biased initialization is 
@@ -1116,7 +1119,7 @@ methods are identical by theoretical prediction.
 
 \begin{enumerate}
     \item \textbf{Adversarial instances (Part 2):} Generating MKP instances 
-    following the protocol of Hill et al.~\cite{hill2013neg} with negative 
+    following the protocol of Hill et al.~\cite{hill2012test} with negative 
     value-weight correlation to demonstrate regimes where repair-based 
     approaches degrade while GF-biased initialization remains effective.
     \item \textbf{Constraint satisfaction:} Applying the framework to 
@@ -1159,10 +1162,24 @@ H.~Kellerer, U.~Pferschy, and D.~Pisinger,
 \textit{Knapsack Problems},
 Springer, Berlin, 2004.
 
-\bibitem{hill2013neg}
-R.~R. Hill, Y.~K. Cho, and J.~T. Moore,
-\textit{Problem Generator Algorithms for the Multidimensional Knapsack Problem},
-In \textit{Proceedings of the 45th Winter Simulation Conference}, 2013.
+\bibitem{hill1999monte}
+R.~R. Hill,
+\textit{A Monte Carlo Study of Genetic Algorithm Initial Population Generation Methods},
+In \textit{Proceedings of the 1999 Winter Simulation Conference},
+eds. P.~A. Farrington, H.~B. Nembhard, D.~T. Sturrock, and G.~W. Evans,
+pp. 543--547, 1999.
+
+\bibitem{hill2005improving}
+R.~R. Hill and C.~Hiremath,
+\textit{Improving Genetic Algorithm Convergence Using Problem Structure and Domain Knowledge in Multidimensional Knapsack Problems},
+International Journal of Operational Research,
+1(1--2):145--159, 2005.
+
+\bibitem{hill2012test}
+R.~R. Hill, J.~T. Moore, C.~Hiremath, and Y.~K. Cho,
+\textit{Test Problem Generation of Binary Knapsack Problem Variants and the Implications of their Use},
+International Journal of Operations and Quantitative Management,
+18(2):105--128, 2012.
 
 \bibitem{hardyramanujan1918}
 G.~H. Hardy and S.~Ramanujan,
