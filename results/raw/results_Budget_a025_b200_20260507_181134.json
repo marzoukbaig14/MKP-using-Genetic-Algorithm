@@ -1,0 +1,5016 @@
+{
+  "label": "Budget a=0.25 b=200",
+  "alpha": 0.25,
+  "budget": 200,
+  "ref": 2375,
+  "uniform_soft": [
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1507,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 63.45263157894737,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -59818.0,
+          -95315.92,
+          0.0
+        ],
+        [
+          50,
+          -43143.0,
+          -70694.66,
+          0.0
+        ],
+        [
+          100,
+          -12388.0,
+          -53388.52,
+          0.0
+        ],
+        [
+          150,
+          -12388.0,
+          -38889.0,
+          0.0
+        ],
+        [
+          200,
+          -1293.0,
+          -24489.66,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1630,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 68.63157894736842,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -47550.0,
+          -96209.6,
+          0.0
+        ],
+        [
+          50,
+          -43427.0,
+          -68939.48,
+          0.0
+        ],
+        [
+          100,
+          -22413.0,
+          -46878.66,
+          0.0
+        ],
+        [
+          150,
+          -9312.0,
+          -30752.44,
+          0.0
+        ],
+        [
+          200,
+          -2020.0,
+          -17260.24,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1291,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 54.357894736842105,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -47047.0,
+          -96686.92,
+          0.0
+        ],
+        [
+          50,
+          -20881.0,
+          -61886.7,
+          0.0
+        ],
+        [
+          100,
+          -5797.0,
+          -40841.46,
+          0.0
+        ],
+        [
+          150,
+          -5797.0,
+          -24736.2,
+          0.0
+        ],
+        [
+          200,
+          -59.0,
+          -16578.3,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1338,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 56.336842105263166,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -50365.0,
+          -97883.74,
+          0.0
+        ],
+        [
+          50,
+          -34940.0,
+          -67002.02,
+          0.0
+        ],
+        [
+          100,
+          -20592.0,
+          -44304.96,
+          0.0
+        ],
+        [
+          150,
+          -8725.0,
+          -27700.5,
+          0.0
+        ],
+        [
+          200,
+          -112.0,
+          -13638.28,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1556,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 65.51578947368421,
+      "convergence": {
+        "50": 86,
+        "60": 123,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -60065.0,
+          -95707.66,
+          0.0
+        ],
+        [
+          50,
+          -31953.0,
+          -61997.14,
+          0.0
+        ],
+        [
+          100,
+          1373.0,
+          -40595.0,
+          0.0
+        ],
+        [
+          150,
+          1556.0,
+          -17750.66,
+          0.0
+        ],
+        [
+          200,
+          1556.0,
+          -3636.84,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1091,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 45.93684210526316,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -49294.0,
+          -93405.22,
+          0.0
+        ],
+        [
+          50,
+          -32680.0,
+          -65265.96,
+          0.0
+        ],
+        [
+          100,
+          -21266.0,
+          -43688.56,
+          0.0
+        ],
+        [
+          150,
+          -5218.0,
+          -27561.06,
+          0.0
+        ],
+        [
+          200,
+          1091.0,
+          -9563.5,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1523,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 64.1263157894737,
+      "convergence": {
+        "50": 102,
+        "60": 182,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -44857.0,
+          -91153.62,
+          0.0
+        ],
+        [
+          50,
+          -24154.0,
+          -56740.16,
+          0.0
+        ],
+        [
+          100,
+          -24.0,
+          -32042.26,
+          0.0
+        ],
+        [
+          150,
+          1252.0,
+          -11669.36,
+          0.0
+        ],
+        [
+          200,
+          1523.0,
+          -1448.98,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1423,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 59.915789473684214,
+      "convergence": {
+        "50": 194,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -40574.0,
+          -88985.9,
+          0.0
+        ],
+        [
+          50,
+          -27065.0,
+          -59331.02,
+          0.0
+        ],
+        [
+          100,
+          -27065.0,
+          -44383.32,
+          0.0
+        ],
+        [
+          150,
+          -5350.0,
+          -30234.84,
+          0.0
+        ],
+        [
+          200,
+          1423.0,
+          -14894.5,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1482,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 62.4,
+      "convergence": {
+        "50": 187,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -57577.0,
+          -93157.92,
+          0.0
+        ],
+        [
+          50,
+          -33593.0,
+          -63605.48,
+          0.0
+        ],
+        [
+          100,
+          -24793.0,
+          -47458.78,
+          0.0
+        ],
+        [
+          150,
+          -2550.0,
+          -30377.72,
+          0.0
+        ],
+        [
+          200,
+          1332.0,
+          -13605.06,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1733,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.96842105263158,
+      "convergence": {
+        "50": 126,
+        "60": 187,
+        "70": 187,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -44133.0,
+          -93317.98,
+          0.0
+        ],
+        [
+          50,
+          -31828.0,
+          -63442.26,
+          0.0
+        ],
+        [
+          100,
+          -22483.0,
+          -43042.66,
+          0.0
+        ],
+        [
+          150,
+          1348.0,
+          -24016.82,
+          0.0
+        ],
+        [
+          200,
+          1733.0,
+          -8274.52,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1206,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 50.77894736842106,
+      "convergence": {
+        "50": 192,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -48417.0,
+          -100650.74,
+          0.0
+        ],
+        [
+          50,
+          -36935.0,
+          -66221.58,
+          0.0
+        ],
+        [
+          100,
+          -8782.0,
+          -41630.24,
+          0.0
+        ],
+        [
+          150,
+          -4931.0,
+          -27846.7,
+          0.0
+        ],
+        [
+          200,
+          1206.0,
+          -14117.6,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1369,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 57.642105263157895,
+      "convergence": {
+        "50": 197,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -51832.0,
+          -95959.48,
+          0.0
+        ],
+        [
+          50,
+          -38247.0,
+          -62671.42,
+          0.0
+        ],
+        [
+          100,
+          -19589.0,
+          -43588.16,
+          0.0
+        ],
+        [
+          150,
+          -3946.0,
+          -24702.8,
+          0.0
+        ],
+        [
+          200,
+          1369.0,
+          -11949.1,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1410,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 59.36842105263158,
+      "convergence": {
+        "50": 194,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -63734.0,
+          -97038.2,
+          0.0
+        ],
+        [
+          50,
+          -55226.0,
+          -73008.78,
+          0.0
+        ],
+        [
+          100,
+          -22984.0,
+          -53750.02,
+          0.0
+        ],
+        [
+          150,
+          -6026.0,
+          -36223.52,
+          0.0
+        ],
+        [
+          200,
+          1410.0,
+          -20744.78,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1397,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 58.82105263157895,
+      "convergence": {
+        "50": 198,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -48313.0,
+          -90302.06,
+          0.0
+        ],
+        [
+          50,
+          -30525.0,
+          -65037.56,
+          0.0
+        ],
+        [
+          100,
+          -17820.0,
+          -44192.7,
+          0.0
+        ],
+        [
+          150,
+          -1099.0,
+          -25296.14,
+          0.0
+        ],
+        [
+          200,
+          1397.0,
+          -11485.08,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1326,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 55.83157894736842,
+      "convergence": {
+        "50": 146,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -58440.0,
+          -94666.24,
+          0.0
+        ],
+        [
+          50,
+          -28043.0,
+          -66312.62,
+          0.0
+        ],
+        [
+          100,
+          -1372.0,
+          -42902.42,
+          0.0
+        ],
+        [
+          150,
+          1326.0,
+          -23426.12,
+          0.0
+        ],
+        [
+          200,
+          1326.0,
+          -8151.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1067,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 44.92631578947368,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -48314.0,
+          -96458.36,
+          0.0
+        ],
+        [
+          50,
+          -39163.0,
+          -65215.38,
+          0.0
+        ],
+        [
+          100,
+          -3944.0,
+          -39826.94,
+          0.0
+        ],
+        [
+          150,
+          1067.0,
+          -21184.94,
+          0.0
+        ],
+        [
+          200,
+          1067.0,
+          -7567.88,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1352,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 56.92631578947368,
+      "convergence": {
+        "50": 161,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -45367.0,
+          -91184.06,
+          0.0
+        ],
+        [
+          50,
+          -22741.0,
+          -57274.32,
+          0.0
+        ],
+        [
+          100,
+          -533.0,
+          -27586.64,
+          0.0
+        ],
+        [
+          150,
+          1168.0,
+          -14255.94,
+          0.0
+        ],
+        [
+          200,
+          1352.0,
+          -3974.94,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1274,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 53.64210526315789,
+      "convergence": {
+        "50": 164,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -44988.0,
+          -94679.88,
+          0.0
+        ],
+        [
+          50,
+          -43785.0,
+          -68425.4,
+          0.0
+        ],
+        [
+          100,
+          -21479.0,
+          -46890.72,
+          0.0
+        ],
+        [
+          150,
+          -1491.0,
+          -31236.62,
+          0.0
+        ],
+        [
+          200,
+          1274.0,
+          -15207.86,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1448,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 60.968421052631584,
+      "convergence": {
+        "50": 197,
+        "60": 197,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -55908.0,
+          -94817.94,
+          0.0
+        ],
+        [
+          50,
+          -26182.0,
+          -71008.62,
+          0.0
+        ],
+        [
+          100,
+          -25862.0,
+          -51409.84,
+          0.0
+        ],
+        [
+          150,
+          -1670.0,
+          -34885.46,
+          0.0
+        ],
+        [
+          200,
+          1448.0,
+          -18961.14,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 833,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 35.07368421052632,
+      "convergence": {
+        "50": null,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          -44445.0,
+          -96508.46,
+          0.0
+        ],
+        [
+          50,
+          -44445.0,
+          -70873.42,
+          0.0
+        ],
+        [
+          100,
+          -24279.0,
+          -53829.62,
+          0.0
+        ],
+        [
+          150,
+          -9937.0,
+          -36149.54,
+          0.0
+        ],
+        [
+          200,
+          833.0,
+          -19292.52,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "hill_soft": [
+    {
+      "feasibility_rate_gen0": 0.1,
+      "pct_of_best_gen0": 48.21052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1591,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 66.98947368421052,
+      "convergence": {
+        "50": 1,
+        "60": 117,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1145.0,
+          -18446.28,
+          0.0
+        ],
+        [
+          50,
+          1268.0,
+          -757.22,
+          0.0
+        ],
+        [
+          100,
+          1268.0,
+          1128.66,
+          0.0
+        ],
+        [
+          150,
+          1591.0,
+          1228.18,
+          0.0
+        ],
+        [
+          200,
+          1591.0,
+          1293.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.1,
+      "pct_of_best_gen0": 52.04210526315789,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1649,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.43157894736842,
+      "convergence": {
+        "50": 1,
+        "60": 28,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1236.0,
+          -23641.44,
+          0.0
+        ],
+        [
+          50,
+          1511.0,
+          -1135.78,
+          0.0
+        ],
+        [
+          100,
+          1587.0,
+          1198.42,
+          0.0
+        ],
+        [
+          150,
+          1649.0,
+          1338.06,
+          0.0
+        ],
+        [
+          200,
+          1649.0,
+          1405.6,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.1,
+      "pct_of_best_gen0": 60.37894736842105,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1767,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 74.4,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 116,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1434.0,
+          -24652.28,
+          0.0
+        ],
+        [
+          50,
+          1434.0,
+          -2613.38,
+          0.0
+        ],
+        [
+          100,
+          1596.0,
+          1173.94,
+          0.0
+        ],
+        [
+          150,
+          1693.0,
+          1357.06,
+          0.0
+        ],
+        [
+          200,
+          1767.0,
+          1482.96,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.02,
+      "pct_of_best_gen0": 46.98947368421052,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1611,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 67.83157894736843,
+      "convergence": {
+        "50": 16,
+        "60": 103,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1116.0,
+          -22862.3,
+          0.0
+        ],
+        [
+          50,
+          1368.0,
+          -3853.9,
+          0.0
+        ],
+        [
+          100,
+          1391.0,
+          826.44,
+          0.0
+        ],
+        [
+          150,
+          1582.0,
+          1274.34,
+          0.0
+        ],
+        [
+          200,
+          1611.0,
+          1373.44,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1472,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 61.97894736842105,
+      "convergence": {
+        "50": 1,
+        "60": 177,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1236.0,
+          -21969.86,
+          0.0
+        ],
+        [
+          50,
+          1351.0,
+          -4119.48,
+          0.0
+        ],
+        [
+          100,
+          1381.0,
+          1090.0,
+          0.0
+        ],
+        [
+          150,
+          1421.0,
+          1228.2,
+          0.0
+        ],
+        [
+          200,
+          1472.0,
+          1313.98,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.08,
+      "pct_of_best_gen0": 59.78947368421053,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1718,
+      "best_solution_feasible": false,
+      "pct_of_best_final": 72.33684210526316,
+      "convergence": {
+        "50": 1,
+        "60": 80,
+        "70": 199,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1420.0,
+          -23517.18,
+          0.0
+        ],
+        [
+          50,
+          1420.0,
+          -1535.24,
+          0.0
+        ],
+        [
+          100,
+          1428.0,
+          1128.04,
+          0.0
+        ],
+        [
+          150,
+          1625.0,
+          1322.42,
+          0.0
+        ],
+        [
+          200,
+          1668.0,
+          1456.36,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.12,
+      "pct_of_best_gen0": 60.252631578947366,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1512,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 63.66315789473684,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1431.0,
+          -22574.34,
+          0.0
+        ],
+        [
+          50,
+          1431.0,
+          -624.16,
+          0.0
+        ],
+        [
+          100,
+          1431.0,
+          1146.56,
+          0.0
+        ],
+        [
+          150,
+          1431.0,
+          1262.1,
+          0.0
+        ],
+        [
+          200,
+          1512.0,
+          1328.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.04,
+      "pct_of_best_gen0": 58.31578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1649,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.43157894736842,
+      "convergence": {
+        "50": 1,
+        "60": 19,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1385.0,
+          -26533.92,
+          0.0
+        ],
+        [
+          50,
+          1536.0,
+          -930.76,
+          0.0
+        ],
+        [
+          100,
+          1536.0,
+          1255.56,
+          0.0
+        ],
+        [
+          150,
+          1538.0,
+          1366.82,
+          0.0
+        ],
+        [
+          200,
+          1649.0,
+          1459.74,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.08,
+      "pct_of_best_gen0": 60.547368421052624,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1468,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 61.810526315789474,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1438.0,
+          -22963.88,
+          0.0
+        ],
+        [
+          50,
+          1468.0,
+          -4169.34,
+          0.0
+        ],
+        [
+          100,
+          1468.0,
+          236.66,
+          0.0
+        ],
+        [
+          150,
+          1468.0,
+          1189.28,
+          0.0
+        ],
+        [
+          200,
+          1468.0,
+          1287.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.04,
+      "pct_of_best_gen0": 47.199999999999996,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1516,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 63.83157894736841,
+      "convergence": {
+        "50": 9,
+        "60": 104,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1121.0,
+          -23265.62,
+          0.0
+        ],
+        [
+          50,
+          1233.0,
+          -4471.12,
+          0.0
+        ],
+        [
+          100,
+          1394.0,
+          842.96,
+          0.0
+        ],
+        [
+          150,
+          1499.0,
+          1210.0,
+          0.0
+        ],
+        [
+          200,
+          1516.0,
+          1286.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.1,
+      "pct_of_best_gen0": 58.77894736842105,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1434,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 60.37894736842105,
+      "convergence": {
+        "50": 1,
+        "60": 187,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1396.0,
+          -18921.82,
+          0.0
+        ],
+        [
+          50,
+          1396.0,
+          -3179.38,
+          0.0
+        ],
+        [
+          100,
+          1396.0,
+          1032.8,
+          0.0
+        ],
+        [
+          150,
+          1419.0,
+          1164.76,
+          0.0
+        ],
+        [
+          200,
+          1434.0,
+          1216.28,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1470,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 61.89473684210526,
+      "convergence": {
+        "50": 53,
+        "60": 122,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          377.0,
+          -24888.92,
+          0.0
+        ],
+        [
+          50,
+          1184.0,
+          -3858.14,
+          0.0
+        ],
+        [
+          100,
+          1302.0,
+          910.64,
+          0.0
+        ],
+        [
+          150,
+          1430.0,
+          1083.38,
+          0.0
+        ],
+        [
+          200,
+          1470.0,
+          1239.56,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.02,
+      "pct_of_best_gen0": 48.21052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1525,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 64.21052631578948,
+      "convergence": {
+        "50": 13,
+        "60": 167,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1145.0,
+          -21885.8,
+          0.0
+        ],
+        [
+          50,
+          1328.0,
+          -2316.26,
+          0.0
+        ],
+        [
+          100,
+          1370.0,
+          1005.78,
+          0.0
+        ],
+        [
+          150,
+          1419.0,
+          1192.8,
+          0.0
+        ],
+        [
+          200,
+          1525.0,
+          1320.9,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.08,
+      "pct_of_best_gen0": 54.44210526315789,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1508,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 63.49473684210526,
+      "convergence": {
+        "50": 1,
+        "60": 78,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1293.0,
+          -25742.06,
+          0.0
+        ],
+        [
+          50,
+          1327.0,
+          -3298.66,
+          0.0
+        ],
+        [
+          100,
+          1426.0,
+          982.22,
+          0.0
+        ],
+        [
+          150,
+          1426.0,
+          1205.44,
+          0.0
+        ],
+        [
+          200,
+          1508.0,
+          1280.78,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.08,
+      "pct_of_best_gen0": 53.17894736842105,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1629,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 68.58947368421052,
+      "convergence": {
+        "50": 1,
+        "60": 27,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1263.0,
+          -24025.12,
+          0.0
+        ],
+        [
+          50,
+          1629.0,
+          -2341.12,
+          0.0
+        ],
+        [
+          100,
+          1629.0,
+          1203.98,
+          0.0
+        ],
+        [
+          150,
+          1629.0,
+          1300.82,
+          0.0
+        ],
+        [
+          200,
+          1629.0,
+          1367.16,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.16,
+      "pct_of_best_gen0": 56.88421052631579,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1621,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 68.25263157894736,
+      "convergence": {
+        "50": 1,
+        "60": 37,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1351.0,
+          -22372.3,
+          0.0
+        ],
+        [
+          50,
+          1462.0,
+          -1080.66,
+          0.0
+        ],
+        [
+          100,
+          1558.0,
+          1272.4,
+          0.0
+        ],
+        [
+          150,
+          1558.0,
+          1385.92,
+          0.0
+        ],
+        [
+          200,
+          1621.0,
+          1449.88,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.04,
+      "pct_of_best_gen0": 51.11578947368422,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1554,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 65.43157894736842,
+      "convergence": {
+        "50": 1,
+        "60": 131,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1214.0,
+          -23888.4,
+          0.0
+        ],
+        [
+          50,
+          1341.0,
+          -2352.0,
+          0.0
+        ],
+        [
+          100,
+          1375.0,
+          1135.14,
+          0.0
+        ],
+        [
+          150,
+          1554.0,
+          1258.04,
+          0.0
+        ],
+        [
+          200,
+          1554.0,
+          1316.38,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.1,
+      "pct_of_best_gen0": 61.5578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1761,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 74.14736842105263,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 101,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1462.0,
+          -20706.46,
+          0.0
+        ],
+        [
+          50,
+          1462.0,
+          -497.86,
+          0.0
+        ],
+        [
+          100,
+          1462.0,
+          1191.3,
+          0.0
+        ],
+        [
+          150,
+          1666.0,
+          1358.02,
+          0.0
+        ],
+        [
+          200,
+          1761.0,
+          1491.36,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.02,
+      "pct_of_best_gen0": 43.28421052631579,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1421,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 59.83157894736843,
+      "convergence": {
+        "50": 58,
+        "60": null,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1028.0,
+          -23766.52,
+          0.0
+        ],
+        [
+          50,
+          1095.0,
+          -4788.68,
+          0.0
+        ],
+        [
+          100,
+          1360.0,
+          1007.64,
+          0.0
+        ],
+        [
+          150,
+          1393.0,
+          1146.58,
+          0.0
+        ],
+        [
+          200,
+          1421.0,
+          1235.06,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.0,
+      "pct_of_best_gen0": 0.0,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1662,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.97894736842105,
+      "convergence": {
+        "50": 7,
+        "60": 93,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1165.0,
+          -24229.34,
+          0.0
+        ],
+        [
+          50,
+          1424.0,
+          -995.38,
+          0.0
+        ],
+        [
+          100,
+          1507.0,
+          1201.4,
+          0.0
+        ],
+        [
+          150,
+          1587.0,
+          1331.28,
+          0.0
+        ],
+        [
+          200,
+          1662.0,
+          1394.3,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "gf_death": [
+    {
+      "feasibility_rate_gen0": 0.54,
+      "pct_of_best_gen0": 58.61052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1605,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 67.57894736842105,
+      "convergence": {
+        "50": 1,
+        "60": 28,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1392.0,
+          584.22,
+          0.0
+        ],
+        [
+          50,
+          1447.0,
+          1217.64,
+          0.0
+        ],
+        [
+          100,
+          1480.0,
+          1307.64,
+          0.0
+        ],
+        [
+          150,
+          1480.0,
+          1347.1,
+          0.0
+        ],
+        [
+          200,
+          1605.0,
+          1405.22,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.5,
+      "pct_of_best_gen0": 56.04210526315789,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1679,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.69473684210527,
+      "convergence": {
+        "50": 1,
+        "60": 53,
+        "70": 185,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1331.0,
+          530.26,
+          0.0
+        ],
+        [
+          50,
+          1367.0,
+          1174.16,
+          0.0
+        ],
+        [
+          100,
+          1487.0,
+          1302.42,
+          0.0
+        ],
+        [
+          150,
+          1555.0,
+          1366.06,
+          0.0
+        ],
+        [
+          200,
+          1679.0,
+          1419.82,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.5,
+      "pct_of_best_gen0": 62.147368421052626,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1701,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 71.62105263157895,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 190,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1476.0,
+          546.58,
+          0.0
+        ],
+        [
+          50,
+          1476.0,
+          1167.66,
+          0.0
+        ],
+        [
+          100,
+          1525.0,
+          1326.04,
+          0.0
+        ],
+        [
+          150,
+          1525.0,
+          1392.56,
+          0.0
+        ],
+        [
+          200,
+          1701.0,
+          1463.72,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.56,
+      "pct_of_best_gen0": 56.84210526315789,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1560,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 65.6842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 19,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1350.0,
+          613.56,
+          0.0
+        ],
+        [
+          50,
+          1439.0,
+          1152.14,
+          0.0
+        ],
+        [
+          100,
+          1439.0,
+          1268.62,
+          0.0
+        ],
+        [
+          150,
+          1501.0,
+          1346.72,
+          0.0
+        ],
+        [
+          200,
+          1560.0,
+          1400.6,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.42,
+      "pct_of_best_gen0": 58.526315789473685,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1733,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.96842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 55,
+        "70": 124,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1390.0,
+          457.62,
+          0.0
+        ],
+        [
+          50,
+          1395.0,
+          1196.4,
+          0.0
+        ],
+        [
+          100,
+          1580.0,
+          1339.1,
+          0.0
+        ],
+        [
+          150,
+          1691.0,
+          1429.16,
+          0.0
+        ],
+        [
+          200,
+          1733.0,
+          1479.8,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "pct_of_best_gen0": 54.315789473684205,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1677,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.61052631578949,
+      "convergence": {
+        "50": 1,
+        "60": 72,
+        "70": 198,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1290.0,
+          537.6,
+          0.0
+        ],
+        [
+          50,
+          1388.0,
+          1162.62,
+          0.0
+        ],
+        [
+          100,
+          1498.0,
+          1293.84,
+          0.0
+        ],
+        [
+          150,
+          1635.0,
+          1370.12,
+          0.0
+        ],
+        [
+          200,
+          1677.0,
+          1470.7,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.46,
+      "pct_of_best_gen0": 57.347368421052636,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1653,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.6,
+      "convergence": {
+        "50": 1,
+        "60": 13,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1362.0,
+          510.5,
+          0.0
+        ],
+        [
+          50,
+          1572.0,
+          1208.06,
+          0.0
+        ],
+        [
+          100,
+          1572.0,
+          1308.06,
+          0.0
+        ],
+        [
+          150,
+          1653.0,
+          1416.58,
+          0.0
+        ],
+        [
+          200,
+          1653.0,
+          1498.26,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.48,
+      "pct_of_best_gen0": 63.9578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1758,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 74.02105263157894,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 147,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1519.0,
+          559.7,
+          0.0
+        ],
+        [
+          50,
+          1519.0,
+          1190.72,
+          0.0
+        ],
+        [
+          100,
+          1625.0,
+          1337.74,
+          0.0
+        ],
+        [
+          150,
+          1758.0,
+          1429.28,
+          0.0
+        ],
+        [
+          200,
+          1758.0,
+          1523.26,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.44,
+      "pct_of_best_gen0": 54.14736842105263,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1657,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.76842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 61,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1286.0,
+          459.0,
+          0.0
+        ],
+        [
+          50,
+          1381.0,
+          1121.14,
+          0.0
+        ],
+        [
+          100,
+          1515.0,
+          1262.46,
+          0.0
+        ],
+        [
+          150,
+          1657.0,
+          1362.96,
+          0.0
+        ],
+        [
+          200,
+          1657.0,
+          1465.6,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.46,
+      "pct_of_best_gen0": 62.77894736842106,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1669,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.27368421052631,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 166,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1491.0,
+          509.74,
+          0.0
+        ],
+        [
+          50,
+          1491.0,
+          1164.22,
+          0.0
+        ],
+        [
+          100,
+          1551.0,
+          1304.08,
+          0.0
+        ],
+        [
+          150,
+          1626.0,
+          1417.24,
+          0.0
+        ],
+        [
+          200,
+          1669.0,
+          1480.24,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.58,
+      "pct_of_best_gen0": 61.26315789473684,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1689,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 71.11578947368422,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 128,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1455.0,
+          604.92,
+          0.0
+        ],
+        [
+          50,
+          1507.0,
+          1217.14,
+          0.0
+        ],
+        [
+          100,
+          1581.0,
+          1351.74,
+          0.0
+        ],
+        [
+          150,
+          1689.0,
+          1444.94,
+          0.0
+        ],
+        [
+          200,
+          1689.0,
+          1525.56,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "pct_of_best_gen0": 59.70526315789474,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1744,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.43157894736842,
+      "convergence": {
+        "50": 1,
+        "60": 52,
+        "70": 190,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1418.0,
+          578.96,
+          0.0
+        ],
+        [
+          50,
+          1418.0,
+          1174.96,
+          0.0
+        ],
+        [
+          100,
+          1558.0,
+          1274.44,
+          0.0
+        ],
+        [
+          150,
+          1574.0,
+          1338.72,
+          0.0
+        ],
+        [
+          200,
+          1744.0,
+          1424.98,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.54,
+      "pct_of_best_gen0": 58.10526315789474,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1550,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 65.26315789473685,
+      "convergence": {
+        "50": 1,
+        "60": 110,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1380.0,
+          568.38,
+          0.0
+        ],
+        [
+          50,
+          1380.0,
+          1096.0,
+          0.0
+        ],
+        [
+          100,
+          1410.0,
+          1200.96,
+          0.0
+        ],
+        [
+          150,
+          1500.0,
+          1281.5,
+          0.0
+        ],
+        [
+          200,
+          1550.0,
+          1355.08,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.48,
+      "pct_of_best_gen0": 61.26315789473684,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1657,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.76842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1455.0,
+          519.86,
+          0.0
+        ],
+        [
+          50,
+          1527.0,
+          1171.52,
+          0.0
+        ],
+        [
+          100,
+          1527.0,
+          1274.48,
+          0.0
+        ],
+        [
+          150,
+          1592.0,
+          1378.72,
+          0.0
+        ],
+        [
+          200,
+          1657.0,
+          1465.72,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.46,
+      "pct_of_best_gen0": 57.347368421052636,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1633,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 68.7578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 2,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1362.0,
+          524.2,
+          0.0
+        ],
+        [
+          50,
+          1541.0,
+          1178.6,
+          0.0
+        ],
+        [
+          100,
+          1627.0,
+          1321.44,
+          0.0
+        ],
+        [
+          150,
+          1627.0,
+          1368.68,
+          0.0
+        ],
+        [
+          200,
+          1633.0,
+          1460.12,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.6,
+      "pct_of_best_gen0": 60.71578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1658,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.81052631578947,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1442.0,
+          649.32,
+          0.0
+        ],
+        [
+          50,
+          1494.0,
+          1220.94,
+          0.0
+        ],
+        [
+          100,
+          1494.0,
+          1301.78,
+          0.0
+        ],
+        [
+          150,
+          1508.0,
+          1346.36,
+          0.0
+        ],
+        [
+          200,
+          1658.0,
+          1394.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "pct_of_best_gen0": 55.78947368421052,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1632,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 68.71578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 48,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1325.0,
+          568.12,
+          0.0
+        ],
+        [
+          50,
+          1562.0,
+          1138.1,
+          0.0
+        ],
+        [
+          100,
+          1562.0,
+          1265.02,
+          0.0
+        ],
+        [
+          150,
+          1562.0,
+          1358.26,
+          0.0
+        ],
+        [
+          200,
+          1632.0,
+          1445.28,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.44,
+      "pct_of_best_gen0": 60.126315789473686,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1818,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 76.54736842105262,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 185,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1428.0,
+          495.9,
+          0.0
+        ],
+        [
+          50,
+          1428.0,
+          1161.78,
+          0.0
+        ],
+        [
+          100,
+          1488.0,
+          1288.54,
+          0.0
+        ],
+        [
+          150,
+          1488.0,
+          1348.74,
+          0.0
+        ],
+        [
+          200,
+          1818.0,
+          1421.8,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.52,
+      "pct_of_best_gen0": 62.10526315789474,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1676,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.56842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 49,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1475.0,
+          590.16,
+          0.0
+        ],
+        [
+          50,
+          1676.0,
+          1154.48,
+          0.0
+        ],
+        [
+          100,
+          1676.0,
+          1266.94,
+          0.0
+        ],
+        [
+          150,
+          1676.0,
+          1357.5,
+          0.0
+        ],
+        [
+          200,
+          1676.0,
+          1414.84,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 0.42,
+      "pct_of_best_gen0": 61.72631578947369,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1744,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.43157894736842,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 107,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1466.0,
+          478.78,
+          0.0
+        ],
+        [
+          50,
+          1466.0,
+          1152.24,
+          0.0
+        ],
+        [
+          100,
+          1644.0,
+          1342.7,
+          0.0
+        ],
+        [
+          150,
+          1665.0,
+          1436.22,
+          0.0
+        ],
+        [
+          200,
+          1744.0,
+          1522.04,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "gf_filtered_soft": [
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 67.07368421052632,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1813,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 76.33684210526316,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 83,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1593.0,
+          1328.1,
+          0.0
+        ],
+        [
+          50,
+          1624.0,
+          1411.46,
+          0.0
+        ],
+        [
+          100,
+          1775.0,
+          1506.38,
+          0.0
+        ],
+        [
+          150,
+          1775.0,
+          1573.12,
+          0.0
+        ],
+        [
+          200,
+          1813.0,
+          1628.34,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.410526315789475,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1772,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 74.61052631578947,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 170,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1506.0,
+          1303.98,
+          0.0
+        ],
+        [
+          50,
+          1566.0,
+          1366.04,
+          0.0
+        ],
+        [
+          100,
+          1596.0,
+          1438.08,
+          0.0
+        ],
+        [
+          150,
+          1625.0,
+          1493.42,
+          0.0
+        ],
+        [
+          200,
+          1772.0,
+          1526.76,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.81052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1766,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 74.3578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 9,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1563.0,
+          1320.06,
+          0.0
+        ],
+        [
+          50,
+          1728.0,
+          1393.7,
+          0.0
+        ],
+        [
+          100,
+          1766.0,
+          1504.28,
+          0.0
+        ],
+        [
+          150,
+          1766.0,
+          1570.0,
+          0.0
+        ],
+        [
+          200,
+          1766.0,
+          1606.02,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 67.45263157894736,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1683,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.86315789473684,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 152,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1602.0,
+          1332.42,
+          0.0
+        ],
+        [
+          50,
+          1637.0,
+          1393.5,
+          0.0
+        ],
+        [
+          100,
+          1637.0,
+          1447.26,
+          0.0
+        ],
+        [
+          150,
+          1637.0,
+          1480.92,
+          0.0
+        ],
+        [
+          200,
+          1683.0,
+          1517.06,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.69473684210526,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1749,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.6421052631579,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 88,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1489.0,
+          1296.06,
+          0.0
+        ],
+        [
+          50,
+          1558.0,
+          1369.62,
+          0.0
+        ],
+        [
+          100,
+          1664.0,
+          1427.6,
+          0.0
+        ],
+        [
+          150,
+          1693.0,
+          1500.02,
+          0.0
+        ],
+        [
+          200,
+          1749.0,
+          1548.18,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 61.136842105263156,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1796,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 75.62105263157895,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 64,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1452.0,
+          1310.88,
+          0.0
+        ],
+        [
+          50,
+          1601.0,
+          1378.3,
+          0.0
+        ],
+        [
+          100,
+          1678.0,
+          1427.68,
+          0.0
+        ],
+        [
+          150,
+          1796.0,
+          1517.82,
+          0.0
+        ],
+        [
+          200,
+          1796.0,
+          1578.34,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.78947368421053,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1908,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 80.33684210526316,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 84,
+        "80": 183,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1515.0,
+          1320.3,
+          0.0
+        ],
+        [
+          50,
+          1662.0,
+          1391.72,
+          0.0
+        ],
+        [
+          100,
+          1783.0,
+          1487.48,
+          0.0
+        ],
+        [
+          150,
+          1783.0,
+          1572.64,
+          0.0
+        ],
+        [
+          200,
+          1908.0,
+          1665.86,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.9578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1702,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 71.66315789473684,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 70,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1519.0,
+          1331.7,
+          0.0
+        ],
+        [
+          50,
+          1586.0,
+          1388.1,
+          0.0
+        ],
+        [
+          100,
+          1680.0,
+          1454.8,
+          0.0
+        ],
+        [
+          150,
+          1702.0,
+          1495.22,
+          0.0
+        ],
+        [
+          200,
+          1702.0,
+          1539.28,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.3578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1837,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 77.34736842105264,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 103,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1481.0,
+          1296.28,
+          0.0
+        ],
+        [
+          50,
+          1633.0,
+          1369.58,
+          0.0
+        ],
+        [
+          100,
+          1633.0,
+          1429.92,
+          0.0
+        ],
+        [
+          150,
+          1718.0,
+          1520.28,
+          0.0
+        ],
+        [
+          200,
+          1837.0,
+          1590.56,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.61052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1845,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 77.6842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 43,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1582.0,
+          1317.6,
+          0.0
+        ],
+        [
+          50,
+          1751.0,
+          1409.94,
+          0.0
+        ],
+        [
+          100,
+          1845.0,
+          1537.26,
+          0.0
+        ],
+        [
+          150,
+          1845.0,
+          1596.1,
+          0.0
+        ],
+        [
+          200,
+          1845.0,
+          1675.16,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.09473684210526,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1905,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 80.21052631578948,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 62,
+        "80": 170,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1546.0,
+          1335.14,
+          0.0
+        ],
+        [
+          50,
+          1629.0,
+          1402.52,
+          0.0
+        ],
+        [
+          100,
+          1688.0,
+          1491.76,
+          0.0
+        ],
+        [
+          150,
+          1784.0,
+          1557.98,
+          0.0
+        ],
+        [
+          200,
+          1905.0,
+          1646.82,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.56842105263158,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1862,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 78.4,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 2,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1581.0,
+          1339.38,
+          0.0
+        ],
+        [
+          50,
+          1715.0,
+          1458.52,
+          0.0
+        ],
+        [
+          100,
+          1729.0,
+          1546.84,
+          0.0
+        ],
+        [
+          150,
+          1862.0,
+          1637.78,
+          0.0
+        ],
+        [
+          200,
+          1862.0,
+          1710.76,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.78947368421053,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1638,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 68.96842105263158,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1515.0,
+          1338.84,
+          0.0
+        ],
+        [
+          50,
+          1521.0,
+          1387.64,
+          0.0
+        ],
+        [
+          100,
+          1638.0,
+          1444.08,
+          0.0
+        ],
+        [
+          150,
+          1638.0,
+          1484.08,
+          0.0
+        ],
+        [
+          200,
+          1638.0,
+          1516.72,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.22105263157894,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1849,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 77.85263157894737,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 187,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1549.0,
+          1317.54,
+          0.0
+        ],
+        [
+          50,
+          1572.0,
+          1372.48,
+          0.0
+        ],
+        [
+          100,
+          1596.0,
+          1425.42,
+          0.0
+        ],
+        [
+          150,
+          1596.0,
+          1451.28,
+          0.0
+        ],
+        [
+          200,
+          1849.0,
+          1495.64,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.06315789473684,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1684,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.90526315789474,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 63,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1474.0,
+          1319.68,
+          0.0
+        ],
+        [
+          50,
+          1594.0,
+          1358.34,
+          0.0
+        ],
+        [
+          100,
+          1684.0,
+          1408.14,
+          0.0
+        ],
+        [
+          150,
+          1684.0,
+          1459.3,
+          0.0
+        ],
+        [
+          200,
+          1684.0,
+          1498.22,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.02105263157895,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1900,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 80.0,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 19,
+        "80": 175,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1473.0,
+          1310.92,
+          0.0
+        ],
+        [
+          50,
+          1704.0,
+          1381.78,
+          0.0
+        ],
+        [
+          100,
+          1788.0,
+          1469.44,
+          0.0
+        ],
+        [
+          150,
+          1801.0,
+          1575.22,
+          0.0
+        ],
+        [
+          200,
+          1900.0,
+          1688.86,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.52631578947368,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1750,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.68421052631578,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 59,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1580.0,
+          1328.44,
+          0.0
+        ],
+        [
+          50,
+          1580.0,
+          1404.48,
+          0.0
+        ],
+        [
+          100,
+          1742.0,
+          1470.78,
+          0.0
+        ],
+        [
+          150,
+          1742.0,
+          1537.46,
+          0.0
+        ],
+        [
+          200,
+          1750.0,
+          1601.7,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.705263157894734,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1753,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.81052631578947,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 71,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1513.0,
+          1347.24,
+          0.0
+        ],
+        [
+          50,
+          1553.0,
+          1388.9,
+          0.0
+        ],
+        [
+          100,
+          1719.0,
+          1477.52,
+          0.0
+        ],
+        [
+          150,
+          1719.0,
+          1513.72,
+          0.0
+        ],
+        [
+          200,
+          1753.0,
+          1566.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.10526315789474,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1728,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.7578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 105,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1475.0,
+          1320.24,
+          0.0
+        ],
+        [
+          50,
+          1562.0,
+          1360.44,
+          0.0
+        ],
+        [
+          100,
+          1645.0,
+          1440.34,
+          0.0
+        ],
+        [
+          150,
+          1726.0,
+          1502.72,
+          0.0
+        ],
+        [
+          200,
+          1728.0,
+          1554.9,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.45263157894737,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1716,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.25263157894737,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 136,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1507.0,
+          1290.74,
+          0.0
+        ],
+        [
+          50,
+          1507.0,
+          1334.24,
+          0.0
+        ],
+        [
+          100,
+          1662.0,
+          1394.14,
+          0.0
+        ],
+        [
+          150,
+          1676.0,
+          1458.72,
+          0.0
+        ],
+        [
+          200,
+          1716.0,
+          1556.24,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "gf_filtered_death": [
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 67.07368421052632,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1757,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.97894736842106,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 56,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1593.0,
+          1328.1,
+          0.0
+        ],
+        [
+          50,
+          1613.0,
+          1398.76,
+          0.0
+        ],
+        [
+          100,
+          1688.0,
+          1457.48,
+          0.0
+        ],
+        [
+          150,
+          1697.0,
+          1548.04,
+          0.0
+        ],
+        [
+          200,
+          1757.0,
+          1599.94,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.410526315789475,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1723,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.54736842105262,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 180,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1506.0,
+          1303.98,
+          0.0
+        ],
+        [
+          50,
+          1566.0,
+          1366.04,
+          0.0
+        ],
+        [
+          100,
+          1577.0,
+          1432.5,
+          0.0
+        ],
+        [
+          150,
+          1603.0,
+          1481.66,
+          0.0
+        ],
+        [
+          200,
+          1723.0,
+          1522.44,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.81052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1919,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 80.80000000000001,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 129,
+        "80": 163,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1563.0,
+          1320.06,
+          0.0
+        ],
+        [
+          50,
+          1608.0,
+          1391.62,
+          0.0
+        ],
+        [
+          100,
+          1614.0,
+          1465.42,
+          0.0
+        ],
+        [
+          150,
+          1786.0,
+          1524.4,
+          0.0
+        ],
+        [
+          200,
+          1919.0,
+          1596.56,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 67.45263157894736,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1799,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 75.74736842105263,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 90,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1602.0,
+          1332.42,
+          0.0
+        ],
+        [
+          50,
+          1637.0,
+          1390.88,
+          0.0
+        ],
+        [
+          100,
+          1687.0,
+          1435.32,
+          0.0
+        ],
+        [
+          150,
+          1706.0,
+          1485.82,
+          0.0
+        ],
+        [
+          200,
+          1799.0,
+          1548.24,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.69473684210526,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1817,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 76.50526315789473,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 65,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1489.0,
+          1296.06,
+          0.0
+        ],
+        [
+          50,
+          1599.0,
+          1362.36,
+          0.0
+        ],
+        [
+          100,
+          1680.0,
+          1465.3,
+          0.0
+        ],
+        [
+          150,
+          1784.0,
+          1578.0,
+          0.0
+        ],
+        [
+          200,
+          1817.0,
+          1670.58,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 61.136842105263156,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1756,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 73.93684210526315,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 88,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1452.0,
+          1310.88,
+          0.0
+        ],
+        [
+          50,
+          1594.0,
+          1368.7,
+          0.0
+        ],
+        [
+          100,
+          1682.0,
+          1456.44,
+          0.0
+        ],
+        [
+          150,
+          1755.0,
+          1537.64,
+          0.0
+        ],
+        [
+          200,
+          1756.0,
+          1614.8,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.78947368421053,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1732,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.92631578947368,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 64,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1515.0,
+          1320.3,
+          0.0
+        ],
+        [
+          50,
+          1558.0,
+          1386.8,
+          0.0
+        ],
+        [
+          100,
+          1701.0,
+          1431.64,
+          0.0
+        ],
+        [
+          150,
+          1732.0,
+          1491.72,
+          0.0
+        ],
+        [
+          200,
+          1732.0,
+          1536.3,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.9578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1671,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.35789473684211,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 196,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1519.0,
+          1331.7,
+          0.0
+        ],
+        [
+          50,
+          1631.0,
+          1392.18,
+          0.0
+        ],
+        [
+          100,
+          1637.0,
+          1454.4,
+          0.0
+        ],
+        [
+          150,
+          1637.0,
+          1494.08,
+          0.0
+        ],
+        [
+          200,
+          1671.0,
+          1547.82,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.3578947368421,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1678,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.65263157894736,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 179,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1481.0,
+          1296.28,
+          0.0
+        ],
+        [
+          50,
+          1633.0,
+          1378.36,
+          0.0
+        ],
+        [
+          100,
+          1649.0,
+          1429.58,
+          0.0
+        ],
+        [
+          150,
+          1655.0,
+          1498.74,
+          0.0
+        ],
+        [
+          200,
+          1678.0,
+          1552.68,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.61052631578947,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1864,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 78.48421052631579,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 39,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1582.0,
+          1317.6,
+          0.0
+        ],
+        [
+          50,
+          1724.0,
+          1391.58,
+          0.0
+        ],
+        [
+          100,
+          1840.0,
+          1522.3,
+          0.0
+        ],
+        [
+          150,
+          1840.0,
+          1606.44,
+          0.0
+        ],
+        [
+          200,
+          1864.0,
+          1693.18,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.09473684210526,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1788,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 75.28421052631579,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 93,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1546.0,
+          1335.14,
+          0.0
+        ],
+        [
+          50,
+          1632.0,
+          1400.38,
+          0.0
+        ],
+        [
+          100,
+          1733.0,
+          1455.56,
+          0.0
+        ],
+        [
+          150,
+          1788.0,
+          1550.78,
+          0.0
+        ],
+        [
+          200,
+          1788.0,
+          1604.8,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.56842105263158,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1876,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 78.98947368421054,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 2,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1581.0,
+          1339.38,
+          0.0
+        ],
+        [
+          50,
+          1715.0,
+          1458.52,
+          0.0
+        ],
+        [
+          100,
+          1767.0,
+          1552.02,
+          0.0
+        ],
+        [
+          150,
+          1780.0,
+          1643.8,
+          0.0
+        ],
+        [
+          200,
+          1876.0,
+          1711.38,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.78947368421053,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1707,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 71.8736842105263,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 107,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1515.0,
+          1338.84,
+          0.0
+        ],
+        [
+          50,
+          1521.0,
+          1387.64,
+          0.0
+        ],
+        [
+          100,
+          1638.0,
+          1445.38,
+          0.0
+        ],
+        [
+          150,
+          1707.0,
+          1487.68,
+          0.0
+        ],
+        [
+          200,
+          1707.0,
+          1565.28,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 65.22105263157894,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1641,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 69.09473684210526,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": null,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1549.0,
+          1317.54,
+          0.0
+        ],
+        [
+          50,
+          1572.0,
+          1372.48,
+          0.0
+        ],
+        [
+          100,
+          1596.0,
+          1424.54,
+          0.0
+        ],
+        [
+          150,
+          1641.0,
+          1445.14,
+          0.0
+        ],
+        [
+          200,
+          1641.0,
+          1479.9,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.06315789473684,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1684,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.90526315789474,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 63,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1474.0,
+          1319.68,
+          0.0
+        ],
+        [
+          50,
+          1594.0,
+          1358.34,
+          0.0
+        ],
+        [
+          100,
+          1684.0,
+          1408.14,
+          0.0
+        ],
+        [
+          150,
+          1684.0,
+          1459.3,
+          0.0
+        ],
+        [
+          200,
+          1684.0,
+          1491.72,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.02105263157895,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1829,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 77.01052631578948,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 19,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1473.0,
+          1310.92,
+          0.0
+        ],
+        [
+          50,
+          1704.0,
+          1381.78,
+          0.0
+        ],
+        [
+          100,
+          1714.0,
+          1452.8,
+          0.0
+        ],
+        [
+          150,
+          1714.0,
+          1531.98,
+          0.0
+        ],
+        [
+          200,
+          1829.0,
+          1596.34,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 66.52631578947368,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1876,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 78.98947368421054,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 59,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1580.0,
+          1328.44,
+          0.0
+        ],
+        [
+          50,
+          1580.0,
+          1399.64,
+          0.0
+        ],
+        [
+          100,
+          1829.0,
+          1491.58,
+          0.0
+        ],
+        [
+          150,
+          1876.0,
+          1587.78,
+          0.0
+        ],
+        [
+          200,
+          1876.0,
+          1644.78,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.705263157894734,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1674,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 70.48421052631579,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 197,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1513.0,
+          1347.24,
+          0.0
+        ],
+        [
+          50,
+          1553.0,
+          1387.84,
+          0.0
+        ],
+        [
+          100,
+          1580.0,
+          1426.76,
+          0.0
+        ],
+        [
+          150,
+          1660.0,
+          1474.2,
+          0.0
+        ],
+        [
+          200,
+          1674.0,
+          1513.26,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 62.10526315789474,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1728,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.7578947368421,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 105,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1475.0,
+          1320.24,
+          0.0
+        ],
+        [
+          50,
+          1562.0,
+          1360.44,
+          0.0
+        ],
+        [
+          100,
+          1645.0,
+          1440.34,
+          0.0
+        ],
+        [
+          150,
+          1726.0,
+          1502.72,
+          0.0
+        ],
+        [
+          200,
+          1728.0,
+          1551.3,
+          0.0
+        ]
+      ]
+    },
+    {
+      "feasibility_rate_gen0": 1.0,
+      "pct_of_best_gen0": 63.45263157894737,
+      "diversity_gen0": 0.0,
+      "best_fitness_final": 1716,
+      "best_solution_feasible": true,
+      "pct_of_best_final": 72.25263157894737,
+      "convergence": {
+        "50": 1,
+        "60": 1,
+        "70": 136,
+        "80": null,
+        "90": null,
+        "95": null,
+        "98": null,
+        "99": null
+      },
+      "curve": [
+        [
+          0,
+          1507.0,
+          1290.74,
+          0.0
+        ],
+        [
+          50,
+          1507.0,
+          1334.24,
+          0.0
+        ],
+        [
+          100,
+          1662.0,
+          1394.14,
+          0.0
+        ],
+        [
+          150,
+          1676.0,
+          1458.72,
+          0.0
+        ],
+        [
+          200,
+          1716.0,
+          1556.24,
+          0.0
+        ]
+      ]
+    }
+  ]
+}
